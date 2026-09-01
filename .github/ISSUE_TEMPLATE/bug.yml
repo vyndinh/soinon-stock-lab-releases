@@ -1,0 +1,78 @@
+name: Application bug
+description: Report reproducible behavior in a supported Vietnam Stock Lab binary
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include portfolio data, a complete database, credentials, or private source information. Security issues must use private vulnerability reporting.
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Paste the complete output of `vnt version`.
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: architecture
+    attributes:
+      label: Architecture
+      options:
+        - arm64
+        - amd64/x86_64
+        - Unknown
+    validations:
+      required: true
+  - type: input
+    id: install
+    attributes:
+      label: Installation method
+      placeholder: Release archive, Homebrew, Scoop, or another method
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest repeatable sequence and sanitized input.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and sanitized output
+    validations:
+      required: true
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Sanitized `vnt doctor` result
+      description: Remove local paths or other private information before posting.
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmation
+      options:
+        - label: I removed credentials, personal information, portfolio data, full database contents, and unrelated logs.
+          required: true
+        - label: This is not a security vulnerability or an investment/provider-account support request.
+          required: true

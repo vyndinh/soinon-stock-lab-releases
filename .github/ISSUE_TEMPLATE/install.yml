@@ -1,0 +1,46 @@
+name: Installation or upgrade problem
+description: Get help installing, upgrading, verifying, or rolling back an official binary
+title: "[Install]: "
+labels:
+  - installation
+body:
+  - type: input
+    id: release
+    attributes:
+      label: Release version and archive filename
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Operating system, version, and architecture
+      placeholder: macOS 15 arm64
+    validations:
+      required: true
+  - type: dropdown
+    id: operation
+    attributes:
+      label: Operation
+      options:
+        - Fresh install
+        - Upgrade
+        - Checksum verification
+        - Rollback
+        - Launch
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Commands or steps and sanitized output
+    validations:
+      required: true
+  - type: checkboxes
+    id: source
+    attributes:
+      label: Artifact source
+      options:
+        - label: I downloaded the artifact from this repository's official Releases page.
+          required: true
+        - label: I removed usernames, local paths, credentials, and other private information.
+          required: true
