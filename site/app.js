@@ -2,7 +2,7 @@ import {
   formatBytes,
   platformLabel,
   validateManifest,
-  validatePublicURL,
+  validateManifestURL,
   validateRepositoryURL,
 } from "./releases.js";
 
@@ -93,7 +93,7 @@ async function start() {
       return;
     }
 
-    const manifestURL = validatePublicURL(config.manifest_url, "manifest_url");
+    const manifestURL = validateManifestURL(config.manifest_url, "manifest_url");
     const manifest = validateManifest(await loadJSON(manifestURL));
     renderManifest(manifest);
   } catch (error) {

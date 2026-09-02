@@ -5,6 +5,7 @@ import {
   formatBytes,
   platformLabel,
   validateManifest,
+  validateManifestURL,
   validatePublicURL,
   validateRepositoryURL,
 } from "../releases.js";
@@ -67,6 +68,21 @@ test("rejects non-HTTPS policy and manifest links", () => {
   );
 });
 
+test("accepts only the same-origin website manifest", () => {
+  assert.equal(
+    validateManifestURL("./releases.json", "manifest_url"),
+    "./releases.json",
+  );
+  assert.throws(
+    () => validateManifestURL("https://example.com/releases.json", "manifest_url"),
+    /official same-origin manifest/,
+  );
+  assert.throws(
+    () => validateManifestURL("./other.json", "manifest_url"),
+    /official same-origin manifest/,
+  );
+});
+
 test("rejects release assets from a different tag", () => {
   const changed = structuredClone(validManifest);
   changed.artifacts[0].download_url = changed.artifacts[0].download_url.replace("v0.1.0-rc.1", "v0.2.0");
@@ -97,8 +113,8 @@ test("publishes effective policies with the approved release manifest", async ()
   const notices = await readFile(new URL("../../THIRD_PARTY_NOTICES.md", import.meta.url), "utf8");
 
   assert.equal(
-    validatePublicURL(config.manifest_url, "manifest_url"),
-    "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/releases.json",
+    validateManifestURL(config.manifest_url, "manifest_url"),
+    "./releases.json",
   );
   assert.equal(validateRepositoryURL(config.terms_url, "terms_url"), config.terms_url);
   assert.equal(validateRepositoryURL(config.notices_url, "notices_url"), config.notices_url);

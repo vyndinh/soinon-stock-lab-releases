@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "product": {
+    "name": "Vietnam Stock Lab",
+    "slug": "soinon-stock-lab",
+    "command": "vnt"
+  },
+  "version": "0.1.0-rc.2",
+  "tag": "v0.1.0-rc.2",
+  "channel": "prerelease",
+  "published_at": "2026-09-02T10:57:48Z",
+  "source_commit": "82e8d3cc6b95cb84c8da66df76d46024ebac3be3",
+  "release_notes_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/tag/v0.1.0-rc.2",
+  "checksums_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/checksums.txt",
+  "artifacts": [
+    {
+      "os": "darwin",
+      "arch": "amd64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_darwin_amd64.tar.gz",
+      "format": "tar.gz",
+      "size_bytes": 6015030,
+      "sha256": "c14a09312172e8b59398700aad157bf25ed561b87f90ede38b45f27cd4aada3b",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_darwin_amd64.tar.gz",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_darwin_amd64.tar.gz.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_darwin_amd64.tar.gz.spdx.json",
+      "minimum_os": null
+    },
+    {
+      "os": "darwin",
+      "arch": "arm64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz",
+      "format": "tar.gz",
+      "size_bytes": 5708369,
+      "sha256": "2c0321d4b90c7a7e08154ae251e95714ba85e67c6e125087af0ae7b841b9a5c9",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz.spdx.json",
+      "minimum_os": null
+    },
+    {
+      "os": "linux",
+      "arch": "amd64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_linux_amd64.tar.gz",
+      "format": "tar.gz",
+      "size_bytes": 5960695,
+      "sha256": "3032003428fb5c02fb4d0cd6bb5778c3574612623dc241ff81aae694be006891",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_linux_amd64.tar.gz",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_linux_amd64.tar.gz.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_linux_amd64.tar.gz.spdx.json",
+      "minimum_os": null
+    },
+    {
+      "os": "linux",
+      "arch": "arm64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_linux_arm64.tar.gz",
+      "format": "tar.gz",
+      "size_bytes": 5540287,
+      "sha256": "869eef071b759c70ae41f1765976ba575c70c1a83c1e9607fa6457ab906f60df",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_linux_arm64.tar.gz",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_linux_arm64.tar.gz.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_linux_arm64.tar.gz.spdx.json",
+      "minimum_os": null
+    },
+    {
+      "os": "windows",
+      "arch": "amd64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip",
+      "format": "zip",
+      "size_bytes": 6101935,
+      "sha256": "2bd2d8fb3243fcb214728a4c53f0a8529cc3c712f66bf8e1d48abfce996da197",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip.spdx.json",
+      "minimum_os": null
+    },
+    {
+      "os": "windows",
+      "arch": "arm64",
+      "filename": "soinon-stock-lab_0.1.0-rc.2_windows_arm64.zip",
+      "format": "zip",
+      "size_bytes": 5590903,
+      "sha256": "796e4a5847c70c04b95b5680319e23f23d2e97766e03adeb0c0fdc8f977bbaac",
+      "download_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_windows_arm64.zip",
+      "sbom_filename": "soinon-stock-lab_0.1.0-rc.2_windows_arm64.zip.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/soinon-stock-lab_0.1.0-rc.2_windows_arm64.zip.spdx.json",
+      "minimum_os": null
+    }
+  ]
+}
