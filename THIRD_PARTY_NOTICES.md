@@ -4,8 +4,8 @@
 > `cmd/vnt`. Validate with
 > `go run ./scripts/thirdpartynotices --check THIRD_PARTY_NOTICES.md`.
 
-Vietnam Stock Lab is private-source software. The notices below apply only to
-the identified third-party components and do not grant a license to Vietnam
+Soinon Stock Lab is private-source software. The notices below apply only to
+the identified third-party components and do not grant a license to Soinon
 Stock Lab itself.
 
 ## Bundled asset inventory
