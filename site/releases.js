@@ -1,4 +1,4 @@
-const repositoryBase = "https://github.com/vyndinh/vietnam-stock-lab-releases/";
+const repositoryBase = "https://github.com/vyndinh/soinon-stock-lab-releases/";
 const releaseBase = `${repositoryBase}releases/`;
 const sha256Pattern = /^[a-f0-9]{64}$/;
 

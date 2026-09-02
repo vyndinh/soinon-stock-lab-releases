@@ -1,6 +1,6 @@
 # Support Policy
 
-Use this repository's [issue tracker](https://github.com/vyndinh/vietnam-stock-lab-releases/issues)
+Use this repository's [issue tracker](https://github.com/vyndinh/soinon-stock-lab-releases/issues)
 for installation, upgrade, and reproducible application problems. Source access
 is not required.
 

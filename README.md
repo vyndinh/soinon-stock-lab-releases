@@ -13,15 +13,24 @@ is granted here.
 ## Download website
 
 The official GitHub Pages site is prepared at
-<https://vyndinh.github.io/vietnam-stock-lab-releases/>. Until an approved
+<https://vyndinh.github.io/soinon-stock-lab-releases/>. Until an approved
 release exists, it deliberately shows a no-release state and no download
-buttons. Each release promotion updates `site/site-config.json` to reference
-the exact immutable `releases.json`, terms, and notices URLs; the browser never
-receives a repository credential.
+buttons. `site/site-config.json` references the current canonical public terms
+and notices; each release promotion adds the exact immutable `releases.json`
+URL. The browser never receives a repository credential.
+
+## Policies and notices
+
+Free prerelease use is governed by the effective
+[binary-use terms](TERMS.md). Open-source component attribution, licenses, and
+the bundled-asset inventory are published in
+[third-party notices](THIRD_PARTY_NOTICES.md). These policy links are live
+before the first release; their presence does not mean a binary has been
+published.
 
 ## Support
 
-Use [public Issues](https://github.com/vyndinh/vietnam-stock-lab-releases/issues)
+Use [public Issues](https://github.com/vyndinh/soinon-stock-lab-releases/issues)
 for installation problems and reproducible application defects. Read
 [SUPPORT.md](SUPPORT.md) before posting and remove private data from diagnostics.
 
