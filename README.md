@@ -1,7 +1,7 @@
-# Vietnam Stock Lab Releases
+# Soinon Stock Lab Releases
 
-This is the public, binary-only release repository for **Vietnam Stock Lab**
-(`vnt`), a local-first terminal workbench for Vietnam stock-market research.
+This is the public, binary-only release repository for **Soinon Stock Lab**
+(`vnt`), a local-first terminal workbench for stock-market research.
 The application source repository is private and no public source-code license
 is granted here.
 
@@ -39,7 +39,7 @@ private **Report a vulnerability** action and follow [SECURITY.md](SECURITY.md).
 
 ## Product boundaries
 
-- Vietnam Stock Lab is research software, not investment, financial, legal, or
+- Soinon Stock Lab is research software, not investment, financial, legal, or
   tax advice.
 - Public/no-key market and news feeds may be delayed, incomplete, unavailable,
   or changed by their providers.
