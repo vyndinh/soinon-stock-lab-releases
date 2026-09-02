@@ -5,19 +5,19 @@ This is the public, binary-only release repository for **Soinon Stock Lab**
 The application source repository is private and no public source-code license
 is granted here.
 
-> No supported binary has been published yet. Do not download artifacts from
-> issues, comments, forks, or unofficial mirrors. The first approved release
-> will appear on this repository's Releases page with SHA-256 checksums, release
-> notes, binary-use terms, and third-party notices.
+The current approved prerelease is published on this repository's Releases page
+with SHA-256 checksums, release notes, binary-use terms, and third-party notices.
+Do not download artifacts from issues, comments, forks, or unofficial mirrors.
 
 ## Download website
 
 The official GitHub Pages site is prepared at
 <https://vyndinh.github.io/soinon-stock-lab-releases/>. Until an approved
 release exists, it deliberately shows a no-release state and no download
-buttons. `site/site-config.json` references the current canonical public terms
-and notices; each release promotion adds the exact immutable `releases.json`
-URL. The browser never receives a repository credential.
+buttons. `site/site-config.json` references a same-origin copy of the approved
+release manifest plus the current canonical public terms and notices. Each
+release promotion updates that copy from the immutable release asset. The
+browser never receives a repository credential.
 
 ## Policies and notices
 

@@ -29,6 +29,13 @@ export function validatePublicURL(value, field) {
   return validateURLWithBase(value, field, releaseBase);
 }
 
+export function validateManifestURL(value, field) {
+  if (value !== "./releases.json") {
+    throw new Error(`${field} must use the official same-origin manifest`);
+  }
+  return value;
+}
+
 export function validateManifest(input) {
   if (!input || typeof input !== "object" || Array.isArray(input)) {
     throw new Error("manifest must be an object");
