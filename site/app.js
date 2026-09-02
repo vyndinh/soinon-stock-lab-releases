@@ -1,4 +1,5 @@
 import {
+  firstLaunchCommands,
   formatBytes,
   platformLabel,
   validateManifest,
@@ -59,7 +60,34 @@ function renderArtifact(artifact) {
   sbomLink.textContent = "View SBOM";
   sbom.append(sbomLink);
 
-  card.append(heading, metadata, checksum, link, sbom);
+  const install = document.createElement("details");
+  install.className = "install-steps";
+  const installSummary = document.createElement("summary");
+  installSummary.textContent = "First-launch commands";
+  const commands = firstLaunchCommands(artifact);
+  const commandBlock = document.createElement("pre");
+  const commandCode = document.createElement("code");
+  commandCode.textContent = commands;
+  commandBlock.append(commandCode);
+  const copyButton = document.createElement("button");
+  copyButton.className = "copy-button";
+  copyButton.type = "button";
+  copyButton.textContent = "Copy commands";
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(commands);
+      copyButton.textContent = "Copied";
+      window.setTimeout(() => {
+        copyButton.textContent = "Copy commands";
+      }, 1800);
+    } catch (error) {
+      console.error(error);
+      copyButton.textContent = "Copy failed — select the commands";
+    }
+  });
+  install.append(installSummary, commandBlock, copyButton);
+
+  card.append(heading, metadata, checksum, link, sbom, install);
   return card;
 }
 

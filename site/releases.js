@@ -128,3 +128,31 @@ export function platformLabel(os, arch) {
   const architectures = { arm64: "Apple Silicon / ARM64", amd64: "Intel / x64" };
   return `${operatingSystems[os] ?? os} — ${architectures[arch] ?? arch}`;
 }
+
+export function firstLaunchCommands(artifact) {
+  const archiveDirectory = artifact.filename.replace(/\.(?:tar\.gz|zip)$/, "");
+  if (!archiveDirectory || archiveDirectory === artifact.filename) {
+    throw new Error("artifact filename has an unsupported archive format");
+  }
+
+  if (artifact.os === "windows") {
+    return [
+      'Set-Location "$HOME\\Downloads"',
+      `Expand-Archive -LiteralPath ".\\${artifact.filename}" -DestinationPath "."`,
+      `Set-Location ".\\${archiveDirectory}"`,
+      ".\\vnt.exe version",
+      ".\\vnt.exe doctor",
+      ".\\vnt.exe tui",
+    ].join("\n");
+  }
+
+  return [
+    "cd ~/Downloads",
+    `tar -xzf ${artifact.filename}`,
+    `cd ${archiveDirectory}`,
+    "chmod +x ./vnt",
+    "./vnt version",
+    "./vnt doctor",
+    "./vnt tui",
+  ].join("\n");
+}

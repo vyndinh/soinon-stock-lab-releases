@@ -196,6 +196,59 @@ section {
   outline-offset: 2px;
 }
 
+.install-steps {
+  margin-top: 0.9rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.8rem;
+}
+
+.install-steps summary {
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.install-steps pre {
+  overflow-x: auto;
+  margin-block: 0.75rem;
+  padding: 0.75rem;
+  background: #f1f4f8;
+  border: 1px solid var(--border);
+}
+
+.install-steps pre code {
+  display: inline;
+  overflow-wrap: normal;
+  margin: 0;
+  color: var(--text);
+  font-size: 0.75rem;
+  white-space: pre;
+}
+
+.copy-button {
+  padding: 0.45rem 0.7rem;
+  color: var(--accent-strong);
+  font: inherit;
+  font-weight: 700;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  cursor: pointer;
+}
+
+.copy-button:hover,
+.copy-button:focus-visible {
+  background: #edf5ff;
+  outline: 2px solid #d7aa32;
+  outline-offset: 2px;
+}
+
+.terminal-notice,
+.unsigned-notice {
+  padding: 0.9rem 1rem;
+  border-left: 4px solid var(--notice-border);
+  background: var(--notice);
+}
+
 code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
