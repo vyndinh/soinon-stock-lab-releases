@@ -87,7 +87,7 @@ test("publishes effective policies with the approved release manifest", async ()
 
   assert.equal(
     validatePublicURL(config.manifest_url, "manifest_url"),
-    "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.1/releases.json",
+    "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.2/releases.json",
   );
   assert.equal(validateRepositoryURL(config.terms_url, "terms_url"), config.terms_url);
   assert.equal(validateRepositoryURL(config.notices_url, "notices_url"), config.notices_url);
