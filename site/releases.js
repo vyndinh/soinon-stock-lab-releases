@@ -1,6 +1,7 @@
 const repositoryBase = "https://github.com/vyndinh/soinon-stock-lab-releases/";
 const releaseBase = `${repositoryBase}releases/`;
 const sha256Pattern = /^[a-f0-9]{64}$/;
+const supportedProductSlugs = new Set(["vietnam-stock-lab", "soinon-stock-lab"]);
 
 function validateURLWithBase(value, field, base) {
   let parsed;
@@ -31,7 +32,7 @@ export function validateManifest(input) {
   if (input.schema_version !== 1) {
     throw new Error("unsupported manifest schema");
   }
-  if (input.product?.slug !== "vietnam-stock-lab" || input.product?.command !== "vnt") {
+  if (!supportedProductSlugs.has(input.product?.slug) || input.product?.command !== "vnt") {
     throw new Error("unexpected product identity");
   }
   if (typeof input.version !== "string" || !input.version) {
