@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.55;
   color: #172033;
@@ -235,21 +235,5 @@ footer p {
 
   section {
     padding: 1.1rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #111722;
-    --surface: #182130;
-    --text: #edf3fa;
-    --muted: #b3bfd0;
-    --border: #41506a;
-    --accent: #72b3ff;
-    --accent-strong: #a6ceff;
-    --notice: #312b18;
-    --notice-border: #d8b64c;
-    --danger: #391f24;
-    --danger-border: #e17878;
   }
 }
