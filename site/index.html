@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Official downloads and installation information for Vietnam Stock Lab.">
+    <title>Vietnam Stock Lab — Downloads</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="module" src="./app.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <p class="eyebrow">Official binary downloads</p>
+        <h1>Vietnam Stock Lab</h1>
+        <p class="summary">
+          A local-first terminal workbench for Vietnam stock-market research.
+          The application source is private; approved binaries are distributed
+          from the public release repository.
+        </p>
+        <p class="boundary">
+          Research software only. Not investment, financial, legal, or tax advice.
+          Vietnam Stock Lab does not place real broker orders.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section aria-labelledby="downloads-heading">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Current release</p>
+            <h2 id="downloads-heading">Download</h2>
+          </div>
+          <a href="https://github.com/vyndinh/vietnam-stock-lab-releases/releases">Previous releases</a>
+        </div>
+
+        <div id="release-status" class="status" role="status" aria-live="polite">
+          Checking the approved release manifest…
+        </div>
+
+        <div id="release-details" hidden>
+          <dl class="release-meta">
+            <div><dt>Version</dt><dd id="release-version"></dd></div>
+            <div><dt>Channel</dt><dd id="release-channel"></dd></div>
+            <div><dt>Published</dt><dd id="release-date"></dd></div>
+          </dl>
+          <p class="release-links">
+            <a id="release-notes-link" href="#">Release notes</a>
+            <a id="checksums-link" href="#">checksums.txt</a>
+          </p>
+          <div id="downloads" class="download-list"></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="install-heading">
+        <h2 id="install-heading">Install and verify</h2>
+        <ol>
+          <li>Choose the archive matching your operating system and CPU architecture.</li>
+          <li>Verify its SHA-256 value against the checksum shown here or <code>checksums.txt</code>.</li>
+          <li>Extract the archive. On macOS or Linux, make the binary executable with <code>chmod +x vnt</code>.</li>
+          <li>Run <code>vnt version</code>, then <code>vnt doctor</code>, before starting <code>vnt tui</code>.</li>
+        </ol>
+        <p>
+          Only download from this page or the official public Releases page.
+          Do not use files attached to issues, comments, forks, or unofficial mirrors.
+        </p>
+      </section>
+
+      <section id="privacy" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Local data and privacy</h2>
+        <p>
+          Product data is stored locally and telemetry is off by default. Public/no-key
+          market and news feeds may be delayed, incomplete, unavailable, or changed by
+          their providers. Remove portfolio details, local paths, database contents,
+          and private logs before sharing diagnostics.
+        </p>
+      </section>
+
+      <section aria-labelledby="policies-heading">
+        <h2 id="policies-heading">Policies and help</h2>
+        <ul class="link-list">
+          <li><a href="https://github.com/vyndinh/vietnam-stock-lab-releases/blob/main/SUPPORT.md">Support policy</a></li>
+          <li><a href="https://github.com/vyndinh/vietnam-stock-lab-releases/security/policy">Security reporting</a></li>
+          <li><a href="https://github.com/vyndinh/vietnam-stock-lab-releases/issues">Installation and bug reports</a></li>
+          <li><a href="#privacy">Local-data and privacy information</a></li>
+          <li id="terms-item">Binary-use terms: available with the first approved release.</li>
+          <li id="notices-item">Third-party notices: available with the first approved release.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Vietnam Stock Lab · Binary-only public distribution</p>
+      </div>
+    </footer>
+  </body>
+</html>

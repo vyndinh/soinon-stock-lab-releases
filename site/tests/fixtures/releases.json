@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "product": {
+    "name": "Vietnam Stock Lab",
+    "slug": "vietnam-stock-lab",
+    "command": "vnt"
+  },
+  "version": "0.1.0-rc.1",
+  "tag": "v0.1.0-rc.1",
+  "channel": "prerelease",
+  "published_at": "2026-09-02T00:00:00Z",
+  "source_commit": "0123456789abcdef0123456789abcdef01234567",
+  "release_notes_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/releases/tag/v0.1.0-rc.1",
+  "checksums_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/releases/download/v0.1.0-rc.1/checksums.txt",
+  "artifacts": [
+    {
+      "os": "darwin",
+      "arch": "arm64",
+      "filename": "vietnam-stock-lab_0.1.0-rc.1_darwin_arm64.tar.gz",
+      "format": "tar.gz",
+      "size_bytes": 12345678,
+      "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "download_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/releases/download/v0.1.0-rc.1/vietnam-stock-lab_0.1.0-rc.1_darwin_arm64.tar.gz",
+      "sbom_filename": "vietnam-stock-lab_0.1.0-rc.1_darwin_arm64.tar.gz.spdx.json",
+      "sbom_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/releases/download/v0.1.0-rc.1/vietnam-stock-lab_0.1.0-rc.1_darwin_arm64.tar.gz.spdx.json",
+      "minimum_os": null
+    }
+  ]
+}

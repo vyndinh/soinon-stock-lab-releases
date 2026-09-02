@@ -10,6 +10,15 @@ is granted here.
 > will appear on this repository's Releases page with SHA-256 checksums, release
 > notes, binary-use terms, and third-party notices.
 
+## Download website
+
+The official GitHub Pages site is prepared at
+<https://vyndinh.github.io/vietnam-stock-lab-releases/>. Until an approved
+release exists, it deliberately shows a no-release state and no download
+buttons. Each release promotion updates `site/site-config.json` to reference
+the exact immutable `releases.json`, terms, and notices URLs; the browser never
+receives a repository credential.
+
 ## Support
 
 Use [public Issues](https://github.com/vyndinh/vietnam-stock-lab-releases/issues)

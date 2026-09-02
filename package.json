@@ -1,0 +1,8 @@
+{
+  "name": "vietnam-stock-lab-releases-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test site/tests/*.test.mjs"
+  }
+}
