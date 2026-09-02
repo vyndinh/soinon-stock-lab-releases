@@ -66,12 +66,15 @@ test("the page keeps required public trust and fallback surfaces", async () => {
   assert.match(html, /name="viewport"/);
 });
 
-test("publishes effective policies before enabling a release manifest", async () => {
+test("publishes effective policies with the approved release manifest", async () => {
   const config = JSON.parse(await readFile(new URL("../site-config.json", import.meta.url), "utf8"));
   const terms = await readFile(new URL("../../TERMS.md", import.meta.url), "utf8");
   const notices = await readFile(new URL("../../THIRD_PARTY_NOTICES.md", import.meta.url), "utf8");
 
-  assert.equal(config.manifest_url, null);
+  assert.equal(
+    validatePublicURL(config.manifest_url, "manifest_url"),
+    "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.1/releases.json",
+  );
   assert.equal(validateRepositoryURL(config.terms_url, "terms_url"), config.terms_url);
   assert.equal(validateRepositoryURL(config.notices_url, "notices_url"), config.notices_url);
   assert.match(terms, /Status: Effective for free prerelease distribution/);
