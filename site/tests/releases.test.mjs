@@ -19,6 +19,20 @@ test("accepts the versioned public release manifest", () => {
   assert.equal(manifest.artifacts[0].os, "darwin");
 });
 
+test("accepts the Soinon distribution slug while retaining the historical candidate", () => {
+  const changed = structuredClone(validManifest);
+  changed.product.slug = "soinon-stock-lab";
+  const manifest = validateManifest(changed);
+  assert.equal(manifest.product.slug, "soinon-stock-lab");
+  assert.equal(validateManifest(validManifest).product.slug, "vietnam-stock-lab");
+});
+
+test("rejects unrelated product slugs", () => {
+  const changed = structuredClone(validManifest);
+  changed.product.slug = "untrusted-product";
+  assert.throws(() => validateManifest(changed), /unexpected product identity/);
+});
+
 test("rejects an unsupported schema", () => {
   assert.throws(() => validateManifest({ ...validManifest, schema_version: 2 }), /unsupported manifest schema/);
 });
