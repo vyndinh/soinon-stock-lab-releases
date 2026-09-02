@@ -1,15 +1,15 @@
-# Vietnam Stock Lab Binary-Use Terms
+# Soinon Stock Lab Binary-Use Terms
 
 > **Status: Effective for free prerelease distribution.**
 > Effective date: 2026-09-02.
 
-Vietnam Stock Lab is a free, non-commercial hobby project maintained by the
+Soinon Stock Lab is a free, non-commercial hobby project maintained by the
 individual operating the GitHub account
 [`@vyndinh`](https://github.com/vyndinh). Public support contact is available
 through the
 [`soinon-stock-lab-releases` issue tracker](https://github.com/vyndinh/soinon-stock-lab-releases/issues).
 
-These terms apply to binary distributions of Vietnam Stock Lab (`vnt`). They do
+These terms apply to binary distributions of Soinon Stock Lab (`vnt`). They do
 not grant access to, or a license for, the private source repository. Do not
 publish a stable or prerelease binary under these draft terms.
 
@@ -38,7 +38,7 @@ unaffected.
 
 ## 4. Ownership
 
-Vietnam Stock Lab, its private source, product identity, and publisher-created
+Soinon Stock Lab, its private source, product identity, and publisher-created
 assets remain the publisher's property. Third-party components and data remain
 the property of their respective owners. No trademark rights are granted.
 
@@ -46,7 +46,7 @@ the property of their respective owners. No trademark rights are granted.
 
 Open-source components embedded in the binary are licensed by their respective
 authors under the terms reproduced in `THIRD_PARTY_NOTICES.md`. Those licenses
-apply only to the identified components, not to Vietnam Stock Lab as a whole.
+apply only to the identified components, not to Soinon Stock Lab as a whole.
 
 Market and news data are fetched from public or no-key third-party services.
 Availability, delay, completeness, permitted use, and attribution are governed
@@ -70,7 +70,7 @@ feature temporarily or permanently unavailable.
 
 ## 8. Research-only boundary
 
-Vietnam Stock Lab is research software, not investment, financial, legal, or
+Soinon Stock Lab is research software, not investment, financial, legal, or
 tax advice. Outputs may be delayed, incomplete, or wrong. You are responsible
 for independently checking information and for every decision you make.
 
@@ -108,7 +108,7 @@ link the changed terms.
 
 ## Owner approval record
 
-- [x] Public publisher identity is Vietnam Stock Lab, maintained by
+- [x] Public publisher identity is Soinon Stock Lab, maintained by
   `@vyndinh`; public contact uses the binary repository's issue tracker.
 - [x] No special governing law or exclusive venue is selected; applicable law
   and mandatory user or consumer rights remain unaffected.

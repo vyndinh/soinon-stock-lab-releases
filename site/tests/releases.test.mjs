@@ -19,17 +19,26 @@ test("accepts the versioned public release manifest", () => {
   assert.equal(manifest.artifacts[0].os, "darwin");
 });
 
-test("accepts the Soinon distribution slug while retaining the historical candidate", () => {
+test("accepts the Soinon identity while retaining the historical candidate", () => {
   const changed = structuredClone(validManifest);
+  changed.product.name = "Soinon Stock Lab";
   changed.product.slug = "soinon-stock-lab";
   const manifest = validateManifest(changed);
+  assert.equal(manifest.product.name, "Soinon Stock Lab");
   assert.equal(manifest.product.slug, "soinon-stock-lab");
+  assert.equal(validateManifest(validManifest).product.name, "Vietnam Stock Lab");
   assert.equal(validateManifest(validManifest).product.slug, "vietnam-stock-lab");
 });
 
 test("rejects unrelated product slugs", () => {
   const changed = structuredClone(validManifest);
   changed.product.slug = "untrusted-product";
+  assert.throws(() => validateManifest(changed), /unexpected product identity/);
+});
+
+test("rejects unrelated product names", () => {
+  const changed = structuredClone(validManifest);
+  changed.product.name = "Untrusted Product";
   assert.throws(() => validateManifest(changed), /unexpected product identity/);
 });
 
@@ -78,6 +87,8 @@ test("the page keeps required public trust and fallback surfaces", async () => {
   assert.match(html, /SUPPORT\.md/);
   assert.match(html, /security\/policy/);
   assert.match(html, /name="viewport"/);
+  assert.match(html, /<h1>Soinon Stock Lab<\/h1>/);
+  assert.doesNotMatch(html, /Vietnam Stock Lab/);
 });
 
 test("publishes effective policies with the approved release manifest", async () => {
