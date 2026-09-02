@@ -7,7 +7,7 @@ Vietnam Stock Lab is a free, non-commercial hobby project maintained by the
 individual operating the GitHub account
 [`@vyndinh`](https://github.com/vyndinh). Public support contact is available
 through the
-[`vietnam-stock-lab-releases` issue tracker](https://github.com/vyndinh/vietnam-stock-lab-releases/issues).
+[`soinon-stock-lab-releases` issue tracker](https://github.com/vyndinh/soinon-stock-lab-releases/issues).
 
 These terms apply to binary distributions of Vietnam Stock Lab (`vnt`). They do
 not grant access to, or a license for, the private source repository. Do not

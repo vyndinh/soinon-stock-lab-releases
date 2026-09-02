@@ -13,7 +13,7 @@ is granted here.
 ## Download website
 
 The official GitHub Pages site is prepared at
-<https://vyndinh.github.io/vietnam-stock-lab-releases/>. Until an approved
+<https://vyndinh.github.io/soinon-stock-lab-releases/>. Until an approved
 release exists, it deliberately shows a no-release state and no download
 buttons. `site/site-config.json` references the current canonical public terms
 and notices; each release promotion adds the exact immutable `releases.json`
@@ -30,7 +30,7 @@ published.
 
 ## Support
 
-Use [public Issues](https://github.com/vyndinh/vietnam-stock-lab-releases/issues)
+Use [public Issues](https://github.com/vyndinh/soinon-stock-lab-releases/issues)
 for installation problems and reproducible application defects. Read
 [SUPPORT.md](SUPPORT.md) before posting and remove private data from diagnostics.
 

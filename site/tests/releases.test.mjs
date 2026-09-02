@@ -39,8 +39,8 @@ test("rejects non-HTTPS policy and manifest links", () => {
   assert.throws(() => validatePublicURL("http://github.com/example", "manifest"), /official HTTPS repository/);
   assert.throws(() => validateRepositoryURL("https://example.com/TERMS.md", "policy"), /official HTTPS repository/);
   assert.equal(
-    validateRepositoryURL("https://github.com/vyndinh/vietnam-stock-lab-releases/blob/main/TERMS.md", "policy"),
-    "https://github.com/vyndinh/vietnam-stock-lab-releases/blob/main/TERMS.md",
+    validateRepositoryURL("https://github.com/vyndinh/soinon-stock-lab-releases/blob/main/TERMS.md", "policy"),
+    "https://github.com/vyndinh/soinon-stock-lab-releases/blob/main/TERMS.md",
   );
 });
 
