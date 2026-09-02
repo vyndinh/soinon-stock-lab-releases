@@ -1,5 +1,5 @@
 {
   "manifest_url": null,
-  "terms_url": null,
-  "notices_url": null
+  "terms_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/blob/main/TERMS.md",
+  "notices_url": "https://github.com/vyndinh/vietnam-stock-lab-releases/blob/main/THIRD_PARTY_NOTICES.md"
 }
