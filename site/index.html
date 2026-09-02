@@ -55,15 +55,26 @@
 
       <section aria-labelledby="install-heading">
         <h2 id="install-heading">Install and verify</h2>
+        <p class="terminal-notice">
+          <strong>Soinon Stock Lab is a terminal application.</strong>
+          On macOS, open Terminal and use the commands shown for your package;
+          do not rely on double-clicking the <code>vnt</code> file in Finder.
+        </p>
         <ol>
           <li>Choose the archive matching your operating system and CPU architecture.</li>
           <li>Verify its SHA-256 value against the checksum shown here or <code>checksums.txt</code>.</li>
-          <li>Extract the archive. On macOS or Linux, make the binary executable with <code>chmod +x vnt</code>.</li>
-          <li>Run <code>vnt version</code>, then <code>vnt doctor</code>, before starting <code>vnt tui</code>.</li>
+          <li>Open “First-launch commands” under your download and copy the exact extraction and launch commands.</li>
+          <li>Run <code>version</code>, then <code>doctor</code>, before starting <code>tui</code>.</li>
         </ol>
         <p>
           Only download from this page or the official public Releases page.
           Do not use files attached to issues, comments, forks, or unofficial mirrors.
+        </p>
+        <p class="unsigned-notice">
+          Current prerelease binaries are unsigned and not notarized. Your operating
+          system may warn about or refuse the download. Do not disable operating-system
+          security protections to run it; report a blocked normal launch through the
+          support link below.
         </p>
       </section>
 

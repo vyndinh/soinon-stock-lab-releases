@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
+  firstLaunchCommands,
   formatBytes,
   platformLabel,
   validateManifest,
@@ -95,6 +96,38 @@ test("formats platform names and file sizes", () => {
   assert.equal(formatBytes(12345678), "11.8 MB");
 });
 
+test("builds exact macOS and Windows first-launch commands", () => {
+  assert.equal(
+    firstLaunchCommands({
+      os: "darwin",
+      filename: "soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz",
+    }),
+    [
+      "cd ~/Downloads",
+      "tar -xzf soinon-stock-lab_0.1.0-rc.2_darwin_arm64.tar.gz",
+      "cd soinon-stock-lab_0.1.0-rc.2_darwin_arm64",
+      "chmod +x ./vnt",
+      "./vnt version",
+      "./vnt doctor",
+      "./vnt tui",
+    ].join("\n"),
+  );
+  assert.equal(
+    firstLaunchCommands({
+      os: "windows",
+      filename: "soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip",
+    }),
+    [
+      'Set-Location "$HOME\\Downloads"',
+      'Expand-Archive -LiteralPath ".\\soinon-stock-lab_0.1.0-rc.2_windows_amd64.zip" -DestinationPath "."',
+      'Set-Location ".\\soinon-stock-lab_0.1.0-rc.2_windows_amd64"',
+      ".\\vnt.exe version",
+      ".\\vnt.exe doctor",
+      ".\\vnt.exe tui",
+    ].join("\n"),
+  );
+});
+
 test("the page keeps required public trust and fallback surfaces", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /id="release-status"/);
@@ -104,6 +137,10 @@ test("the page keeps required public trust and fallback surfaces", async () => {
   assert.match(html, /security\/policy/);
   assert.match(html, /name="viewport"/);
   assert.match(html, /<h1>Soinon Stock Lab<\/h1>/);
+  assert.match(html, /terminal application/);
+  assert.match(html, /do not rely on double-clicking/);
+  assert.match(html, /First-launch commands/);
+  assert.match(html, /Do not disable operating-system\s+security protections/);
   assert.doesNotMatch(html, /Vietnam Stock Lab/);
 });
 
