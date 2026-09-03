@@ -5,10 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Official downloads and installation information for Soinon Stock Lab.">
     <title>Soinon Stock Lab — Downloads</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      (function() {
+        var saved = localStorage.getItem("theme");
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        var theme = saved || (prefersDark ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <link rel="stylesheet" href="./styles.css">
     <script type="module" src="./app.js"></script>
   </head>
   <body>
+    <nav class="top-nav">
+      <div class="container nav-content">
+        <div class="nav-brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="4 17 10 11 4 5"></polyline>
+            <line x1="12" y1="19" x2="20" y2="19"></line>
+          </svg>
+          <span class="brand-title">Soinon Stock Lab</span>
+        </div>
+        <div class="nav-links">
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            <span id="nav-release-tag">Official Binary</span>
+          </span>
+          <a class="nav-gh-link" href="https://github.com/vyndinh/soinon-stock-lab-releases" target="_blank" rel="noopener noreferrer">
+            <svg class="gh-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+            </svg>
+            GitHub
+          </a>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle theme">
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4"></circle>
+              <path d="M12 2v2"></path>
+              <path d="M12 20v2"></path>
+              <path d="m4.93 4.93 1.41 1.41"></path>
+              <path d="m17.66 17.66 1.41 1.41"></path>
+              <path d="M2 12h2"></path>
+              <path d="M20 12h2"></path>
+              <path d="m6.34 17.66-1.41 1.41"></path>
+              <path d="m19.07 4.93-1.41 1.41"></path>
+            </svg>
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
     <header class="site-header">
       <div class="container">
         <p class="eyebrow">Official binary downloads</p>
@@ -18,21 +69,35 @@
           The application source is private; approved binaries are distributed
           from the public release repository.
         </p>
-        <p class="boundary">
-          Research software only. Not investment, financial, legal, or tax advice.
-          Soinon Stock Lab does not place real broker orders.
-        </p>
+        <div class="boundary-wrapper">
+          <svg class="boundary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <p class="boundary">
+            Research software only. Not investment, financial, legal, or tax advice.
+            Soinon Stock Lab does not place real broker orders.
+          </p>
+        </div>
       </div>
     </header>
 
     <main class="container">
-      <section aria-labelledby="downloads-heading">
+      <section aria-labelledby="downloads-heading" class="downloads-section">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Current release</p>
             <h2 id="downloads-heading">Download</h2>
           </div>
-          <a href="https://github.com/vyndinh/soinon-stock-lab-releases/releases">Previous releases</a>
+          <a class="header-link" href="https://github.com/vyndinh/soinon-stock-lab-releases/releases">
+            Previous releases
+            <svg class="external-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
         </div>
 
         <div id="release-status" class="status" role="status" aria-live="polite">
@@ -40,15 +105,28 @@
         </div>
 
         <div id="release-details" hidden>
-          <dl class="release-meta">
-            <div><dt>Version</dt><dd id="release-version"></dd></div>
-            <div><dt>Channel</dt><dd id="release-channel"></dd></div>
-            <div><dt>Published</dt><dd id="release-date"></dd></div>
-          </dl>
-          <p class="release-links">
-            <a id="release-notes-link" href="#">Release notes</a>
-            <a id="checksums-link" href="#">checksums.txt</a>
-          </p>
+          <div class="release-meta-bar">
+            <dl class="release-meta">
+              <div class="meta-item"><dt>Version</dt><dd id="release-version"></dd></div>
+              <div class="meta-item"><dt>Channel</dt><dd id="release-channel"></dd></div>
+              <div class="meta-item"><dt>Published</dt><dd id="release-date"></dd></div>
+            </dl>
+            <p class="release-links">
+              <a id="release-notes-link" class="meta-link" href="#">Release notes</a>
+              <a id="checksums-link" class="meta-link" href="#">checksums.txt</a>
+            </p>
+          </div>
+
+          <div class="platform-filter-wrapper">
+            <span class="filter-label">Filter platform:</span>
+            <div class="platform-filter" id="platform-filter" role="tablist" aria-label="Platform selection">
+              <button type="button" class="filter-btn active" data-platform="all" role="tab" aria-selected="true">All</button>
+              <button type="button" class="filter-btn" data-platform="darwin" role="tab" aria-selected="false">macOS</button>
+              <button type="button" class="filter-btn" data-platform="windows" role="tab" aria-selected="false">Windows</button>
+              <button type="button" class="filter-btn" data-platform="linux" role="tab" aria-selected="false">Linux</button>
+            </div>
+          </div>
+
           <div id="downloads" class="download-list"></div>
         </div>
       </section>
@@ -60,13 +138,13 @@
           On macOS, open Terminal and use the commands shown for your package;
           do not rely on double-clicking the <code>vnt</code> file in Finder.
         </p>
-        <ol>
+        <ol class="steps-list">
           <li>Choose the archive matching your operating system and CPU architecture.</li>
           <li>Verify its SHA-256 value against the checksum shown here or <code>checksums.txt</code>.</li>
           <li>Open “First-launch commands” under your download and copy the exact extraction and launch commands.</li>
           <li>Run <code>version</code>, then <code>doctor</code>, before starting <code>tui</code>.</li>
         </ol>
-        <p>
+        <p class="notice-text">
           Only download from this page or the official public Releases page.
           Do not use files attached to issues, comments, forks, or unofficial mirrors.
         </p>
@@ -101,10 +179,134 @@
       </section>
     </main>
 
-    <footer>
-      <div class="container">
+    <footer class="site-footer">
+      <div class="container footer-content">
         <p>Soinon Stock Lab · Binary-only public distribution</p>
       </div>
     </footer>
+
+    <script>
+      // Fallback for direct local file:// inspection where browsers block ES module loading
+      window.addEventListener("DOMContentLoaded", function() {
+        setTimeout(function() {
+          if (window.__APP_LOADED__) return;
+          var manifest = {
+            tag: "v0.1.0-rc.4",
+            channel: "prerelease",
+            published_at: "2026-09-03T05:17:09Z",
+            release_notes_url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/tag/v0.1.0-rc.4",
+            checksums_url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/checksums.txt",
+            artifacts: [
+              { os: "darwin", arch: "arm64", name: "macOS — Apple Silicon / ARM64", filename: "soinon-stock-lab_0.1.0-rc.4_darwin_arm64.tar.gz", size: "5.4 MB", sha256: "eb79be0040b1750cf63bd96777d114694339481ec046d56c329d1e52036fec25", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_darwin_arm64.tar.gz", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_darwin_arm64.tar.gz.spdx.json", cmds: "cd ~/Downloads\ntar -xzf soinon-stock-lab_0.1.0-rc.4_darwin_arm64.tar.gz\ncd soinon-stock-lab_0.1.0-rc.4_darwin_arm64\nchmod +x ./vnt\n./vnt version\n./vnt doctor\n./vnt tui" },
+              { os: "darwin", arch: "amd64", name: "macOS — Intel / x64", filename: "soinon-stock-lab_0.1.0-rc.4_darwin_amd64.tar.gz", size: "5.7 MB", sha256: "5da2305ffdf1c0662640e04debf709afa0087d3828b81254e35231cb3728a72e", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_darwin_amd64.tar.gz", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_darwin_amd64.tar.gz.spdx.json", cmds: "cd ~/Downloads\ntar -xzf soinon-stock-lab_0.1.0-rc.4_darwin_amd64.tar.gz\ncd soinon-stock-lab_0.1.0-rc.4_darwin_amd64\nchmod +x ./vnt\n./vnt version\n./vnt doctor\n./vnt tui" },
+              { os: "windows", arch: "amd64", name: "Windows — Intel / x64", filename: "soinon-stock-lab_0.1.0-rc.4_windows_amd64.zip", size: "5.8 MB", sha256: "dc98817de8a5516b994198a42c2dfc75900105dc018583d8bd7fa7bc52dc15e6", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_windows_amd64.zip", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_windows_amd64.zip.spdx.json", cmds: 'Set-Location "$HOME\\Downloads"\nExpand-Archive -LiteralPath ".\\soinon-stock-lab_0.1.0-rc.4_windows_amd64.zip" -DestinationPath "."\nSet-Location ".\\soinon-stock-lab_0.1.0-rc.4_windows_amd64"\n.\\vnt.exe version\n.\\vnt.exe doctor\n.\\vnt.exe tui' },
+              { os: "windows", arch: "arm64", name: "Windows — ARM64", filename: "soinon-stock-lab_0.1.0-rc.4_windows_arm64.zip", size: "5.3 MB", sha256: "3521b2e991700d614992858e5b27dfc554f018ac0902e180323f27df05e0963d", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_windows_arm64.zip", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_windows_arm64.zip.spdx.json", cmds: 'Set-Location "$HOME\\Downloads"\nExpand-Archive -LiteralPath ".\\soinon-stock-lab_0.1.0-rc.4_windows_arm64.zip" -DestinationPath "."\nSet-Location ".\\soinon-stock-lab_0.1.0-rc.4_windows_arm64"\n.\\vnt.exe version\n.\\vnt.exe doctor\n.\\vnt.exe tui' },
+              { os: "linux", arch: "amd64", name: "Linux — Intel / x64", filename: "soinon-stock-lab_0.1.0-rc.4_linux_amd64.tar.gz", size: "5.7 MB", sha256: "69b59b4c253345687d0e4dda76854ffd20274f947f950c203f98bb812e7fc4d1", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_linux_amd64.tar.gz", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_linux_amd64.tar.gz.spdx.json", cmds: "cd ~/Downloads\ntar -xzf soinon-stock-lab_0.1.0-rc.4_linux_amd64.tar.gz\ncd soinon-stock-lab_0.1.0-rc.4_linux_amd64\nchmod +x ./vnt\n./vnt version\n./vnt doctor\n./vnt tui" },
+              { os: "linux", arch: "arm64", name: "Linux — ARM64", filename: "soinon-stock-lab_0.1.0-rc.4_linux_arm64.tar.gz", size: "5.3 MB", sha256: "030d72df452e943d261e1bb11fdb7126e69a8208194bf38f832224905df61b9a", url: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_linux_arm64.tar.gz", sbom: "https://github.com/vyndinh/soinon-stock-lab-releases/releases/download/v0.1.0-rc.4/soinon-stock-lab_0.1.0-rc.4_linux_arm64.tar.gz.spdx.json", cmds: "cd ~/Downloads\ntar -xzf soinon-stock-lab_0.1.0-rc.4_linux_arm64.tar.gz\ncd soinon-stock-lab_0.1.0-rc.4_linux_arm64\nchmod +x ./vnt\n./vnt version\n./vnt doctor\n./vnt tui" }
+            ]
+          };
+          var icons = {
+            darwin: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.38c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.98.6-2.61 1.34-.56.63-1.05 1.68-.92 2.7.99.08 2-.45 2.61-1.19z"/></svg>',
+            windows: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4h-13.051M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.951-1.951"/></svg>',
+            linux: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.002 0c-2.44 0-4.417 2.115-4.417 4.724 0 .43.055.848.156 1.246C6.73 6.46 5.86 7.55 5.51 8.87c-.66 2.5.58 4.69 1.13 5.48-.06.4-.1.81-.1 1.23 0 3.32 2.46 6.01 5.46 6.01s5.46-2.69 5.46-6.01c0-.42-.04-.83-.1-1.23.55-.79 1.79-2.98 1.13-5.48-.35-1.32-1.22-2.41-2.23-2.9.1-.4.16-.82.16-1.25 0-2.609-1.977-4.724-4.417-4.724zM8.9 9.3c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm6.2 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z"/></svg>'
+          };
+
+          document.querySelector("#release-version").textContent = manifest.tag;
+          document.querySelector("#release-channel").textContent = manifest.channel;
+          document.querySelector("#release-date").textContent = "Sep 3, 2026";
+          document.querySelector("#release-notes-link").href = manifest.release_notes_url;
+          document.querySelector("#checksums-link").href = manifest.checksums_url;
+          var navTag = document.querySelector("#nav-release-tag");
+          if (navTag) navTag.textContent = manifest.tag + " · " + manifest.channel;
+
+          var termsItem = document.querySelector("#terms-item");
+          termsItem.innerHTML = '<a href="https://github.com/vyndinh/soinon-stock-lab-releases/blob/main/TERMS.md">Binary-use terms</a>';
+          var noticesItem = document.querySelector("#notices-item");
+          noticesItem.innerHTML = '<a href="https://github.com/vyndinh/soinon-stock-lab-releases/blob/main/THIRD_PARTY_NOTICES.md">Third-party notices</a>';
+
+          var dlContainer = document.querySelector("#downloads");
+          dlContainer.innerHTML = "";
+          manifest.artifacts.forEach(function(art) {
+            var card = document.createElement("article");
+            card.className = "download-card";
+            card.dataset.os = art.os;
+            if (art.os === "darwin" && art.arch === "arm64" && navigator.platform.indexOf("Mac") !== -1) {
+              card.classList.add("recommended");
+            }
+            card.innerHTML =
+              '<div class="card-header-group">' +
+                '<div class="os-icon-wrapper">' + (icons[art.os] || '') + '</div>' +
+                '<div class="card-title-group"><h3>' + art.name + '</h3></div>' +
+              '</div>' +
+              '<p class="file-meta">' + art.filename + ' · ' + art.size + '</p>' +
+              '<div class="checksum-container">' +
+                '<code>SHA-256 ' + art.sha256 + '</code>' +
+                '<button type="button" class="copy-hash-btn">Copy</button>' +
+              '</div>' +
+              '<a class="download-link" href="' + art.url + '" aria-label="Download ' + art.name + ' archive">' +
+                '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>' +
+                '<span>Download archive</span>' +
+              '</a>' +
+              '<div class="sbom-row">' +
+                '<a class="sbom-link" href="' + art.sbom + '"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg> View SBOM</a>' +
+              '</div>' +
+              '<details class="install-steps">' +
+                '<summary>First-launch commands</summary>' +
+                '<div class="terminal-frame">' +
+                  '<div class="terminal-header-bar">' +
+                    '<div class="terminal-dots"><span class="terminal-dot dot-red"></span><span class="terminal-dot dot-yellow"></span><span class="terminal-dot dot-green"></span></div>' +
+                    '<span class="terminal-shell-badge">' + (art.os === 'windows' ? 'PowerShell' : 'zsh / bash') + '</span>' +
+                  '</div>' +
+                  '<pre><code>' + art.cmds + '</code></pre>' +
+                '</div>' +
+                '<button class="copy-button" type="button">Copy commands</button>' +
+              '</details>';
+
+            var copyHash = card.querySelector(".copy-hash-btn");
+            copyHash.addEventListener("click", function() {
+              navigator.clipboard.writeText(art.sha256).then(function() {
+                copyHash.textContent = "Copied!";
+                setTimeout(function() { copyHash.textContent = "Copy"; }, 1800);
+              });
+            });
+
+            var copyCmds = card.querySelector(".copy-button");
+            copyCmds.addEventListener("click", function() {
+              navigator.clipboard.writeText(art.cmds).then(function() {
+                copyCmds.textContent = "Copied";
+                setTimeout(function() { copyCmds.textContent = "Copy commands"; }, 1800);
+              });
+            });
+
+            dlContainer.appendChild(card);
+          });
+
+          var filterBtns = document.querySelectorAll("#platform-filter .filter-btn");
+          filterBtns.forEach(function(btn) {
+            btn.addEventListener("click", function() {
+              filterBtns.forEach(function(b) { b.classList.remove("active"); b.setAttribute("aria-selected", "false"); });
+              btn.classList.add("active");
+              btn.setAttribute("aria-selected", "true");
+              var plat = btn.dataset.platform;
+              document.querySelectorAll(".download-card").forEach(function(c) {
+                c.style.display = (plat === "all" || c.dataset.os === plat) ? "" : "none";
+              });
+            });
+          });
+
+          document.querySelector("#release-status").hidden = true;
+          document.querySelector("#release-details").hidden = false;
+        }, 150);
+
+        var toggleBtn = document.querySelector("#theme-toggle");
+        if (toggleBtn) {
+          toggleBtn.addEventListener("click", function() {
+            var current = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+            document.documentElement.setAttribute("data-theme", current);
+            localStorage.setItem("theme", current);
+          });
+        }
+      });
+    </script>
   </body>
 </html>
