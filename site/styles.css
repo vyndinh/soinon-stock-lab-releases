@@ -182,6 +182,41 @@ code {
   height: 0.95rem;
 }
 
+/* Theme Toggle Button (Circular Neo-Brutalist) */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  padding: 0;
+  background: var(--white);
+  border: var(--border-sm);
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  color: var(--black);
+  transition: all 0.1s ease;
+}
+
+.theme-toggle:hover {
+  transform: translate(1px, 1px);
+  box-shadow: 1.5px 1.5px 0 var(--black);
+}
+
+.theme-toggle svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.theme-toggle .sun-icon {
+  display: none;
+}
+
+.theme-toggle .moon-icon {
+  display: block;
+}
+
 /* Site Header (Compact Hero Card) */
 .site-header {
   padding-block: 0 0.75rem;
@@ -435,6 +470,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 18.5rem), 1fr));
   gap: 0.85rem;
+  align-items: start;
 }
 
 .download-card {
@@ -608,7 +644,7 @@ section {
 
 /* Terminal Drawer */
 .install-steps {
-  margin-top: auto;
+  margin-top: 0.75rem;
   border-top: 1.5px dashed var(--black);
   padding-top: 0.65rem;
 }
@@ -872,4 +908,372 @@ section {
   .steps-list {
     grid-template-columns: 1fr;
   }
+}
+
+/* ==========================================================================
+   DARK THEME (Neo-brutalist dark mode matching reference design)
+   ========================================================================== */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #161614;
+  --black: #fbf6ea;
+  --white: #1e1e1c;
+  --yellow: #fde047;
+  --yellow-light: #fef08a;
+  --cream: #262623;
+
+  background-color: var(--bg);
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] body {
+  background-color: #161614;
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .eyebrow {
+  color: #a1a1aa;
+}
+
+/* Theme Toggle in Dark Mode */
+[data-theme="dark"] .theme-toggle {
+  background: #27272a;
+  border-color: #fbf6ea;
+  box-shadow: 2px 2px 0 #fbf6ea;
+  color: #fbf6ea;
+}
+
+[data-theme="dark"] .theme-toggle:hover {
+  box-shadow: 1px 1px 0 #fbf6ea;
+}
+
+[data-theme="dark"] .theme-toggle .sun-icon {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle .moon-icon {
+  display: none;
+}
+
+/* Nav Pills in Dark Mode */
+[data-theme="dark"] .nav-brand {
+  background: #fde047;
+  color: #18181b;
+  border-color: #18181b;
+  box-shadow: 2px 2px 0 #fbf6ea;
+}
+
+[data-theme="dark"] .status-badge {
+  background: #bbf7d0;
+  color: #18181b;
+  border-color: #18181b;
+  box-shadow: 2px 2px 0 #fbf6ea;
+}
+
+[data-theme="dark"] .nav-gh-link {
+  background: #27272a;
+  color: #f5f5f4;
+  border-color: #71717a;
+  box-shadow: 2px 2px 0 #000;
+}
+
+[data-theme="dark"] .nav-gh-link:hover {
+  border-color: #fbf6ea;
+}
+
+/* Hero Section in Dark Theme (Warm Amber Dark Tone) */
+[data-theme="dark"] .site-header .container {
+  background: #2d2415;
+  border-color: #d4c49d;
+  box-shadow: 4px 4px 0 #0a0a09;
+  color: #fef08a;
+}
+
+[data-theme="dark"] .site-header h1 {
+  color: #fef08a;
+}
+
+[data-theme="dark"] .summary {
+  background: #1c170d;
+  border-color: #524223;
+  color: #fef9c3;
+  box-shadow: 1.5px 1.5px 0 #0a0a09;
+}
+
+[data-theme="dark"] .boundary-wrapper {
+  background: #241d11;
+  border-color: #66522c;
+}
+
+[data-theme="dark"] .boundary {
+  color: #fde68a;
+}
+
+/* Sections in Dark Theme */
+[data-theme="dark"] section {
+  background: #1e1e1c;
+  border-color: #d4c49d;
+  box-shadow: 4px 4px 0 #0a0a09;
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .downloads-section {
+  background-color: #1e1e1c;
+  background-image: radial-gradient(#3a3a37 1.5px, transparent 1.5px);
+}
+
+[data-theme="dark"] .section-heading {
+  border-bottom-color: #3f3f46;
+}
+
+[data-theme="dark"] .section-heading h2 {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .header-link {
+  background: #27272a;
+  color: #f5f5f4;
+  border-color: #71717a;
+  box-shadow: 2px 2px 0 #000;
+}
+
+[data-theme="dark"] .status {
+  background: #2d2415;
+  border-color: #fde047;
+  color: #fde047;
+  box-shadow: 2.5px 2.5px 0 #000;
+}
+
+[data-theme="dark"] .status.error {
+  background: #4c1d24;
+  border-color: #f472b6;
+  color: #fbcfe8;
+}
+
+/* Release Meta Bar in Dark Theme */
+[data-theme="dark"] .release-meta-bar {
+  background: #262624;
+  border-color: #3f3f46;
+  box-shadow: 2.5px 2.5px 0 #000;
+}
+
+[data-theme="dark"] .meta-item dt {
+  color: #a1a1aa;
+}
+
+[data-theme="dark"] .meta-item dd {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] #release-version {
+  background: #fde047;
+  color: #18181b;
+  border-color: #18181b;
+}
+
+[data-theme="dark"] #release-channel {
+  background: #fbcfe8;
+  color: #18181b;
+  border-color: #18181b;
+}
+
+[data-theme="dark"] .meta-link {
+  background: #18181b;
+  color: #f5f5f4;
+  border-color: #52525b;
+  box-shadow: 1.5px 1.5px 0 #000;
+}
+
+[data-theme="dark"] .filter-label {
+  color: #a1a1aa;
+}
+
+[data-theme="dark"] .filter-btn {
+  background: #27272a;
+  color: #f5f5f4;
+  border-color: #52525b;
+  box-shadow: 2px 2px 0 #000;
+}
+
+[data-theme="dark"] .filter-btn:hover {
+  border-color: #fbf6ea;
+}
+
+[data-theme="dark"] .filter-btn.active {
+  background: #fde047;
+  color: #18181b;
+  border-color: #fde047;
+  box-shadow: 2px 2px 0 #000;
+}
+
+/* Download Cards in Dark Theme */
+[data-theme="dark"] .download-card {
+  background: #191917;
+  border-color: #3f3f46;
+  box-shadow: 3px 3px 0 #000;
+}
+
+[data-theme="dark"] .download-card.recommended {
+  background: #24221a;
+  border-color: #fde047;
+  box-shadow: 3.5px 3.5px 0 #000;
+}
+
+[data-theme="dark"] .download-card.recommended::before {
+  background: #fde047;
+  color: #18181b;
+  border-color: #18181b;
+  box-shadow: 1.5px 1.5px 0 #000;
+}
+
+[data-theme="dark"] .os-icon-wrapper {
+  background: #2e2817;
+  border-color: #fde047;
+  color: #fde047;
+  box-shadow: 1.5px 1.5px 0 #000;
+}
+
+[data-theme="dark"] .card-title-group h3 {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .download-card p.file-meta {
+  color: #a1a1aa;
+}
+
+[data-theme="dark"] .checksum-container {
+  background: #141413;
+  border-color: #3f3f46;
+}
+
+[data-theme="dark"] .checksum-container code {
+  color: #e4e4e7;
+}
+
+[data-theme="dark"] .copy-hash-btn {
+  background: #27272a;
+  color: #f5f5f4;
+  border-color: #52525b;
+  box-shadow: 1px 1px 0 #000;
+}
+
+[data-theme="dark"] .copy-hash-btn:hover {
+  background: #fde047;
+  color: #18181b;
+}
+
+[data-theme="dark"] .download-link {
+  background: #38bdf8;
+  color: #18181b;
+  border-color: #000;
+  box-shadow: 2.5px 2.5px 0 #000;
+}
+
+[data-theme="dark"] .sbom-link {
+  color: #a1a1aa;
+}
+
+[data-theme="dark"] .sbom-link:hover {
+  color: #fde047;
+}
+
+[data-theme="dark"] .install-steps {
+  border-top-color: #3f3f46;
+}
+
+[data-theme="dark"] .terminal-frame {
+  background: #0f0f0e;
+  border-color: #3f3f46;
+}
+
+[data-theme="dark"] .terminal-header-bar {
+  background: #20201d;
+  border-bottom-color: #333330;
+}
+
+[data-theme="dark"] .copy-button {
+  background: #27272a;
+  color: #f5f5f4;
+  border-color: #52525b;
+  box-shadow: 1.5px 1.5px 0 #000;
+}
+
+[data-theme="dark"] .copy-button:hover {
+  background: #fde047;
+  color: #18181b;
+}
+
+/* Install & Verify Section in Dark Theme */
+[data-theme="dark"] #install-heading {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .steps-list li {
+  color: #18181b;
+  border-color: #000000;
+  box-shadow: 3px 3px 0 #000000;
+}
+
+[data-theme="dark"] .steps-list li::before {
+  background: #ffffff;
+  color: #18181b;
+  border: 1.5px solid #000000;
+  box-shadow: 1.5px 1.5px 0 #000000;
+}
+
+[data-theme="dark"] .steps-list li code {
+  color: #18181b;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid #000000;
+}
+
+[data-theme="dark"] .terminal-notice {
+  background: #172554;
+  border-color: #3b82f6;
+  color: #dbeafe;
+  box-shadow: 2.5px 2.5px 0 #000;
+}
+
+[data-theme="dark"] .unsigned-notice {
+  background: #362507;
+  border-color: #f59e0b;
+  color: #fef08a;
+  box-shadow: 2.5px 2.5px 0 #000;
+}
+
+[data-theme="dark"] .notice-text {
+  color: #a1a1aa;
+}
+
+/* Local Data & Privacy in Dark Theme */
+[data-theme="dark"] #privacy-heading {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] #privacy p {
+  color: #d4d4d8;
+}
+
+/* Policies & Help in Dark Theme */
+[data-theme="dark"] #policies-heading {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .link-list li {
+  background: #242422;
+  border-color: #3f3f46;
+  box-shadow: 2px 2px 0 #000;
+}
+
+[data-theme="dark"] .link-list li a {
+  color: #f5f5f4;
+}
+
+[data-theme="dark"] .link-list li:hover {
+  background: #2d2516;
+  border-color: #fde047;
+}
+
+[data-theme="dark"] .site-footer {
+  color: #a1a1aa;
 }
