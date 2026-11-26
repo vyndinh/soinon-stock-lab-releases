@@ -158,6 +158,33 @@ test("the page keeps required public trust and fallback surfaces", async () => {
   assert.doesNotMatch(html, /Vietnam Stock Lab/);
 });
 
+test("the offline fallback matches the promoted release manifest", async () => {
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+  const manifest = validateManifest(JSON.parse(await readFile(new URL("../releases.json", import.meta.url), "utf8")));
+  const match = html.match(/var manifest = (\{[\s\S]*?\n          \});/);
+  assert.ok(match, "offline manifest exists");
+  const fallback = JSON.parse(match[1]);
+
+  for (const field of ["tag", "channel", "published_at", "release_notes_url", "checksums_url"]) {
+    assert.equal(fallback[field], manifest[field], field);
+  }
+  assert.equal(fallback.artifacts.length, manifest.artifacts.length);
+  const remaining = new Map(manifest.artifacts.map((artifact) => [artifact.filename, artifact]));
+  for (const row of fallback.artifacts) {
+    const artifact = remaining.get(row.filename);
+    assert.ok(artifact, row.filename);
+    assert.equal(row.os, artifact.os);
+    assert.equal(row.arch, artifact.arch);
+    assert.equal(row.size, formatBytes(artifact.size_bytes));
+    assert.equal(row.sha256, artifact.sha256);
+    assert.equal(row.url, artifact.download_url);
+    assert.equal(row.sbom, artifact.sbom_url);
+    assert.equal(row.cmds, firstLaunchCommands(artifact));
+    remaining.delete(row.filename);
+  }
+  assert.equal(remaining.size, 0);
+});
+
 test("publishes effective policies with the approved release manifest", async () => {
   const config = JSON.parse(await readFile(new URL("../site-config.json", import.meta.url), "utf8"));
   const terms = await readFile(new URL("../../TERMS.md", import.meta.url), "utf8");
