@@ -130,7 +130,7 @@ export function platformLabel(os, arch) {
 }
 
 export function firstLaunchCommands(artifact) {
-  const archiveDirectory = artifact.filename.replace(/\.(?:tar\.gz|zip)$/, "");
+  const archiveDirectory = artifact.filename.replace(/\.(?:tar\.gz|tar\.xz|zip)$/, "");
   if (!archiveDirectory || archiveDirectory === artifact.filename) {
     throw new Error("artifact filename has an unsupported archive format");
   }
@@ -148,7 +148,7 @@ export function firstLaunchCommands(artifact) {
 
   return [
     "cd ~/Downloads",
-    `tar -xzf ${artifact.filename}`,
+    `${artifact.filename.endsWith(".tar.xz") ? "tar -xJf" : "tar -xzf"} ${artifact.filename}`,
     `cd ${archiveDirectory}`,
     "chmod +x ./vnt",
     "./vnt version",

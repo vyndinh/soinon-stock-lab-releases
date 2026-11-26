@@ -128,6 +128,20 @@ test("builds exact macOS and Windows first-launch commands", () => {
   );
 });
 
+test("builds xz extraction commands for macOS and Linux archives", () => {
+  assert.equal(
+    firstLaunchCommands({
+      os: "linux",
+      filename: "soinon-stock-lab_0.2.0-rc.2_linux_amd64.tar.xz",
+    }).split("\n").slice(0, 3).join("\n"),
+    [
+      "cd ~/Downloads",
+      "tar -xJf soinon-stock-lab_0.2.0-rc.2_linux_amd64.tar.xz",
+      "cd soinon-stock-lab_0.2.0-rc.2_linux_amd64",
+    ].join("\n"),
+  );
+});
+
 test("the page keeps required public trust and fallback surfaces", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
   assert.match(html, /id="release-status"/);
