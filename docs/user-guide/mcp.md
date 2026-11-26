@@ -69,8 +69,12 @@ Soinon by name.
 
 A stock lookup can fetch a quote or daily history from public feeds when
 the local data is missing or stale. The response labels the source and
-time. A briefing uses the saved data. In the TUI, open `:brief` and press
+time. The quote's source time is included when known. A briefing uses the
+saved data. In the TUI, open `:brief` and press
 `f` to refresh the daily cache, then ask the host for a fresh briefing.
+
+When the current quote supplies both daily price-band limits, a paper order
+preview includes the floor and ceiling in VND per share.
 
 A preview is an estimate and a check of the paper order. A refusal lists
 the checks that need attention. Prices in the preview are in VND per
