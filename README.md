@@ -9,6 +9,8 @@ The current approved prerelease is published on this repository's Releases page
 with SHA-256 checksums, release notes, binary-use terms, and third-party notices.
 Do not download artifacts from issues, comments, forks, or unofficial mirrors.
 
+The [user guide](docs/user-guide/README.md) covers setup, keyboard shortcuts, and each part of the app.
+
 ## Download website
 
 The official GitHub Pages site is prepared at
