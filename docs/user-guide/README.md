@@ -34,7 +34,7 @@ Keys are shown like `Enter` or `F3`. A letter key is case-sensitive: `a` and
 | [6 Lab](lab.md) | Backtests, Replay, Chart study and guided practice on past prices |
 | [7 Agent](agent.md) | Auto paper, approvals, decisions, track record, lessons, model log |
 | [8 Records](records.md) | Real holdings, dividends, backup, exports, health, theme, about |
-| [Soinon in Codex and Claude Code](mcp.md) | Connect a local chat for stock research and paper-order previews |
+| [Soinon in Codex and Claude Code](mcp.md) | Connect a local chat for stock research, paper-order previews and requests for your confirmation |
 | [Stock terms](stock-terms.md) | Plain-language glossary |
 | [Command line](command-line.md) | `vnt` commands for scripting, checks and recovery |
 | [Safety and your data](safety-and-data.md) | What stays local, what goes out, model costs, limits |

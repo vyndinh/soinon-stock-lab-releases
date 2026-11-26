@@ -6,12 +6,14 @@ or a paper-order estimate. Soinon reads the same data file as the TUI and
 can run beside it.
 
 Your chat host supplies the model through its own sign-in and usage plan.
-The connection needs no OpenAI key in Soinon. Review and place paper orders
-in Soinon's paper order screen.
+The connection needs no OpenAI key in Soinon. A chat can ask for a paper
+order, but only you place it, in Soinon's paper order screen.
 
 ## Connect
 
-1. Start Soinon once with `vnt tui` so the data file is ready.
+1. Start Soinon once with `vnt tui` so the data file is ready. After an
+   upgrade, do this before reconnecting the chat host; MCP opens the data
+   file read-only and cannot migrate it.
 2. Replace `/absolute/path/to/vnt` with the full path to your executable.
    On macOS or Linux, `command -v vnt` shows the path if the command is installed.
 3. Run the command for your local chat host.
@@ -80,6 +82,42 @@ A preview is an estimate and a check of the paper order. A refusal lists
 the checks that need attention. Prices in the preview are in VND per
 share, so 100,000 VND is 100.00 on a screen that uses thousands of VND.
 
+## Ask chat for a paper order
+
+A chat can ask to place a paper limit order for today. The request waits
+in Soinon until you place or decline it. Nothing is placed from the chat.
+
+1. In the TUI, choose the paper account, open **Agent**, press `o`, then
+   `y`. Chat order requests stay off until you do this, and turn off again
+   if the account is reset. The account also needs its `--account` entry.
+2. Ask the chat, for example: *Ask Soinon to buy 100 FPT in `MAIN` at a day
+   limit of 100,000 VND with a stop-loss at 95,000 VND.* Use a price within
+   the current daily band. If your chat host asks you to approve the tool
+   call, that approval allows the request to queue only; it does not
+   confirm the paper order.
+3. The request appears under **Needs you** on Agent Home. Your current
+   screen does not change. Select it and press Enter to open the paper order
+   Review with the exact terms.
+4. Read the Review. Press **Tab** to select Place, then **Enter**. Press
+   `N` to decline, or Esc to leave it waiting.
+
+A request waits five minutes by this computer's clock, and at most three
+wait per account. Soinon checks everything again when you press Place:
+the account, the setting, today's session, prices, cash and settled shares.
+If a check fails, the request is refused and no order is placed. To change
+the terms, ask the chat for a new request.
+
+The chat can check a request by its ID. It reports `pending_review`,
+`declined`, `expired`, `refused` or `submitted`. A submitted request shows
+the paper order number and whether it is waiting, partly filled or filled.
+Asking again with the same request returns the same result; it never places
+a second order.
+
+Requests wait in a private folder beside the data file. Its name ends in
+`.mcp-inbox`. Only your user account can open it. Pending requests are
+not part of a database backup; their recorded outcomes are. After restoring
+an older backup, ask for new requests as needed.
+
 ## If a tool is unavailable
 
 - If `soinon` is absent from `/mcp`, check the executable path and use a
@@ -88,6 +126,9 @@ share, so 100,000 VND is 100.00 on a screen that uses thousands of VND.
   in Soinon's TUI first and restart the connection.
 - If an account is unavailable, check the exact ID and its `--account`
   entry. If a report ID expires, ask for a new briefing.
+- If an order request is refused as off, turn on chat order requests for
+  that account in **Agent** (`o`). If it reports a full queue, place,
+  decline or wait for one of the three waiting requests.
 - A session allows 200 tool calls and 50 previews. Restart the connection
   to begin a new session. Public data fetches are capped at six per
   minute, so wait a minute if you reach that limit.
