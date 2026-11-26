@@ -197,6 +197,10 @@ PROTECT IT                                 Then       SELL stop 39.50 and SELL l
 | `Enter` | Review; `Enter` again sends |
 | `Esc` | Discard |
 
+If Review shows **Refresh checks**, press `r` to read the current account
+data before confirming the order. Immediate IOC and FOK orders require a
+live check at submission.
+
 If an order cannot go through, the result says why and what to do next.
 
 ## Real holdings
