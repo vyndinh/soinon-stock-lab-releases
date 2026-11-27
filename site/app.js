@@ -287,16 +287,5 @@ async function start() {
   }
 }
 
-function initThemeToggle() {
-  const toggleBtn = document.querySelector("#theme-toggle");
-  if (!toggleBtn) return;
-  toggleBtn.addEventListener("click", () => {
-    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-theme", current);
-    localStorage.setItem("theme", current);
-  });
-}
-
-initThemeToggle();
 start();
 

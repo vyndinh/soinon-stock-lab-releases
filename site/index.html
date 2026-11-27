@@ -305,6 +305,7 @@
           document.querySelector("#release-details").hidden = false;
         }, 150);
 
+        // The theme control is shared by the module and the offline renderer.
         var toggleBtn = document.querySelector("#theme-toggle");
         if (toggleBtn) {
           toggleBtn.addEventListener("click", function() {
