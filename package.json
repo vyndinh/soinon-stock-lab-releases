@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test site/tests/*.test.mjs"
+    "test": "node --check site/app.js && node --check site/releases.js && node --test site/tests/*.test.mjs"
   }
 }

@@ -285,6 +285,8 @@ async function start() {
       true,
     );
   }
+}
+
 function initThemeToggle() {
   const toggleBtn = document.querySelector("#theme-toggle");
   if (!toggleBtn) return;
