@@ -93,6 +93,8 @@ test("rejects release assets from a different tag", () => {
 test("formats platform names and file sizes", () => {
   assert.equal(platformLabel("darwin", "arm64"), "macOS — Apple Silicon / ARM64");
   assert.equal(platformLabel("windows", "amd64"), "Windows — Intel / x64");
+  assert.equal(platformLabel("windows", "arm64"), "Windows — ARM64");
+  assert.equal(platformLabel("linux", "arm64"), "Linux — ARM64");
   assert.equal(formatBytes(12345678), "11.8 MB");
 });
 

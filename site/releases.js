@@ -125,7 +125,7 @@ export function formatBytes(bytes) {
 
 export function platformLabel(os, arch) {
   const operatingSystems = { darwin: "macOS", windows: "Windows", linux: "Linux" };
-  const architectures = { arm64: "Apple Silicon / ARM64", amd64: "Intel / x64" };
+  const architectures = { arm64: os === "darwin" ? "Apple Silicon / ARM64" : "ARM64", amd64: "Intel / x64" };
   return `${operatingSystems[os] ?? os} — ${architectures[arch] ?? arch}`;
 }
 
