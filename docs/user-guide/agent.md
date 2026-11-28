@@ -1,134 +1,96 @@
 # 7 · Agent
 
-**For:** letting an agent trade a paper account inside limits you set,
-deciding together on its proposals, and learning from what it did.
+**Purpose:** Let an automated helper either **run scheduled paper checks once a day inside strict safety limits** (**Auto paper**) or **propose paper orders for you to approve or decline** (**Decisions**), while auditing every decision afterwards through **Track record** and **Lessons**.
 
-**Get there:** `F3` then `7`, `A` on Today, or `:agent`.
+**How to get there:** Press `F3` then `7`, press `A` on Today, or type `:agent`.
 
-The agent works on **paper accounts only**. It proposes; fixed limits in
-the app decide what is allowed, and every order goes through the same paper
-engine checks as yours. Two kinds of agent are available:
+> **Paper accounts only & deterministic safety.** Agents **only** touch paper accounts and **cannot** alter or bypass risk limits (`Daily loss limit`, `Max buy size`, `Max positions`, `Stop-loss requirements`). All protective bounds are enforced in Go code regardless of whether you run the free Go rule or a paid AI model.
 
-- **Go rule**: a fixed rule built into the app. Free; no model is called.
-  It is a demonstration rule, not an evaluated strategy.
-- **Model**: a language model you set up. Each request is paid; the cost is
-  shown before you confirm. See
-  [Safety and your data](safety-and-data.md#model-features).
+## Use cases & user stories
+
+- **Testing systematic rules without coding:** *"I want to see how a strict daily rule behaves over 20 trading days with real limits and protective stops — without paying API fees."* → Start **Auto paper** (`1`) using the free **Go rule**.
+- **Human-in-the-loop co-pilot:** *"I want an AI or rule assistant to propose buys/sells with reasons and cash impact, while I make the final yes/no."* → Use **Decisions (`Needs you`)** and approve or decline every proposal yourself.
+- **Auditing reasoning after the dust settles:** *"When an agent trade won or lost money, did its technical reasons actually hold up, or did it just get lucky?"* → Open **Lessons (`l`)** to compare `Before` vs `After` indicators and the `Wrong if` condition.
+
+---
 
 ## Agent home
 
-```text
-AGENT · PAPER                              [Home]  Decisions  Auto paper  Track record  Model log
-START
-› 1  Watch an agent trade    Auto paper decides once a day inside your limits. Go rule free, model paid.
-  2  Decide together         It proposes an order; you approve or decline each one.
-  3  Ask about a stock       One explanation with its sources. paid per request.
-  4  Review my closed trade  The coach reads one of your own trades. paid per request.
-  5  Practise on past prices Agent practice in Lab, using past data.
-  6  Run a daily portfolio   one session per run · bars free, model paid
-Model spend, 30 days  $0.0000 · 0 requests · h Model log
-```
+![Agent Home showing active Auto paper session, Needs you proposal, recent closed-trade lesson, and 5 start workflows](images/agent-home.png)
 
-| Key | Does |
-|---|---|
-| `1`–`6`, `Enter` | Start or open one |
-| `Tab` | Next section |
-| `l` | Open a lesson |
-| `p` | Agent portfolios (experiment only) |
-| `h` | Model log |
+- **`RUNNING NOW`:** Live summary of any active **Auto paper** run (day counter, today's decision at `09:30`, session P&L, next run time).
+- **`NEEDS YOU`:** Order proposals waiting for your yes/no (`Enter` opens to decide).
+- **`LEARN FROM IT`:** Summary of how the agent's past reasons actually held up (`2 sound, and it paid · 1 sound, and it lost · 1 paid anyway · 0 broke, and it lost`).
+- **`START` (`1`–`5`):** Launch Auto paper (`1`), review/enroll approvals (`2`), inspect a stock (`3` / `M`), review a closed trade (`4`), or run fast historical **Agent practice** in Lab (`5`).
+- *(Note: Starting `vnt tui --experiment` adds experimental daily portfolio runs as option `6` / `p`.)*
 
-Row 6 and `p` appear only when the app starts with `vnt tui --experiment`.
+---
+
+## Go rule vs Model agent
+
+| Mode | How it decides | Cost & key required |
+|---|---|---|
+| **Go rule** | Fixed rule built locally into `vnt` (demonstration baseline, not an evaluated alpha strategy) | **Free** — no key, nothing leaves your computer |
+| **Model** | Configured language model reading saved chart/news/book facts | **Paid per request** — shows estimated `$` cost before confirming |
+
+See [Safety and your data](safety-and-data.md#model-features) for API key setup.
+
+---
 
 ## Auto paper
 
-The agent decides once each trading day at **09:30** and places paper
-orders inside your limits.
+**Purpose:** Run a hands-off daily paper test over 5 to 60 trading days inside hard caps you approve up front.
 
-**Setup** asks for:
+![Agent Auto paper setup screen selecting stocks, Go rule vs model, horizon, and hard risk limits](images/agent-auto-setup.png)
 
-| Field | Meaning |
-|---|---|
-| Stocks | The current stock or a watchlist, up to 5. The list freezes at start |
-| Who decides | Go rule (free) or the model (paid) |
-| How long | 5, 10, 20, 40 or 60 trading days |
-| Your limits (`L`) | Largest buy, largest holding per stock and per account, number of stocks, daily loss |
+### Setup fields
+- **Stocks:** Watch one stock or a small watchlist group (up to 5 stocks; locked at start).
+- **Who decides:** Go rule (free) or configured model (shows max checkpoint & call cap before starting).
+- **How long:** `5`, `10`, `20`, `40`, or `60` trading days.
+- **Limits (`L`):** Hard caps on largest single buy, largest holding per stock/account, max open stocks, and daily loss. Manual trades and approvals pause on that account while Auto paper runs.
 
-The setup also shows how many checkpoints, model calls and actions the
-session can use at most. While a session runs, manual buys and approvals
-are off on that account.
+Once active, keep `vnt` running around **09:30 ICT** each trading day so the session executes its daily check (closing `vnt` pauses the run cleanly until you resume).
 
-**Keep the app open at 09:30.** Closing it pauses the session until you
-resume. Stops are armed when bought shares settle.
+![Agent Auto paper active screen showing today's reasoning for/against, invalidation criterion, and decision timeline](images/agent-auto-active.png)
 
-**A running session** shows today's decision with its reasons *for* (`+`)
-and *against* (`×`), why it did not wait, what would prove it wrong, the
-position, results so far and the last decisions.
+On a running session you always see **today's reasoning (`+` for, `×` against)**, **`Wrong if`** (what price breaks the thesis), current P&L, and controls:
+- **`P`:** Pause further daily checks.
+- **`E`:** End Auto paper while keeping open exit orders armed.
+- **`T`:** Take over manually (ends Auto paper and hands full control back to you, clearing agent-owned exits).
 
-| Key | Does |
-|---|---|
-| `P` | Pause: no more decisions |
-| `E` | End: keeps the agent's exits |
-| `T` | Take over: also cancels the agent's exits |
-| `e` | Evidence behind a decision |
-| `L` | All limits |
+---
 
-## Decisions
+## Decisions (`Needs you`)
 
-Proposals that need you, with the reason and what happens if you approve.
+**Purpose:** Co-pilot mode — the agent proposes concrete limit orders with explicit reasons and impact math; **nothing happens unless you approve**.
 
-```text
-NEEDS YOU · 1                                                    expires Thu 22 Oct 10:00
-› SELL 500 FIXB · limit 29.95 · today only · account AGENT_ACC · proposed by the Go rule
-WHY IT PROPOSES THIS                         IF YOU APPROVE
- + The score without flow is -4 …  · for       Order     SELL 500 FIXB · limit 29.95
- × A single day's factor sum can reverse …     Proceeds  14,937,562 ₫ after costs
-  ▸ Approve and review the order   A         Decline   N         Later   Esc
-```
+![Agent Decisions tab showing pending BUY 100 FPT proposal, reasons for/against, after-trade cash impact, and Approve/Decline buttons](images/agent-decisions.png)
 
-`A` opens the paper order's Review step; the checks run again and nothing is
-placed until you confirm. `N` declines. A proposal that is not answered
-expires.
+### Example: Reviewing `BUY 100 FPT · limit 55.40`
+- **Left (`WHY IT PROPOSES THIS`):** `Close above MA20`, `RSI14 56.2`, `Volume 1.3×`, weighted against `Foreign net sold`. Also states `Wrong if: a close below 53.90 (MA50)`.
+- **Right (`IF YOU APPROVE` & `CHECKS`):** Exact cost (`~5,548,000 ₫`), protective stop (`53.90`, `-2.7%` placed at settlement), exact stop risk (`-158,000 ₫`), post-trade cash, and confirmation that all hard limits pass.
+- **Actions:** Press **`A`** to open the Paper order Review step (all checks run fresh again before confirming), **`N`** to decline, or **`Esc`** to decide later (unanswered proposals expire automatically, e.g., `Mon 16 Nov 14:45`).
 
-To let the agent propose on an account, type `:agent enroll ACCOUNT`.
-`:agent review ACCOUNT SYMBOL` opens the approval workspace for one stock:
-`g` decides with the Go rule, `m` with the model (paid), `A` shows the
-exact action. Use a paper account set aside for the agent: turning
-proposals on keeps its agent records for the life of the account.
+> **Setup note:** To let the agent propose on a dedicated paper account, run `:agent enroll ACCOUNT` (use a dedicated paper account since enrollment keeps agent records for that account's lifetime). Press `o` on Agent home to allow or block local MCP chat order requests.
 
-## Track record
+---
 
-Each agent session on the account with its result. `Enter` lists its
-decisions; `l` opens lessons; `x` exports; `r` refreshes. Results are paper
-fills and past results, not a forecast.
+## Track record & Lessons (`l`)
 
-## Lessons
+**Purpose:** Hold the agent accountable. Instead of just listing profits, **Track record** pairs every decision with what happened afterwards, and **Lessons (`l`)** checks whether the agent's reasons actually came true.
 
-`l` opens one decision as a lesson: **Before** (what it chose and why,
-what would prove it wrong, its limits) beside **After** (how it ended and
-the stock against VN-Index over the next 5 and 20 sessions). **Did the
-reasons hold** compares each reason's number then and now. It compares
-saved numbers; it does not show the reasons caused the result.
+![Agent Track record listing sessions, hit rates, returns, and decision counts](images/agent-track-record.png)
 
-## Model log
+Press **`l`** on any closed decision to open its **Lesson** card:
 
-Every saved model request: explanations, scan explanations, trade coach,
-decisions, Find and research briefs. `Tab` filters by feature, `/`
-searches, `c` shows the spend over the last 30 days.
+![Agent Lesson view comparing Before thesis and Wrong-if line against After 5/20-day outcomes and Did the reasons hold table](images/agent-lesson.png)
 
-## Agent portfolios (experiment)
+Notice how **`DID THE REASONS HOLD?`** puts each original indicator number (`Then`) side-by-side with `5/20 sessions later` (`Now`) and checks if the **`Wrong if`** condition triggered — separating luck from sound reasoning objectively.
 
-Agent portfolios are paper books the agent trades day by day as a research
-experiment. They are only available when the app starts with
-`vnt tui --experiment`. Each run is reviewed and then confirmed; a paid run
-also needs the typed word `send`.
+---
 
-On Agent → Portfolios, `a` adds an existing portfolio file made by
-`vnt forward init` (read-only unless you add `,write`). `Enter` opens its
-dashboard, `v` compares portfolios, `x` exports. `n` creates one and `m`
-manages runs. See [Command line](command-line.md#agent-portfolios-experiment).
+## Model log (`h`)
 
-## Ask about a stock (model, paid)
+**Purpose:** Full transparency and cost control. Lists every model call made anywhere in `vnt` (score explanations, Find queries, Research briefs, Trade coach, Agent decisions) with timestamps and exact dollar cost (`c` summarizes 30-day spend; `Tab` filters by feature; `/` searches).
 
-On a stock's score (`e`), `M` asks the model to explain it from the same
-evidence. `Esc` cancels before it is sent. `:agent history` lists saved
-answers.
+![Agent Model log listing saved AI requests, timestamps, costs, and status](images/agent-model-log.png)

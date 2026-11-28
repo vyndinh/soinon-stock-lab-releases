@@ -1,209 +1,154 @@
 # 5 · Paper
 
-**For:** practising trades with pretend money under real exchange rules,
-then reviewing how you traded.
+**Purpose:** Practise trading with pretend money under real Vietnamese exchange mechanics — **100-share lots, exchange ticks, ±7%/10%/15% price bands, T+2 settlement at 13:00, fees, and sell tax** — plan your stop-loss and target on every order, track *why* you traded, and review closed trades without guesswork.
 
-**Get there:** `F3` then `5`, `P` on the board, or `:portfolio`.
-`B` / `X` open a buy / sell ticket for the selected stock from most pages.
+**How to get there:** Press `F3` then `5`, press `P` from the Market board, or type `:portfolio`. Press **`B`** (Buy) or **`X`** (Sell) on any stock across the app to open a paper order ticket directly.
 
-Paper orders never reach a broker. They are checked against live quotes
-**only while the app is running**; price moves while it is closed are not
-replayed.
+> **Paper only.** No order ever leaves your computer. Live paper orders, stops, and targets are evaluated **only while `vnt` is open**; moves while the app is closed are not replayed.
 
-## Your first account
+## Use cases & user stories
 
-The first time, Paper offers to create an account with starting cash, a
-broker fee and a sell tax. You can keep several accounts; one is **active**
-and is used by `B` and `X`. Lab practice sessions keep their own accounts.
+- **Practising real Vietnam market rules risk-free:** *"As a first-time Vietnamese stock investor, I want to experience 100-share lots, HOSE price ticks, broker fees, and T+2 `13:00` settlement rules with pretend money first."* → Every Paper order enforces exchange ticks, lots, bands, and settlement locks identically to live rules.
+- **Building risk-first habits:** *"I want to decide how much money I can lose (0.5% of account) BEFORE choosing how many shares to buy."* → Use **`Size it from risk` (`r`)** and check **`STOP AGAINST A USUAL DAY`** directly on the buy ticket.
+- **Finding out which entry reasons actually work for you:** *"Do my breakout buys make money, or am I just chasing?"* → Pick a reason on entry, then audit closed outcomes in **Performance**, **Trade review**, and **Your reasons (`w`)**.
 
-## Tabs
+---
 
-`←` `→` change tab; `0`–`5` jump to one; `m` opens **More**: Accounts and
-Risk. `Esc` or `q` closes Paper.
+## Your first account & tabs
 
-```text
-PORTFOLIO · DEMO_01   [0 Overview]  1 Positions  2 Orders  3 Journal  4 Performance  5 Review  m More ▸
-```
+On your first visit, Paper helps you create a dedicated account with starting cash (for example `500,000,000 ₫`), broker fee, sell tax, and safe default limits.
 
-### 0 Overview
+![Paper First run setup creating your initial simulated trading account](images/paper-first-run.png)
 
-```text
-EQUITY            TODAY               SINCE START  Fri 23 Oct    CASH YOU CAN USE
-514,153,000 ₫     not shown           ▲ +14,153,000 ₫  +2.8%     154,623,000 ₫ · 30.1%
-Close 13 Nov      needs saved endpoints VN-Index unavailable     reserved 5,000,000 ₫
-NEEDS YOU · 4
-  ▲ ACB has a plan stop at 18.50 but no stop order
-  ▲ VIX has no plan and no stop
-```
+You can keep multiple paper accounts; one is **active** (`▌PAPER DEMO_01` at top-right). Lab practice replays keep separate accounts. Use `←` `→` or `0`–`5` to switch tabs, or press **`m`** for **More → Accounts / Risk**.
 
-| Block | Meaning |
-|---|---|
-| Equity | Cash plus positions at the saved close |
-| Today | Change since yesterday's saved value; needs two saved values |
-| Since start | Change since the account started, beside VN-Index over the same days when saved |
-| Cash you can use | Cash not reserved by open buy orders |
-| Needs you | Holdings without a stop order, close to their stop, or still settling |
-| Positions | Each holding with quantity, cost, last, value, weight, P&L, stop and protection |
-| Risk | The daily loss limit and position count the engine enforces |
-| Decline to saved stops | What you would lose if every stop filled at its price, grouped by protection |
+---
 
-**Protection** says whether a stop can actually sell: `● order active`
-(a stop order is armed), `◐ pending` (it will be placed when shares
-settle), `○ plan only` (a planned stop but no order) or `▲ no plan`.
-Only an active order sells.
+## `0 Overview`
 
-### 1 Positions
+**Purpose:** See your portfolio's health in seconds — total equity, cash still available, **Needs you** stop/settlement alerts, all open positions, and hard engine limits.
 
-Each holding with **Can sell** (settled shares less open sells), stop,
-target and days held. The panel under the table shows the selected
-position's plan, lots, linked orders and briefing notes.
+![Paper Overview showing equity curve, Needs you alerts, open positions table, Risk bars, and open orders](images/paper-overview.png)
 
-| Key | Does |
-|---|---|
-| `X` / `B` | Sell / buy more |
-| `p` | Edit the plan: stop and target |
-| `n` | Write a note |
-| `F2` | Open the stock's page |
+### Key things to watch on Overview
+- **`NEEDS YOU`:** Flags holdings that lack a stop-loss (`VIX and TCX have no stop`), positions near their stop (`GEX is 2.2% above its stop`), or newly bought shares still settling (`TCX settles Mon 16 Nov 13:00`). Press `p` to plan or adjust a stop.
+- **`POSITIONS` & `TO STOP`:** Lists quantity, average cost, current value, portfolio weight `%`, unrealized P&L `%`, and exact distance above your stop.
+- **`RISK` & `OPEN ORDERS`:** Live progress bars for enforced **Daily loss** and **Open positions** caps, plus **Decline to saved stops** (`To stops -21,000,000 ₫`) showing what you lose if every active stop triggers cleanly.
 
-### 2 Orders
+---
 
-Every order, newest first, with what it is waiting for (*IT FILLS WHEN*)
-and how long it lasts (*GOOD UNTIL*).
+## `1 Positions`
 
-| Key | Does |
-|---|---|
-| `Enter` | Order details: requested, filled, placed, cash held |
-| `C` | Cancel the selected open order (asks first) |
-| `A` | Amend its price, or lower its quantity; review, then `Enter` |
-| `f` | Filter by status and code; `Ctrl+R` resets |
-| `d` | Saved drafts and queued sends |
+**Purpose:** Drill into individual holdings — inspect **Can sell** (settled shares not already reserved by open sell orders), entry lots, linked orders, and briefing notes.
 
-**Drafts** hold a limit order you are not ready to send. A queued draft is
-sent in the first minutes of continuous trading; if it cannot go, it returns
-to Drafts with the reason.
+![Paper Positions tab showing holdings table and selected position lot breakdown, orders, and notes](images/paper-positions.png)
 
-### 3 Journal
+**Keys:** `X` / `B` sell or buy more · `p` edit stop/target plan · `n` write a journal note · `F2` open the stock's full Stock page.
 
-Your trades with the reason you bought, the plan at entry and the result.
-`v` switches between *by trade* and *by event*.
+---
 
-| Key | Does |
-|---|---|
-| `n` | New note |
-| `A` / `Enter` | Edit a note, or note an order or fill |
-| `D` | Delete a note (asks first) |
-| `a` | Notes in every account / this account |
-| `/` | Filter by code, tag and dates |
-| `r` | Earlier versions of a note, read-only |
-| `x` | Export the matching notes as CSV |
+## `2 Orders` (and Drafts)
 
-Fills and orders are account records and cannot be edited. Your notes can.
+**Purpose:** Inspect every waiting, filled, cancelled, or rejected order with plain English explanations of **`IT FILLS WHEN`** and **`GOOD UNTIL`**, plus **saved order drafts (`d`)**.
 
-### 4 Performance
+![Paper Orders tab showing active bracket stops, waiting limit orders, and order lifecycle](images/paper-orders.png)
 
-```text
-CLOSED TRADES · 0
-  0 above zero · 0 below · net 0 ₫ after fees and tax
-  Average gain — · average loss —
-  With a stop 0 of 0 · stop kept 0 of 0
-  STOCK  OPENED      CLOSED      DAYS   SHARES   RETURN   R   NET ₫   PLAN
-R = net result ÷ original planned risk. i shows saved values and details.
-```
+- **Protection states explained:**
+  - `● order active` — a live stop order is armed and ready to trigger while `vnt` runs.
+  - `◐ pending` — shares haven't settled (`T+2 13:00`); bracket protection arms automatically at settlement.
+  - `○ plan only` — a target/stop exists in your notes, **not** as an order.
+  - `▲ no plan` — neither plan nor stop order exists.
+- **Drafts (`d`):** Save a limit order you aren't ready to submit, or queue it for the next continuous session's opening minutes (every risk limit is re-checked right before sending).
+- **Keys:** `Enter` details · `A` amend price or reduce size · `C` cancel open order (asks first) · `f` filter · `d` drafts.
 
-- **Daily equity** is a chart of saved daily values. A value is saved when
-  the app starts and after the close; missing days are never filled in.
-  `s` saves today's value now.
-- **Closed trades** gives counts, net result, average gain and loss, how
-  many trades had a stop and how many kept it.
-- `Enter` reviews the selected closed trade: a chart of the price while you
-  held it, with your buys, sells and plan. `M` asks the trade coach (model,
-  shows the cost first; it reads trade facts, never your notes).
-- `x` exports; `i` shows saved values and details.
+---
 
-### 5 Review
+## `3 Journal`
 
-How you traded this week, not how it turned out: trades opened and closed,
-how many had a stop or a note, a comparison with the agent and VN-Index when
-there are enough saved sessions, and **your reasons**: the checked reasons
-you gave on buys (`w` opens them). `A` opens the agent's track record.
-This page gives no grade and no advice.
+**Purpose:** Maintain an honest trading log pairing **why you bought**, your **plan at entry**, and **what happened**, with automatic audit trails on every order and fill.
 
-### More → Accounts
+![Paper Journal tab pairing trade entries, reasons, and manual notes](images/paper-journal.png)
 
-All paper accounts with equity, change since start, positions and start date.
+Orders and fills are immutable account facts; your personal notes can be added (`n`), edited (`A` / `Enter`), reviewed for earlier revisions (`r`), or exported (`x`). Press `v` to toggle *by trade* vs *by event*.
 
-| Key | Does |
-|---|---|
-| `Enter` | Make the selected account active, or restore an archived one |
-| `e` | Edit fee, tax and limits |
-| `n` | New account |
-| `R` | Reset: a copy is kept first |
+---
 
-A new fee or limit applies from the next order. Past orders keep the fee
-they were filled with. Each change is written in the journal.
+## `4 Performance` & Trade Review
 
-### More → Risk
+**Purpose:** Measure real trading skill over **closed trades** after fees and tax — not just lucky open swings.
 
-**Limits the engine enforces** on every order, which cannot be skipped:
+![Paper Performance tab showing equity curve vs VN-Index and closed trades table with R-multiples](images/paper-performance.png)
 
-- **Daily loss.** At the limit, new buys and buy fills pause. You can still
-  sell or cancel.
-- **Open positions.** At the limit, a new holding cannot be opened.
+- **`DAILY EQUITY`** plots saved daily account equity beside `VN-Index` (gaps stay honest; press `s` to record today's valuation now).
+- **Closed trades** track win/loss averages, **how many trades used a stop**, **how many actually kept their stop**, and net **`R` multiple** (`Net result ÷ Original planned risk`).
 
-**Guards** you can switch with `g`:
+### Reviewing a closed trade (`Enter` on Performance)
 
-- **Stop-loss on every buy**: a buy needs a bracket stop.
-- **Cap per stock**: buys above a share of equity are refused.
-- **Pause on drawdown**: new buys pause after a fall until you resume.
+![Trade review screen comparing your entry plan, what happened, daily price chart with buy/sell/plan-change marks, and fill receipts](images/paper-trade-review.png)
 
-**What is at risk now** shows the decline to saved stops, holdings with no
-stop, and the largest stock and sector.
+Press **`Enter`** on any closed trade to see **Your plan** beside **What happened**, an enlarged price chart marking entry **`B`**, exit **`S`**, and any plan changes (`◆ 26 Oct stop 39.00 → 40.00`), plus exact fill receipts. Press **`M`** to ask the optional AI Trade Coach (reads objective facts, never your private notes, and confirms cost first).
 
-## The order ticket
+---
 
-`B` or `X` opens a three-step ticket: **Edit → Review → Result**.
+## `5 Review` & `Your reasons` (`w`)
 
-```text
-PAPER ORDER · BUY FPT  last 43.00 · bid 42.95 · ask 43.00            [1 Edit] › 2 Review › 3 Result
-THE ORDER                                  WHAT HAPPENS
-› Shares    [ 100 ]  lot 100               Now        BUY 100 FPT at 40.00 or better · today
-  Price     ‹ Limit › [ 40 ]                          about 4,006,000 ₫ with fees
-  Good for  ‹ Today ›                      Tue 13:00  if it fills today, shares settle then
-PROTECT IT                                 Then       SELL stop 39.50 and SELL limit 46.00
-  Stop-loss [ 39.50 ]  -1.2%
-  Target    [ 46 ]     +15.0%              IF IT GOES WRONG, IF IT GOES RIGHT
-                                           At the stop    -65,875 ₫ after fees · 0.1% of equity
-                                           At the target  +582,500 ₫ after fees · 8.8× the risk
-```
+**Purpose:** Audit your weekly trading process — did you honour stops and write reasons before buying? — compared beside the agent and VN-Index, rather than chasing P&L noise.
 
-| Block | Meaning |
-|---|---|
-| The order | Shares (in lots of 100), order type (limit, market, stop market, stop limit, trailing stop, opening or closing auction), and how long it lasts |
-| Protect it | Stop-loss and target, with their distance from the price. *After it settles* places them as a bracket once the shares can be sold |
-| What happens | A dated timeline: the order now, settlement, then the protective orders. A warning shows while nothing protects the shares |
-| Stop against a usual day | Your stop distance measured in usual days (ATR14), and how often past lows went that far |
-| Size it from risk | The most shares you can buy if the loss at the stop is a chosen share of equity. `r` uses it |
-| If it goes wrong / right | The result at the stop and at the target after fees and tax, and the target result as a multiple of the risk |
-| Your account after | Cash, positions, sector weight and daily loss used if it fills |
-| Checks | The engine's checks: lot, tick, price band, cash, can-sell, limits, guards. `c` lists them |
+![Paper Review tab tracking weekly trades opened, stop discipline, benchmark comparison, and entry reasons](images/paper-review.png)
 
-| Key | Does |
-|---|---|
-| `↑` `↓` | Field |
-| `←` `→` | Change a choice |
-| `t` | Order type |
-| `r` | Size from risk |
-| `c` | List the checks |
-| `Enter` | Review; `Enter` again sends |
-| `Esc` | Discard |
+Press **`w`** inside **Review** to open **Your reasons**:
 
-If Review shows **Refresh checks**, press `r` to read the current account
-data before confirming the order. Immediate IOC and FOK orders require a
-live check at submission.
+![Your reasons ledger grouping trades by entry reason such as Volume confirmation and Price above MA20](images/paper-your-reasons.png)
 
-If an order cannot go through, the result says why and what to do next.
+When you pick a structured entry reason on the order ticket (e.g., *Volume confirmation*, *Price above MA20*, *A level you named*) or record a *"Wrong if"* rule, **`Your reasons`** counts how often that fact still held 5 and 20 sessions later and shows the outcomes (`blind replays` stay separate so practice never pollutes your paper book).
 
-## Real holdings
+---
 
-Shares you really own are kept separately under
-[Records → Real holdings](records.md#real-holdings).
+## `m More` → `Accounts` & `Risk`
+
+### Accounts
+Manage multiple accounts (active switching with `Enter`, creating `n`, resetting `R` with automatic safety backup, editing fees/limits `e` cleanly for future orders without rewriting past fills).
+
+![Paper Accounts manager listing DEMO_01 and other paper accounts](images/paper-accounts.png)
+
+### Risk limits & guards
+
+![Paper Risk view showing engine-enforced daily loss and open position caps alongside toggleable guards](images/paper-risk.png)
+
+- **Hard limits (cannot be skipped):**
+  - **Daily loss limit:** Automatically pauses new buys once daily loss hits your cap (`sells` and cancels still work).
+  - **Max open positions:** Blocks opening an 11th holding if your limit is 10.
+- **Guards (toggle with `g`):**
+  - **Stop-loss on every buy:** Refuses buys without a protective stop plan.
+  - **Cap per stock:** Prevents oversized concentration (e.g., `35%` max equity per ticker).
+  - **Pause after a drawdown:** Freezes new buys after a sharp account decline until you resume explicitly.
+
+---
+
+## The Paper order ticket (`B` or `X`): Step-by-step example
+
+Every buy or sell follows a safe three-step funnel: **`1 Edit` → `2 Review` → `3 Result`**.
+
+![Paper order Edit screen buying 300 VCB with stop-loss, target, ATR usual-day comparison, risk sizing, and dated timeline](images/paper-order-edit.png)
+
+### Example: Planning a disciplined buy on `VCB`
+1. Press **`B`** on `VCB` (last `62.10`, ask `62.20`).
+2. **Choose size & price (`THE ORDER`):** Enter `Limit` `62.20` for `300` shares (`lot 100` enforced automatically). Cost with fees: `~18,687,990 ₫`.
+3. **Set protection (`PROTECT IT`):** Set Stop-loss **`60.30`** (`-3.1%`, tucked just under `support 61.20`) and Target **`66.00`** (`+6.1%`). Keep *After it settles* active so `vnt` automatically arms your `SELL stop 60.30` and `SELL limit 66.00` bracket once shares settle on **`Tue 17 Nov 13:00`**.
+4. **Sanity-check the stop (`STOP AGAINST A USUAL DAY`):** Notice `VCB` normally moves `1.8%` (`1.12`) a day. Your stop sits `1.6 usual days` away (past lows went that far down only `4 days in 60`). Warning in amber reminds you: *until `Tue 13:00` shares are unsettled and unprotected*.
+5. **Size safely (`SIZE IT FROM RISK`):** Risking `0.5%` of equity (`2,497,000 ₫`) at stop `60.30` allows up to `1,300` shares — pressing **`r`** fills that size automatically, or stay smaller at `300` shares (`-643,000 ₫` risk = `0.1%` of equity, **`1.7×`** reward-to-risk).
+6. **Review & submit (`Enter`):**
+
+![Paper order Review screen confirming all checks pass and showing final timeline before submission](images/paper-order-review.png)
+
+Read **`CHECKS`** (`all pass`), inspect **`WHAT HAPPENS`** one last time, and press **`Enter`** to submit (`r` refreshes stale quotes/account state if needed).
+
+![Paper order Filled result confirming order #0012, settlement date, and optional journal note box](images/paper-order-result.png)
+
+Once filled, **`3 Result`** lists exact cost, remaining cash, settlement date, and an optional **`WHY YOU BOUGHT`** box (saved straight to your Journal so you can compare your original thesis when the trade closes!).
+
+### When an order cannot go through (`Not accepted`)
+
+If an order hits an exchange or risk rule — for example, trying to sell shares bought yesterday before `T+2 13:00` settlement — `vnt` refuses safely, explains the timeline visually, and offers concrete next steps (`n` set a settlement reminder, `p` pre-save a stop once settled, or `A` adjust the ticket):
+
+![Paper order Not accepted screen explaining Vietnam T+2 settlement lock and actionable recovery keys](images/paper-order-rejected.png)

@@ -1,163 +1,101 @@
 # 8 · Records
 
-**For:** what the app keeps on your computer. Your real holdings,
-dividends, backups, exported files, a health check, sector tags, the theme,
-and information about the app.
+**Purpose:** Manage everything stored privately on your computer — real-world holdings records, dividends and corporate actions, verified database backups, CSV/JSON/HTML exports, feed & calendar Health diagnostics, industry sector tags, colour themes, and legal/about info. **Nothing on Records places orders or sends your data anywhere.**
 
-**Get there:** `F3` then `8`, or `:records`.
+**How to get there:** Press `F3` then `8`, or type `:records`.
 
+## Use cases & user stories
+
+- **Tracking real broker stocks safely alongside research:** *"I hold real shares at a broker and want to see their `vnt` technical grades, support/resistance levels, news, and upcoming dividends — without ever risking an accidental order."* → Import a CSV into **Real holdings** (100% read-only; no broker keys).
+- **Never getting surprised by an ex-dividend drop:** *"My stop triggered unexpectedly because the stock paid a cash dividend overnight."* → Track **Dividends** so ex-dates show up on Today, Daily briefing, and Stock charts ahead of time.
+- **Sharing a clean report or backing up before an upgrade:** *"I want a verified backup of my watchlists and trade journal, plus an HTML report I can open in Chrome or send to a friend."* → Use **Backup** (`b`) and **Save as page (`x`)**.
+
+![Records Home showing Real holdings, Dividends, Backup status, Exports, Health, Sectors, Theme, and About](images/records-home.png)
+
+Notice the clear reminders at the top (`▲ No backup yet` — press **`b`** anytime to back up!) and quick status beside every row (`2027 calendar not loaded`, `3 stocks without sector`, etc.).
+
+---
+
+## 1. Real holdings (`:portfolio real`)
+
+**Purpose:** Keep a private, read-only tracker of shares you actually own at a real broker — completely separate from Paper accounts so you can watch your real stocks' grades, support/resistance levels, dividends, and news in one place.
+
+![Records Real holdings table showing shares, cost, saved value, weight, P&L, grade, and upcoming events](images/records-real-holdings.png)
+
+### Importing from CSV (`i`) — example
+1. Open **Real holdings** and press **`i`**.
+2. Enter the path to your broker/spreadsheet CSV, map columns (`stock`, `shares`, `cost`, `currency`, `as-of date`, `source`), and confirm whether cost prices are in **thousand dong** (`95.00`) or **dong** (`95,000`).
+3. Inspect the dry-run preview (rows added, updated, and any errors flagged inline like fractional shares), press `e` to fix any row, then press **`A`** to save (`Add and update` keeps other holdings intact; `vnt` creates a snapshot first).
+
+![Real holdings CSV import preview flagging invalid rows and showing safe snapshot guarantee](images/records-real-import.png)
+
+**Keys:** `Enter` open stock · `i` import CSV · `e` edit holding · `D` remove · `p` refresh prices · `b` include/exclude in Daily briefing · `h` snapshots · `x` export CSV/JSON.
+
+---
+
+## 2. Dividends & corporate actions
+
+**Purpose:** Track upcoming **ex-dividend dates**, cash payouts (after 5% dividend tax), and bonus share issues across both your **paper** and **real** holdings — and flag price jumps that might be unrecorded corporate actions.
+
+![Records Dividends screen showing upcoming ex-dates, cash/share entitlements, and items to review](images/records-dividends.png)
+
+- **Why ex-dates matter for beginners:** On the **ex-date**, the exchange adjusts the reference price down by roughly the dividend value. A tight stop-loss placed just under yesterday's close can trigger unexpectedly that morning if you didn't check **Dividends** first!
+- Paper accounts credit dividend cash and bonus shares automatically on the ex-date; Real holdings show estimates (`f` fetches VSDC notices; `n` adds manually; `e` edits; `r` shows payouts received this year).
+
+---
+
+## 3. Backup
+
+**Purpose:** Create a verified, standalone copy of your entire local database (`watchlists, alerts, paper accounts, journal, decisions, replays, backtests, real holdings`) without interrupting your session. Existing backups are **never** overwritten.
+
+![Records Backup screen showing backup path, verify check, and 7-day/30-day reminder schedule](images/records-backup.png)
+
+Press **`Enter`** to write a checked backup to `~/vnt/backups/` (`p` chooses another folder; `v` verifies a backup file; `←` `→` toggles the Today reminder between `never`, `every 7 days`, or `every 30 days`).
+
+To restore from backup, close `vnt` first and run in your terminal:
 ```text
-RECORDS  what this app keeps on this computer
-▲ No backup yet. Your watchlists, paper accounts and journal live in one file.   b backs up now
-YOURS
-› Real holdings     No holdings yet · i imports a CSV in Real holdings
-  Dividends         2 to review · next: HDB cash 1,000 ₫ a share on Tue 17 Nov
-KEEPING IT SAFE
-  Backup            none yet                                       reminds every 7 days
-  Exports           1 file · last: journal CSV on Thu 12 Nov
-THE APP
-  Health            Not checked yet
-  Sectors           94 stocks tagged · 1 of yours has no sector
-  Theme             Light
-  About             what the app is, your data, the terms
+vnt backup verify FILE
+vnt backup restore FILE NEW.db
+vnt --db NEW.db
 ```
+*(Logs, experimental agent portfolios, and separate model spend files live outside the main SQLite database — copy those manually if needed.)*
 
-`↑` `↓` and `Enter` open a row; `b` backs up now. Nothing on this page is
-sent anywhere.
+---
 
-## Real holdings
+## 4. Exports & Saving as a standalone HTML page
 
-Shares you really own, kept as your own records. **No broker checks them,
-and nothing here places an order.** They are separate from paper accounts.
+**Purpose:** Export your trades, notes, or full data out of `vnt` as portable **CSV**, **JSON**, or self-contained **HTML pages** you can open in any web browser (`~/vnt-exports`).
 
-**Get there:** Records → Real holdings, or `:portfolio real`.
+![Records Exports manager listing written CSV/JSON/HTML exports and bundle options](images/records-exports.png)
 
-```text
-2 holdings · 35,000,000 ₫ shown · unrealized +1,000,000 ₫
-  STOCK   QTY    COST    LAST    VALUE ₫     WEIGHT   P&L ₫      %      GRADE  COMING UP
-› FPT     100    95.00   100.00  10,000,000  28.6%    +500,000   +5.3%  C      —
-```
+On chart and report pages (such as **Backtest**, **Replay**, or **Trade review**), pressing **`x`** lets you save a clean **single-file HTML report**:
 
-Values use saved daily closes. The panel below links the holding to the
-rest of the app: its grade and levels, whether the briefing includes real
-holdings, alerts on the stock, and agent sessions.
+![Save export screen writing a standalone static HTML Trade review page](images/records-export-html.png)
 
-**Import a CSV** with `i`. Type the file path, match the columns (stock,
-shares, cost, currency, as-of date, source) and confirm the cost unit
-(thousand dong or dong). The preview shows rows to add, update and reject;
-`A` reviews the change and `y` saves it. Every import keeps a snapshot.
+Files stay 100% offline on disk (`o` reveals the file in your file manager, `c` copies its path, `D` deletes it).
 
-| Key | Does |
-|---|---|
-| `Enter` | Open the stock |
-| `i` | Import a CSV |
-| `e` | Edit a record |
-| `D` | Remove a record (review first) |
-| `p` | Refresh prices now; `Ctrl+X` cancels |
-| `b` | Include real holdings in the daily briefing |
-| `h` | Saved snapshots; `r` restores one after a review |
-| `x` | Export holdings, the last import receipt, or a snapshot (CSV or JSON) |
+---
 
-## Dividends
+## 5. Health (`vnt doctor`)
 
-Cash dividends and share issues for stocks you hold, in paper and real.
+**Purpose:** One-stop diagnostics checking your SQLite database, exchange calendar coverage, last backup age, live connection & latency to all four public market feeds (`VPS`, `Entrade`, `KBS`, `CafeF RSS`), agent status, and terminal capabilities.
 
-```text
-COMING · 2
-  EX-DATE     STOCK  WHAT                            YOU HOLD            YOU WOULD RECEIVE
-  Thu 26 Mar  VCI    7 new shares for every 20 held  95 paper · 95 real  paper 33 · real 33 new shares
-› Thu 26 Mar  VCI    cash 250 ₫ a share              95 paper · 95 real  paper 22,562 ₫ · real 22,562 ₫
-```
+![Records Health diagnostics showing local data checks, public feed response times, and terminal status](images/records-health.png)
 
-- **Ex-date.** Buy before this date to receive the dividend. On the
-  ex-date the reference price falls by about the dividend, so a stop just
-  under the old price can fill that morning.
-- **You would receive** is shares × amount after the 5% tax on cash
-  dividends, rounded down for new shares.
-- Paper accounts are credited on the ex-date. Real holdings are estimates.
-- **To review** lists events that need you to confirm or correct them.
+Each row marks **`ok`** or **`look`** with the exact fix (`r` re-tests feeds, `x` exports diagnostics).
 
-| Key | Does |
-|---|---|
-| `n` | Type in a new event |
-| `e` | Correct an event |
-| `f` | Fetch notices from VSDC |
-| `r` | Events received this year |
+---
 
-## Backup
+## 6. Sectors & Theme & About
 
-A checked copy of the app's data file, written to a new file. An existing
-file is never replaced.
+- **Sectors:** Shows how many stocks carry industry sector tags (`vnt sectors import` loads bundled tags or your custom CSV) — powering the Market **Sector heat map (`H`)** and Paper sector concentration checks.
 
-| In the copy | Not in the copy |
-|---|---|
-| Watchlists, alerts, paper accounts, journal and notes, decisions, replays, backtests, real holdings | Logs, agent portfolios, model spend records (separate files; copy them yourself) |
+![Records Sectors page showing tagged stock count and missing sector alerts](images/records-sectors.png)
 
-`Enter` backs up now to `~/vnt/backups/`; `p` chooses another place. The
-app keeps running, and the copy is checked before the file appears.
-**Remind me** (`←` `→`) sets a reminder on Today: never, every 7 days or
-every 30 days. `v` verifies a backup file.
+- **Theme:** Pick **Light**, **Dark**, or **Auto-detect** terminal background plus **Standard**, **Vietnam board** (purple ceiling / cyan floor / amber reference), or **Colour-blind safe** colours (`Enter` applies immediately and remembers across restarts).
 
-To restore, close the app and run in a terminal:
+![Records Theme picker choosing terminal background and directional color palette](images/records-theme.png)
 
-```text
-vnt backup verify FILE            check a copy; read-only
-vnt backup restore FILE NEW.db    restore to a new file
-vnt --db NEW.db                   open the restored file
-```
+- **About:** Summarizes what data stays local vs public feeds, lets you read `TERMS.md`, `THIRD_PARTY_NOTICES.md`, `SUPPORT.md`, and `SECURITY.md`, opens your data folder (`d`), and exports a sanitized bug-report summary (`x`) containing zero account details.
 
-## Exports
-
-Files the app wrote, in `~/vnt-exports`.
-
-| Choice | Writes |
-|---|---|
-| Everything of mine | Trades, notes, decisions, holdings and dividends in one folder |
-| My trades for a year | Every fill with its fee and sell tax, one row per fill |
-| One page | Press `x` on any page to export what it shows |
-
-Pages that show a chart or report can also save one HTML file you can open
-in a browser. `o` shows a file in its folder, `c` copies the path, `D`
-removes the file. Nothing is uploaded.
-
-## Health
-
-Is everything working?
-
-| Group | Checks |
-|---|---|
-| The data you rely on | The data file, saved daily prices, the briefing snapshot, dividends, the exchange calendar, the last backup |
-| Public feeds | Live prices (VPS), daily bars (Entrade), trades (KBS), news (CafeF RSS), each with its response time |
-| The agent | Auto paper sessions and the model request log |
-| This computer | Terminal size and colours, theme |
-
-Each line says `ok` or `look` with what to do. `r` checks again: it
-contacts the four public feeds and nothing else. These are the same checks
-as `vnt doctor`. `x` exports the page.
-
-## Sectors
-
-How many stocks have a sector tag, and which of yours have none. Sector
-tags drive the heat map and sector weights. `vnt sectors import` loads the
-bundled tags or your own CSV.
-
-## Theme
-
-Background (light, dark or auto-detect) and the colours for up and down.
-See [Getting started](getting-started.md#themes-and-colours). `Enter`
-applies at once and is saved for the next start.
-
-## About
-
-What the app is, where your data lives and the terms.
-
-- **Your data.** Accounts, orders, notes, real holdings and decisions stay
-  on this computer. Prices, news and company events come from public feeds
-  with no account or key. Data goes out only for a model request you agree
-  to.
-- **Documents.** Terms, third-party notices, support and security, readable
-  with `Enter`.
-- `d` opens the data folder; `m` opens the model log; `x` saves a report
-  for a bug note: version, terminal size and Health, with no account data.
-
-Report problems at the issues page linked there.
+![Records About screen summarizing local data boundaries, legal documents, and bug-report export](images/records-about.png)
