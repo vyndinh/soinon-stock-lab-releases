@@ -1,112 +1,99 @@
 # 4 · Find
 
-**Purpose:** Discover stocks worth studying — either using **free, built-in quantitative Ideas**, picking your own **technical signals**, or (optionally) typing what you want in **plain English** and checking the exact rule before running.
+**Purpose:** Scan local saved daily bars across `VN30`, `VN100`, your watchlists, or custom ticker lists to discover stocks worth studying — using **6 free built-in quantitative Ideas**, custom **Pick signals**, or an optional plain-English **Describe** translator that always shows its exact rules before scanning.
 
-**How to get there:** Press `F3` then `4`, or type `:find`.
-
-Find has four tabs: **`Ideas`**, **`Describe`**, **`Pick signals`**, and **`Results`**. Find scans **saved daily bars locally** on your computer and never places orders or modifies watchlists unless you ask.
-
-## Use cases & user stories
-
-- **Finding bounce setups in 10 seconds:** *"I don't know technical formulas yet, but I want VN100 stocks that recently pulled back close to historical support."* → Open **Ideas** and press `1` (*Oversold near support*).
-- **Catching institutional accumulation & breakouts:** *"I want stocks breaking above their 20-day high **and** seeing 5 consecutive days of foreign buying."* → Tick **Breakout** + **Foreign buying** in **Pick signals**, choose `< all ticked >`, and press `R`.
-- **Describing a scan safely:** *"I want to ask in plain English without leaking my holdings or running mysterious filters."* → Type your phrase, read the **First-request consent**, verify the exact numeric mapping in **Check the filter**, and scan locally.
+> Find runs **locally** on saved daily bars and **never** places orders or edits your watchlists unless you ask.
 
 ---
 
-## 1. Ideas (free, best place for beginners)
+## Use cases & user stories (Benefits)
 
-**Purpose:** Run proven, transparent filters with one keystroke — zero setup and zero cost.
+- **Finding bounce candidates fast without memorizing formulas:** *"I'm new to indicators and want to find liquid `VN100` stocks that have pulled back sharply right above historical support."* → Use **Idea 1** (*Oversold near support*).
+- **Combining multiple confirmations cleanly:** *"I only want stocks breaking above a 20-day high **with** 5 straight days of foreign investor buying."* → Combine **Breakout** + **Foreign buying** under **Pick signals** using *All ticked*.
+- **Plain-English search without hidden AI magic:** *"Let me type what I'm looking for in words, but prove to me exactly how my words became numeric filters — and keep my portfolio private."* → **Describe** asks first, shows a 1-to-1 translation table, and runs the filter purely locally.
+
+---
+
+## 1. Ready-made Ideas (Best place for beginners, 100% free)
 
 ![Find Ideas tab showing 6 ready-made ideas, universe picker, natural-language box, and matched results](images/find-ideas.png)
 
-### The 6 ready-made ideas
+### The 6 built-in ideas
 
-| Key | Idea | Exact filter rule | Typical use |
-|---|---|---|---|
-| `1` | Oversold near support | `RSI14 < 30` and within `2%` above support | Look for stretched pullbacks near buyers' memory levels |
-| `2` | Grade moved up this week | Daily grade today > grade 5 sessions ago | Catch stocks shifting from weak to improving |
-| `3` | Foreign buying, 5 days | Net foreign buying on every one of the last 5 sessions | Spot steady institutional accumulation |
-| `4` | Breaking a 20-day high | Close > prior 20-day high on volume `> 1.5×` average | Spot fresh breakouts with volume backing |
-| `5` | Strong trend, pulling back | `ADX14 > 25` and close within `2%` of `MA20` | Spot healthy pullbacks inside established uptrends |
-| `6` | My stocks with a warning | Watched/held stocks with a bearish signal today | Risk check across your own stocks |
+| Idea | Exact filter rule | What kind of setup it finds |
+|---|---|---|
+| **1 · Oversold near support** | `RSI14 < 30` and close within `2%` above support | Stretched pullbacks resting close to buyers' prior floor |
+| **2 · Grade moved up this week** | Daily grade today higher than 5 sessions ago | Stocks shifting out of weakness into improving factors |
+| **3 · Foreign buying, 5 days** | Positive foreign net buying on each of the past 5 days | Steady multi-session institutional accumulation |
+| **4 · Breaking a 20-day high** | Close above prior 20-day high on volume `> 1.5×` average | Fresh breakout backed by above-average participation |
+| **5 · Strong trend, pulling back** | `ADX14 > 25` and close within `2%` of `MA20` | Healthy pullbacks inside established trends |
+| **6 · My stocks with a warning** | Held or watched stocks showing a bearish signal today | Quick risk check across your own symbols |
 
-### Example: scanning VN100 for oversold stocks near support
-1. Open Find (`F3` → `4`).
-2. Press `←` `→` on **`Search in`** to pick **`VN100`** (or `VN30`, a watchlist group, or custom symbols).
-3. Press **`1`** (*Oversold near support*).
-4. Instantly, the lower table lists matching stocks (for example `FPT`: `RSI14 19.0 · 0.4% above support 52.50`, `VHM`, `KDH`, `VIX`) with 5-day foreign flow and a tag telling you if you already watch or hold each stock.
-5. Press `Enter` to open `FPT`'s Stock page, `a` to add it to a watchlist, `n` to set an alert, or `e` to read why it matched.
+### Example: finding `VN100` bounce setups
+In the screenshot above, searching **`VN100`** with **`Oversold near support`** returns 4 matches (`FPT`, `VHM`, `KDH`, `VIX`), showing each stock's **Grade**, **Close**, **5-day foreign flow**, **why it matched in plain words** (`RSI14 19.0 · 0.4% above support 52.50`), and whether you already watch or hold it (`held 500`).
 
 ---
 
-## 2. Describe (plain-English query, optional paid model)
+## 2. Describe (Optional plain-English translator, asks first)
 
-**Purpose:** Translate an English question into a clean, verifiable local filter — while **showing you the exact translation** before running anything.
+Type a plain-English request such as *"HOSE banks with RSI14 under 35"*.
 
-Type a request into the **`OR SAY IT`** box on Ideas (or switch to **Describe**), for example:
-> `HOSE banks with RSI14 under 35`
-
-On your **very first request**, `vnt` pauses with a **First-request consent screen** listing exactly what leaves your computer (your text, available field names, sector list) and what **never** leaves (your holdings, notes, prices, API keys). You must press `y` to proceed (`:find off` revokes consent anytime).
+### Privacy consent & numeric verification
+On your very first Describe request (when an API key is configured), `vnt` pauses to show **exactly what goes out** (your text, field names, sector names) vs **what never leaves your computer** (holdings, notes, prices, keys):
 
 ![Find Describe first-request consent screen listing exactly what leaves your machine and what stays local](images/find-describe-consent.png)
 
+Once approved, the model proposes rules — and **`CHECK THE FILTER`** displays your words beside the exact translated conditions so you can verify everything before running locally:
+
 ![Find Describe filter preview translating plain English into exact numeric criteria before running](images/find-describe-preview.png)
 
-Before scanning a single bar, **`CHECK THE FILTER`** lays out your words on the left against the exact numeric conditions on the right (`EXCHANGE = HOSE`, `SECTOR = Banks`, `RSI14 < 35`), plus any warnings. Press **`Enter`** to execute the scan **locally on your computer** (`d` views raw rule details, `Esc` edits your wording).
-
-If no API key is configured, Describe stays harmlessly unavailable while **Ideas** and **Pick signals** work 100% free.
+*(No model key? Describe politely steps aside while **Ideas** and **Pick signals** run 100% free.)*
 
 ---
 
-## 3. Pick signals (free custom signal builder)
+## 3. Pick signals (Custom scanner, 100% free)
 
-**Purpose:** Combine classic bullish ("Lean up") and bearish ("Lean down") signals yourself without writing code or calling a model.
+Tick any combination of **Lean up** (bullish) and **Lean down** (bearish) signals, choose whether stocks must satisfy **any ticked** or **all ticked** rules, and optionally save frequent setups as reusable custom Ideas:
 
 ![Find Pick signals tab showing two-column bullish and bearish checkboxes](images/find-pick-signals.png)
 
 | Lean up signals | Lean down signals |
 |---|---|
-| **Oversold:** `RSI14` under `30` | **Overbought:** `RSI14` over `70` |
-| **Breakout:** close above prior 20D high, volume `> 1.5×` | **Breakdown:** close below prior 20D low, volume `> 1.5×` |
+| **Oversold:** `RSI14 < 30` | **Overbought:** `RSI14 > 70` |
+| **Breakout:** close > prior 20D high, volume `> 1.5×` | **Breakdown:** close < prior 20D low, volume `> 1.5×` |
 | **Golden cross:** `MA20` crossed above `MA50` | **Death cross:** `MA20` crossed below `MA50` |
-| **Volume surge:** `2×` 20D average on an up day | **Volume surge:** `2×` 20D average on a down day |
-| **Foreign buying:** net bought 5 consecutive sessions | **Foreign selling:** net sold 5 consecutive sessions |
-
-### How to run a combo scan
-1. Use `↑` `↓` to move and **`Space`** to tick signals (for instance tick **Breakout** + **Foreign buying**).
-2. Choose **`Match`**: `< all ticked >` (strict: both must trigger) or `< any ticked >` (broad: either triggers).
-3. Choose **`Search in`** (`VN100`, `VN30`, watchlist group, or typed codes).
-4. Press **`R`** to run locally, or **`s`** to save your combination as a custom reusable Idea!
-5. Press **`m`** to adjust the history lookback (default `90` days) or scan time limit (default `30` seconds).
+| **Volume surge:** `2×` 20D avg on an up day | **Volume surge:** `2×` 20D avg on a down day |
+| **Foreign buying:** net bought 5 sessions | **Foreign selling:** net sold 5 sessions |
 
 ---
 
-## 4. Results (`Tab` / `Shift+Tab`)
+## 4. Results & Freshness checks
 
-**Purpose:** Inspect, filter, sort, and export every match with its **support/resistance context** shown right under the selected row.
+**Results** shows every matching stock with **directional lean counts** (`▲ up 1`), a word explanation of why it matched, and a visual **`support ├──────●──┤ resistance`** gauge underneath:
 
 ![Find Results tab showing stocks checked, directional lean counts, matched signal explanations, and support/resistance gauge](images/find-results.png)
 
-### Reading a Result row
-Look at `ABC` highlighted in the screenshot:
-- **Header:** `+ Finished · 1 of 1 checked · 1 lean up · 0 lean down · 0 mixed` plus the **bar date** used (`as of ...`) so you never mistake old saved bars for today's live market.
-- **`LEANS` (`▲ up 1`):** Counts how many bullish vs bearish signals triggered.
-- **`SIGNALS, IN WORDS`:** Explains *why* it matched (`Close 21.50 above prior 20-day high 20.26 · volume 3.5×`).
-- **`Context` gauge:** `support 21.00 ├──────────────●──┤ 21.60 resistance` places price visually between nearest support and resistance.
-
-If you change parameters or update bars after a run, Find clearly warns when results are **out of date** and lets you press `R` to rerun cleanly:
+If you change the universe or settings after a scan finishes, Find clearly flags results as **out of date** so you never mistake old matches for current rules:
 
 ![Find Results out of date warning showing changed settings before rerunning](images/find-results-stale.png)
 
-### Keys on Results
+---
+
+## How to open and run Find (Controls)
+
+Open **Find** via `F3` → `4` or `:find` (CLI equivalent: `vnt scan`).
 
 | Key | Action |
 |---|---|
-| `Enter` | Open the selected stock's **Stock** page |
-| `a` | Add the stock to a watchlist |
-| `n` | Set a price alert on the stock |
-| `e` | Read full signal details / score context |
-| `f` / `s` | Filter / sort matched rows |
-| `R` | Run the scan again |
-| `x` | Export the results to `~/vnt-exports` (CSV/JSON) |
+| `1`–`6` (on Ideas) | Select/run a ready-made Idea |
+| `←` `→` | Change **`Search in`** (`VN100`, `VN30`, watchlist group, or `u` typed codes) or **`Match`** |
+| `Tab` / `Shift+Tab` | Move into the `OR SAY IT` box / cycle across `Ideas`, `Describe`, `Pick signals`, `Results` |
+| `Space` (on Pick signals) | Tick / untick a signal |
+| `R` | Run (or rerun) scan locally on saved daily bars |
+| `s` (on Pick signals) | Save checked signals as a custom Idea |
+| `m` (on Pick signals) | Configure lookback window (default `90` days) & time limit (`30s`) |
+| `Enter` (on a match) | Open that stock's full **Stock** page |
+| `a` / `n` / `e` | Add match to watchlist / set price alert / inspect full signal details |
+| `f` / `s` (on Results) | Filter / sort results |
+| `x` | Export results to `~/vnt-exports` |
+| `y` / `:find off` | Confirm first-request Describe consent / withdraw consent |

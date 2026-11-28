@@ -1,122 +1,117 @@
 # Getting started
 
-This chapter walks you through installing Soinon Stock Lab (`vnt`), reading its 3-part screen layout, moving between the eight places, searching Help, running typed commands, and choosing colours.
+This chapter introduces Soinon Stock Lab (`vnt`): how every screen is organized, how Vietnamese prices and volumes are written, how the eight workspaces fit together, and how the app helps newcomers safely explore without accidentally placing orders or spending money.
+
+*(If you want to launch right away, skip to [How to install, open, and navigate](#how-to-install-open-and-navigate-keys) at the bottom after skimming the screens.)*
+
+---
 
 ## Use cases & user stories
 
-- **No-stress onboarding (Newbie):** *"I just opened `vnt` for the first time and don't want to break anything or accidentally send data out."* → Press `F3` then **`g`** to open **Get started**, which lists 5 safe goals with exact privacy and cost labels before opening anything.
-- **Fast switching while watching quotes:** *"I'm looking at `VCB` on the board and want to jump straight to `FPT`'s chart, then my Paper orders, without clicking through menus."* → Press `F3`, type `FPT` + `Enter`, then `F3` + `5`.
-- **Safe command typos:** *"I forgot the exact syntax to set a price alert on `FPT`."* → Type `:alrt fpt 54` — the command bar suggests `:alert FPT above 54.00` and waits for your confirmation.
+- **Safe zero-risk first look (Newcomer):** *"I just installed `vnt` and don't want to make a mistake, spend model credits, or accidentally submit anything."* → Open **Get started**, which shows 5 beginner goals along with exactly what data each uses, whether anything leaves your computer, and whether it costs `$0`.
+- **Clean consistent layout across every screen:** *"Every financial app feels overwhelming because every page hides buttons in different places."* → Every screen in `vnt` follows one predictable **header → title/tabs → body → footer** structure.
+- **Forgiving commands:** *"What if I want a quick shortcut later but misspell a stock action?"* → The **Command bar** suggests exact corrections and previews why before running anything.
 
-## What you need
+---
 
-- A terminal with 256 colours: macOS Terminal, iTerm2, WezTerm, Ghostty, Alacritty, or Windows Terminal.
-- A window of at least **80 columns × 24 rows**. Every page adapts cleanly between **80×24** (compact) and **120×32** (wide). Wider windows reveal extra columns and longer hints.
-- An internet connection when you want **live quotes**, fresh daily bars, intraday trades, or news. Everything reading already-saved data works offline.
+## How every screen is organized
 
-## Install and first launch
+Every screen in `vnt` shares the same three zones:
 
-Download the archive for your computer from the [download page](https://vyndinh.github.io/soinon-stock-lab-releases/), verify its SHA-256 checksum, extract it, and open a terminal inside that folder.
+1. **Top status bar (Market & Account Header):**
+   - App name (`Soinon Stock Lab`)
+   - Exchange status and Vietnam clock (`● CONTINUOUS 10:42:06` while trading, or `○ CLOSED`, `○ PRE-OPEN`, `ATO`, `LUNCH`, `ATC`)
+   - Broad market indices (`VNI`, `VN30`)
+   - Active paper account badge on the right (`▌PAPER DEMO_01` or `STUDY · no orders`)
+2. **Place bar & Tabs:** Names the workspace you are in (`TODAY`, `STOCK · VCB`, `PORTFOLIO · DEMO_01`), shows sibling tabs with the open tab inside `[brackets]`, and draws one clean horizontal rule underneath.
+3. **Bottom footer bar:** Names the active mode on the left, lists only actions available right now on this screen, keeps full help one keypress away (`? all keys`), and pins the exit/back control to the right edge.
+
+> **Reading Vietnamese prices and numbers in `vnt`:**
+> - **Stock prices use thousand dong (`kVND`):** `62.30` means **62,300 ₫** per share.
+> - **Cash & profit/loss use full dong with commas:** `144,879,575 ₫`.
+> - **Share volumes use `K` and `M`:** `4.6M` means 4.6 million shares.
+> - **Accessibility:** Directional moves always show arrows (`▲` up, `▼` down), so meaning never relies on colour alone.
+
+---
+
+## Core onboarding & navigation screens
+
+### 1. The 8 Workspaces (`Go to` menu)
+**Purpose:** Group the entire app cleanly into eight distinct places so you always know where to go — whether watching live prices, inspecting one stock, testing ideas on past data, or managing private backups.
+
+![Go to menu listing the 8 main workspaces in Soinon Stock Lab](images/go-to-places.png)
+
+| Workspace | Purpose |
+|---|---|
+| **1 · Today** | Calm daily starting screen: highlights holdings near stops/resistance, your paper book, agent alerts, upcoming ex-dates, and suggested next actions. |
+| **2 · Market** | Live multi-panel watchlist board, sector heat map, compact screener, news, foreign flow, alerts, and daily review briefing. |
+| **3 · Stock** | Full single-stock workbench: Summary, interactive Chart, Order book, Technicals & Grade breakdown, Trades tape, and local Backtest preview. |
+| **4 · Find** | Stock scanner with 6 free ready-made quantitative Ideas, custom signal picker, and optional plain-English Describe scans. |
+| **5 · Paper** | Simulated portfolio workbench: Overview, Positions, Orders & Drafts, Trade Journal, Performance & Trade review, Risk guards, and Accounts. |
+| **6 · Lab** | Historical learning sandbox: Backtest 4 rules, blind day-by-day Replay, blind Chart study, Guided practice, Agent practice, and Grade check. |
+| **7 · Agent** | Optional automated assistant: run rule-based or AI Auto paper sessions inside strict limits, approve/decline proposals, and review Lessons. |
+| **8 · Records** | Local private records: Real holdings CSV tracker, Dividends, SQLite Backups, CSV/JSON/HTML Exports, Feed Health, Sectors, Themes, About. |
+
+---
+
+### 2. Guided onboarding (`Get started`)
+**Purpose:** Give beginners five safe starting workflows with plain-English privacy and cost disclosures before doing anything.
+
+![Get started checklist showing five beginner tasks, data used, privacy, and cost](images/get-started.png)
+
+Notice each row clearly states **what you get**, **what local data it reads**, **whether anything leaves your machine**, and **cost** (`free` vs `model asks first`), and automatically ticks off goals as you try them.
+
+---
+
+### 3. Contextual reference (`Help`)
+**Purpose:** Instant built-in reference scoped automatically to whichever screen you currently have open, plus searchable **Tasks** and exact recovery commands for your open database.
+
+![Help screen with live search input, section tabs, and beginner task list](images/help.png)
+
+---
+
+### 4. Quick actions (`Command bar`)
+**Purpose:** Run direct jumps, set alerts, or run exports by typing — with smart typo correction and explanation before executing anything.
+
+![Command bar suggesting a corrected alert command from misspelled input](images/command-bar.png)
+
+For example, typing `:alrt fpt 54` suggests `:alert FPT above 54.00`, explains why it chose `above` relative to the current quote, and waits cleanly until you confirm.
+
+---
+
+## Themes & visual comfort
+
+Under **Records → Theme**, `vnt` adapts to both **Light** and **Dark** terminals (or auto-detects your terminal background), and lets you choose between:
+- **Standard** (green up, red down)
+- **Vietnam board** (adds **purple** for ceiling lock, **cyan** for floor lock, **amber** for reference price — familiar to Vietnamese exchange boards)
+- **Colour-blind safe** (blue up, orange down)
+
+---
+
+## How to install, open, and navigate (Keys)
+
+Once you are ready to run `vnt`, download the archive for your OS from the [download page](https://vyndinh.github.io/soinon-stock-lab-releases/), verify its SHA-256 checksum, extract it, and run from a terminal at least **80×24** (or **120×32** for wide two-column views):
 
 ```text
 ./vnt version     prints the installed version
-./vnt doctor      checks your local database and the public market feeds
-./vnt             opens the app on Today (or Get started on first launch)
+./vnt doctor      checks your local database and public market feeds
+./vnt             opens the app on Today (or Get started on first run)
 ```
 
-On Windows use `.\vnt.exe`. Current prerelease binaries are unsigned; if your OS blocks launch, do not disable security protection — report it via the support link under **Records → About**.
+*(On Windows use `.\vnt.exe`. Pass `--db PATH` to open a separate database for experiments.)*
 
-The first launch creates a SQLite database file in your system's application-data folder. Pass `--db PATH` to use a separate database file (handy if you want a clean sandbox for testing).
-
-## How every page is laid out
-
-Every screen in `vnt` uses the same three zones:
-
-1. **Top status line (Header)** — App name, market session state (`● CONTINUOUS 10:42:06` while open, `○ PRE-OPEN`, `ATO`, `LUNCH`, `ATC`, or `○ CLOSED` after hours) in Vietnam time (ICT), major indices (`VNI`, `VN30`), and on the right your active paper account (`▌PAPER DEMO_01`).
-2. **Place bar & tabs** — Shows which of the eight places you are in (`TODAY`, `STOCK · FPT`, `FIND`, etc.), tabs when the page has multiple views (the open tab sits in `[brackets]`), and one horizontal divider rule.
-3. **Bottom footer** — Mode badge on the left, the most useful keys for **this exact screen** (`key` first, action second), `? all keys` for full help, and the exit/back key (`Esc back`, `Esc/q close`, or `q quit`) pinned to the right edge.
-
-> **Newbie tip on reading prices and numbers:** Stock prices are always shown in **thousand dong (kVND)** — so `62.30` means **62,300 ₫** per share. Cash totals use commas and end with `₫` (`144,879,575 ₫`). Share volumes use `K` (thousands) and `M` (millions), so `4.6M` means 4.6 million shares.
-
-## Moving between the 8 places (`Go to`)
-
-Press **`F3`** (or backtick `` ` ``) from almost anywhere to open **Go to**.
-
-![Go to places menu showing all 8 places and quick status](images/go-to-places.png)
-
-Press a number `1`–`8` to jump straight there:
-
-| Key | Place | What you use it for |
-|---|---|---|
-| `1` | Today | Morning dashboard: stocks near key levels, your paper book, agent alerts, suggested next actions |
-| `2` | Market | Live watchlist board, groups, news, foreign flow, screener, sector heat map, alerts, daily briefing |
-| `3` | Stock | Deep dive on one stock: Summary, Chart, Order book, Technicals, Trades, local Backtest |
-| `4` | Find | Scan for stocks using ready-made Ideas, plain-English Describe queries, or picked technical signals |
-| `5` | Paper | Practice portfolio: Overview, Positions, Orders & drafts, Journal, Performance, Review, Risk guards |
-| `6` | Lab | Historical testing & practice: Backtest 4 rules, blind Replay, blind Chart study, Guided practice, Grade check |
-| `7` | Agent | Watch an automated rule/model trade a paper account inside strict limits, approve proposals, review lessons |
-| `8` | Records | Local data & settings: real holdings CSV import, dividends, SQLite backups, exports, feed Health, Sectors, Theme |
-
-**Shortcut trick:** In **Go to**, you can also type any stock code (such as `FPT` or `VCB`) and press `Enter` to jump straight to that stock's page! *(Note: lowercase `g` opens **Get started**, so start a ticker like `GEX` with a capital `G` or type `GE`.)*
-
-If you are mid-edit inside a form or order ticket, pressing `F3` displays `Finish or Esc first` so you never lose unsaved input.
-
-### Universal navigation keys
+### Essential navigation controls
 
 | Key | Action |
 |---|---|
+| `F3` or `` ` `` | Open **Go to** (then press `1`–`8` for a workspace, `g` for **Get started**, or type a stock code like `FPT` + `Enter`) |
 | `↑` `↓` | Move selection up / down a list |
-| `Tab` / `Shift+Tab` | Move to the next / previous tab or panel |
-| `Enter` | Open the selected item or confirm an action |
-| `Esc` | Go back one screen (or clear an active filter / crosshair) |
-| `F2` | Open the selected stock's page from almost anywhere, or return |
-| `?` or `F1` | Open Help for the current screen |
-| `:` | Open the command bar |
-| `q` | Quit (from Today or Market board; asks first if you hold unsaved drafts) |
+| `Tab` / `Shift+Tab` | Move between tabs or panels |
+| `Enter` | Open the highlighted item or confirm |
+| `Esc` | Step back (or cancel crosshair / filter without saving) |
+| `F2` | Open the highlighted stock's full **Stock** page (or go back) |
+| `?` or `F1` | Open **Help** (`←` `→` switch sections, `/` searches words, `Tab` selects tasks) |
+| `:` | Open the **Command bar** (`Tab` edits a suggestion, `↑` recalls history, `Enter` runs) |
+| `q` | Quit from Today or Market board (asks first if an unsaved draft exists) |
 
-## Get started (`g`)
-
-Press `F3` then **`g`** (or type `:guide`) to open **Get started** — five guided first steps showing what each workflow gives you, what data it uses, whether anything leaves your computer, and whether it costs money.
-
-![Get started checklist showing five safe beginner tasks](images/get-started.png)
-
-Press `1`–`5` and `Enter` to open any goal. As you complete tasks in the app (such as opening a stock, viewing a briefing, or running Find), rows tick off automatically. Nothing on **Get started** places orders or calls paid models.
-
-## Help (`?` or `F1`)
-
-Press **`?`** (or `F1`) over any page to open **Help**. It automatically highlights the section matching where you came from.
-
-![Help screen with live search, section tabs, and task list](images/help.png)
-
-- Use `←` `→` to browse sections (`Board`, `Chart`, `Find`, `Paper`, etc.) and `↓` to scroll into full shortcut tables.
-- Press `/` to search across every key, command, and task (`every word must match`).
-- Press `Tab` to move through **Tasks** (plain-English how-tos like *Understand one stock* or *Back up my data*), then `Enter` to jump straight to that feature.
-- The **Support** section prints exact `vnt doctor`, `vnt backup verify`, and `vnt backup restore` commands pre-filled with your open database path.
-
-## The command bar (`:`)
-
-Press **`:`** from any screen to open the command bar at the top/bottom prompt. It shows matching commands and parameters as you type, and recalls history with `↑` `↓`.
-
-![Command bar with smart typo suggestion and preview](images/command-bar.png)
-
-Useful commands to try:
-
-```text
-:brief            open the Daily briefing
-:history FPT      view saved daily OHLCV bars and notes for FPT
-:alert FPT above 54   set a price alert (accepts natural typos!)
-:backtest         open the Lab backtest workbench
-:replay new       start a new blind Replay practice session
-:portfolio real   open Records → Real holdings
-:backup           save a verified SQLite backup copy
-```
-
-**Beginner-friendly safety:** If you mistype a command (for example `:alrt fpt 54` as shown in the screenshot), `vnt` suggests the clean command (*`:alert FPT above 54.00`*), explains why it chose "above" relative to the last quote, lets you press `Tab` to tweak it, and waits for `Enter` before executing.
-
-## Themes and accessibility
-
-Open **Records → Theme** (`F3` → `8`, select `Theme`) to pick:
-- **Background:** `Light`, `Dark`, or `Auto-detect` (follows your terminal background).
-- **Up/down colours:** Standard (green up / red down), **Vietnam board** (adds purple for ceiling, cyan for floor, amber for reference price), or **Colour-blind safe** (blue up / orange down).
-
-Every directional number also renders `▲` or `▼` arrows, so meaning never depends on colour alone.
+*Note: Letter keys are case-sensitive (`a` adds a stock, `A` opens Alerts), and `F3` safely asks you to finish or `Esc` if you have unsaved edits in a form or order ticket.*

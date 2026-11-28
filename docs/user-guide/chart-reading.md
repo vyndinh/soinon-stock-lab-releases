@@ -1,158 +1,171 @@
-# Reading charts & technical analysis (beginner guide)
+# Reading charts & technical analysis (Beginner guide)
 
-If you have never read a stock chart before, all the lines, bars, and acronyms (`MA20`, `RSI14`, `MACD`, `ATR14`) can look intimidating. This guide explains **every technical concept used in Soinon Stock Lab (`vnt`)** in plain English, how to spot common traps, and where to see each indicator in the app.
+If you have never read a stock chart before, candlesticks, moving averages, volume bars, and acronyms like `MA20`, `RSI14`, `MACD`, `OBV`, `ADX14`, and `ATR14` can look confusing. This guide teaches the **core technical analysis theory behind `vnt`'s charts and scorecards** in plain English, using concrete market logic and common beginner traps to avoid.
 
-> **Golden rule of technical analysis:** Indicators and chart shapes **summarize past prices and volume**. They help you organize risk, spot stretched moves, and place logical stop-losses — they are **never** guarantees of what happens next.
+> **Golden rule of technical analysis:** Indicators, patterns, and grades **describe past prices and volume**. They help you read market structure, spot stretched moves, and place logical stop-losses — they **never** guarantee future prices.
 
 ---
 
-## 1. Reading a candlestick (`Chart` tab)
+## 1. Price structure: Trends, Swings & Support/Resistance
 
-Each vertical bar on the `Chart` tab represents one time period (**1 day** on the daily chart `4`, **1 week** on `W`, or **1m / 5m / 15m** intraday):
+Before looking at any indicator, look at **price itself**. Prices rarely move in straight lines — they move in waves (**swings**).
 
+### How trends work (Higher Highs vs Lower Lows)
 ```text
-   │   ← Upper wick (highest price buyers reached, then pulled back)
-  ┌─┐
-  │ │  ← Body (distance between Open and Close)
-  └─┘
-   │   ← Lower wick (lowest price sellers pushed down, then recovered)
+Uptrend (Buyers in control):              Downtrend (Sellers in control):
+           High 2                               High 1
+          /      \                             /      \
+    High 1        \                     Low 1 /        High 2 (lower peak)
+   /      \   Low 2 (higher low)             \        /      \
+Low 1      --'                                '--    /        Low 2 (lower low)
 ```
 
-- **Green candle (up bar):** Closed **higher** than it opened (buyers controlled the bar).
-- **Red candle (down bar):** Closed **lower** than it opened (sellers controlled the bar).
-- **Long lower wick:** Price dropped sharply during the day, then buyers stepped in aggressively before the close — often seen near **support**.
-- **Long upper wick:** Price spiked up intraday, then sellers pushed it back down before the close — often seen near **resistance**.
-- **Tiny body (`Doji`):** Open and close ended almost equal, showing indecision or a tug-of-war pause after a strong move.
+- **Uptrend:** Each rally reaches a **higher high** and each pullback stops at a **higher low**. Buyers step in earlier on every dip.
+- **Downtrend:** Each bounce peaks at a **lower high** and each drop breaks to a **lower low**. Sellers exit into every bounce.
+- **Sideways range (Consolidation):** Price bounces repeatedly between a floor and ceiling with no clear direction. Many trend strategies lose money chopping back and forth inside ranges.
 
-### Vietnam price-limit markers (`▴` and `▾`)
-Unlike U.S. or crypto markets, Vietnam exchanges enforce daily price bands around yesterday's close (**reference price**):
-- **HOSE:** ±**7%**
-- **HNX:** ±**10%**
-- **UPCoM:** ±**15%**
+### Support, Resistance & Role Reversal
+- **Support (Floor):** A price zone where previous declines stopped because buyers saw value and stepped in (`LEVELS` below the current price in `vnt`, computed from swing lows).
+- **Resistance (Ceiling):** A price zone where previous rallies stalled because sellers took profits (`LEVELS` above current price, computed from swing highs).
+- **Role Reversal:** Once price breaks cleanly *above* an old resistance ceiling on heavy volume, buyers who missed the breakout often step in on a pullback to that same price — turning **old resistance into new support**. The reverse happens when major support breaks down.
+- **False Breakouts ("Bull Traps"):** Price pokes briefly above resistance on weak volume, lures impatient buyers in, then snaps right back below the line by the close. Waiting for a **strong daily close** backed by volume helps filter traps.
 
-When a stock closes locked at the **ceiling (`▴`)** or **floor (`▾`)**, `vnt` marks that day on the `Chart` marker row and in **Chart study**. Why does that matter? Because a floor lock can freeze liquidity so even a stop-loss cannot fill until buyers return — a critical real-world risk in Vietnam.
-
-*(Try cycling `c` on `Stock → Chart` between thin candles, braille candles, block candles, and close-only line to see which view is clearest on your monitor.)*
+> **Newbie tip for stops:** Never place your stop-loss *directly on* an obvious round support number (like `60.00`), because market noise frequently sweeps just a tick below round levels before bouncing. Tuck stops slightly *under* support and beyond normal daily noise (`ATR14`).
 
 ---
 
-## 2. Built-in 1–3 bar candlestick patterns (`Technicals → Context`)
+## 2. Candlesticks: Reading buyer vs seller pressure
 
-`vnt` automatically checks the **most recent 1–3 daily candles** (`internal/ta/patterns.go`) and surfaces matches under **Stock → Technicals → CONTEXT** together with a context note (for example, whether it occurred near support or on higher volume):
+Every candlestick summarizes four prices over one window (**1 day** on daily charts, **1 week** on weekly, or **1m / 5m / 15m** intraday):
 
-| Pattern | Bars | What it looks like | Traditional reading |
+```text
+    │    ← Upper wick (highest intraday price; rejected by sellers)
+  ┌───┐
+  │   │  ← Body (Open vs Close: who won the session)
+  └───┘
+    │    ← Lower wick (lowest intraday price; defended by buyers)
+```
+
+- **Green bar (Up candle):** Close finished **above** Open — buyers controlled the bar.
+- **Red bar (Down candle):** Close finished **below** Open — sellers controlled the bar.
+- **Long lower wick:** Sellers pushed price sharply down early in the session, then buyers stepped in strongly to push it back up before the close (rejection of lower prices).
+- **Long upper wick:** Buyers pushed price up, but sellers overwhelmed the rally by close (rejection of higher prices).
+- **Small body with long wicks (`Doji`):** Stalemate / indecision between buyers and sellers.
+
+### Vietnam price limits (`▴` Ceiling and `▾` Floor locks)
+On Vietnamese exchanges, daily movement is capped around yesterday's close (**reference price**):
+- **HOSE:** ±**7%** · **HNX:** ±**10%** · **UPCoM:** ±**15%**
+
+When a stock finishes locked at the **ceiling (`▴`)** or **floor (`▾`)**, `vnt` marks that session directly on daily charts and in **Chart study**.
+- **Why this matters practically:** When a bad news shock locks a stock at its daily **floor** (`-7%`) with zero buyers in the bid queue, a protective stop-loss cannot fill at that price — it must wait until liquidity returns on a later session (potentially at a much lower gap price).
+
+### Built-in 1–3 bar candlestick signals
+In **Stock → Technicals (`CONTEXT`)**, `vnt` checks the latest 1–3 daily candles for 9 classic formations and always pairs the shape with market context (nearby trend, support/resistance, and volume):
+
+| Pattern | Bars | Visual story | What it suggests (in context) |
 |---|---|---|---|
-| **Doji** | 1 | Open ≈ Close with visible wicks | Indecision; watch the next candle for direction |
-| **Hammer** | 1 | Small body near top, long lower wick (≥2× body) after a drop | Sellers pushed down, buyers reclaimed control by close |
-| **Shooting Star** | 1 | Small body near bottom, long upper wick after a rally | Buyers tried higher, sellers rejected the rally |
-| **Bullish Marubozu** | 1 | Full green body with little/no wicks (close near high) | Strong buying pressure from open to close |
-| **Bearish Marubozu** | 1 | Full red body with little/no wicks (close near low) | Strong selling pressure from open to close |
-| **Bullish Engulfing** | 2 | Small red bar followed by a larger green bar covering its body | Momentum swung strongly from sellers to buyers |
-| **Bearish Engulfing** | 2 | Small green bar followed by a larger red bar covering its body | Momentum swung sharply from buyers to sellers |
-| **Morning Star** | 3 | Large red bar → small indecision bar → strong green bar | Classic 3-day bottoming shift |
-| **Evening Star** | 3 | Large green bar → small indecision bar → strong red bar | Classic 3-day topping shift |
-
-**Beginner tip:** A single `Hammer` floating in the middle of nowhere means very little. A `Hammer` appearing **right at a known support level with rising volume** is much more informative — which is why `vnt` reports context beside every pattern name rather than grading patterns blindly.
+| **Doji** | 1 | Open ≈ Close | Indecision; watch next bar for direction |
+| **Hammer** | 1 | Small upper body, lower wick ≥2× body after a drop | Buyers defended lower prices — strongest right on **support** |
+| **Shooting Star** | 1 | Small lower body, tall upper wick after a rally | Sellers rejected higher prices — warning sign near **resistance** |
+| **Bullish / Bearish Marubozu** | 1 | Tall full green or red body, almost zero wicks | One-sided buying or selling conviction from open to close |
+| **Bullish Engulfing** | 2 | Small red candle completely swallowed by a bigger green body | Sudden shift from selling drift to strong buying control |
+| **Bearish Engulfing** | 2 | Small green candle swallowed by a larger red body | Sudden supply surge wiping out prior session's gains |
+| **Morning Star** | 3 | Big red bar → small pause/indecision bar → strong green bar | 3-session shift from selling to buyer momentum |
+| **Evening Star** | 3 | Big green bar → small pause/indecision bar → strong red bar | 3-session topping shift from rally to selling |
 
 ---
 
-## 3. Trend indicators: Moving Averages (`MA20`, `MA50`) & `ADX14`
+## 3. Trend Indicators: Moving Averages (`MA20`, `MA50`), `ADX14` & Multi-Timeframe Reading
 
-### Moving averages (`MA20` and `MA50`)
-- **`MA20`** is the average closing price over the last **20 trading sessions** (~1 calendar month). Traders watch it as the **short-term trend**.
-- **`MA50`** is the average over the last **50 sessions** (~2.5 months), representing the **medium-term trend**.
+### Moving Averages (`MA20` and `MA50`)
+A Simple Moving Average smooths daily price chatter so trend direction stands out:
+- **`MA20`** (average close of the past **20 trading sessions**, ~1 month) tracks the **short-term trend**.
+- **`MA50`** (average close of the past **50 sessions**, ~2.5 months) tracks the **medium-term trend**.
 
-How beginners read them on `Stock → Summary`, `Chart`, and `Technicals`:
-1. **Price above MA20 and MA50 (`+1` each in `vnt`'s score):** Uptrend — buyers have been willing to pay higher prices recently than over the past 1–2.5 months.
-2. **MA20 above MA50 (`Golden cross` when it crosses up):** Short-term trend is stronger than medium-term trend; **Death cross** is the reverse.
-3. **Pullback to MA20 (`Find → Idea 5`):** In strong uptrends, prices frequently pause and bounce near `MA20` rather than going straight up forever.
+Practical ways traders read `MA20` and `MA50`:
+1. **Trend alignment (`Price > MA20 > MA50`):** Short- and medium-term trends agree to the upside; pullbacks often pause near rising `MA20` or `MA50` (acting as *dynamic support*).
+2. **Golden Cross (`MA20` crosses above `MA50`) vs Death Cross (`MA20` crosses below `MA50`):** Slow, confirming regime shifts — useful for medium-term context, though lagging on fast turns.
+3. **Extension warning:** When price sprints far above `MA20` (for example `+12%–15%` above `MA20`), rubber-band mean reversion toward `MA20` becomes more likely even in healthy uptrends.
 
-### `ADX14` — How strong is the trend?
-Moving averages fail badly during **choppy sideways ranges** (producing whipsaw crosses). **ADX14** measures trend *strength* (not direction, from 0 to 100):
-- **Below 20:** Weak / sideways range — trend-following rules (`MA cross`) struggle; range/mean-reversion tools (`RSI`, `Bollinger`) make more sense.
-- **Above 25:** Established trend — either up or down! Check `MA20` vs `MA50` to see which way.
+### `ADX14` — Separating Trends from Sideways Chop
+**Average Directional Index (`ADX14`)** measures **trend strength** (0–100), *not* direction:
+- **`ADX14 < 20`:** Sideways, choppy market. Moving-average crossovers give frequent false signals here; range indicators (`RSI14`, `Bollinger Bands`) behave better.
+- **`ADX14 > 25`:** Strong, persistent directional trend (up *or* down — check `MA20` vs `MA50` for direction). Pullbacks toward `MA20` in an `ADX > 25` uptrend are a classic continuation setup.
 
----
-
-## 4. Volume & Money Flow: Confirming whether moves have backing
-
-Price alone can drift on tiny volume. **Volume** tells you how much real money participated:
-
-1. **Volume vs 20-day average (`Chart` volume bars & `Technicals` factor):**
-   - Breakouts above resistance on **`1.5×` to `2×`+ volume** show broad participation rather than a thin late-day tick. `Find → Pick signals` uses `> 1.5×` for Breakouts/Breakdowns and `2×` for Volume surges.
-2. **On-Balance Volume (`OBV`, shown in `Technicals → Context`):**
-   - Adds a day's volume when close rises and subtracts it when close falls. If OBV rises over 5 sessions while price drifts flat, buyers may be quietly accumulating shares.
-3. **VWAP (`Stock → Technicals` & Market board intraday chart):**
-   - *Volume-Weighted Average Price* resets each intraday session. It shows the average price per **share traded today** — institutional desks often benchmark fills against VWAP.
-4. **Foreign Flow & Room (`Stock → Summary`, `Market`, `Technicals`):**
-   - Foreign institutional flows heavily influence liquid VN30/VN100 blue chips (such as `VCB`, `FPT`, `HPG`). Note that in `vnt`'s daily score, foreign flow has half weight (`±0.5`), and **CLI** commands (`vnt score`) exclude intraday foreign flow so offline daily calculations stay exact.
+### Top-Down Multi-Timeframe Analysis (`1W → 1D → 15m/5m`)
+Professional chart readers zoom out before zooming in:
+1. Check **Weekly (`1W`) & Daily (`1D`)** first to identify major trend, support/resistance, and upcoming hurdles (`Stock → Summary / Chart`).
+2. Only then look at **Intraday (`15m`, `5m`, `1m`)** to watch intraday execution around **`VWAP` (session average)**.
+`vnt` summarizes **`5m · 15m · 1D · 1W`** side-by-side in **Technicals** and **Why grade** so you spot timeframe conflicts immediately (for instance, a weak 5-minute bounce inside a strong `1D`/`1W` downtrend).
 
 ---
 
-## 5. Momentum & Divergences: `RSI14`, `MACD`, `Stochastic`
+## 4. Volume, Flow & Market Conviction
 
-Turn these on in **`Stock → Chart`** by pressing **`'`** (or read them in **`Stock → Technicals`**):
+Think of **price as the car** and **volume as the fuel**:
+
+- **Volume vs 20-day average:**
+  - A breakout above resistance on **`1.5×` to `2.0×+` volume** shows broad participation backing the move.
+  - A bounce on thin `0.5×` volume lacks institutional conviction and fails easily.
+  - Conversely, **Volume Climax** (huge `3×`+ volume spike right into multi-month resistance or after a long crash) often marks exhaustion where early participants hand shares off.
+- **On-Balance Volume (`OBV`):** Keeps a running score adding volume on up-closes and subtracting volume on down-closes. If price moves sideways in a flat base while `OBV` climbs over 5–10 sessions, buyers may be quietly accumulating shares ahead of a move.
+- **Intraday `VWAP` (`session average`):** Volume-weighted average price for today's trading session. Staying consistently above `VWAP` signals buyers controlled most of today's transacted volume; drifting below `VWAP` shows sellers pressing afternoon prices down.
+- **Foreign Flow & Foreign Room:** On liquid HOSE leaders (`VCB`, `FPT`, `HPG`), persistent multi-day foreign net buying or selling adds significant tailwind or headwind. *(Note: `vnt` weights foreign flow at half weight `±0.5` in its daily Grade so local chart structure still leads.)*
+
+---
+
+## 5. Momentum Oscillators & Divergences (`RSI14`, `MACD`, `Stochastic`)
+
+Momentum tools measure **speed and acceleration** rather than raw price level:
 
 ### `RSI14` (Relative Strength Index, 0–100)
-Measures how fast recent up-days compare to down-days over 14 sessions:
-- **Under 30 (`Oversold`):** Price has fallen sharply; selling may be stretched (`Find → Idea 1`). *Warning for newbies:* in a severe downtrend, RSI can stay under 30 while price keeps dropping ("falling knife") — always check **support** and **wait for stabilization** before assuming a bounce!
-- **Around 50:** `vnt` scores `RSI14 > 50` (and below overbought) positively in healthy momentum, and `< 50` negatively (`Technicals`).
-- **Over 70 (`Overbought`):** Rally has run very fast; upside may pause or pull back (`Find → Pick signals`).
+Compares average up-closes vs down-closes over 14 sessions:
+- **Below `30` (Oversold):** Selling pressure has stretched sharply down. Useful for spotting rebound candidates **near clear historical support** — **danger:** in strong downtrends (`ADX > 25`, below `MA50`), `RSI14` can stay oversold for weeks while price keeps falling ("catching a falling knife").
+- **Above `50` vs below `50`:** In `vnt`'s 7-factor score, `RSI14 > 50` supports bullish momentum; `< 50` warns momentum leans bearish.
+- **Above `70` (Overbought):** Price rose rapidly; strong trends can stay over `70`, so treat it as a warning not to chase stretched entries blindly, rather than an automatic sell.
 
 ### `MACD Histogram`
-Shows the distance between the **MACD momentum line** (`12/26 EMA` spread) and its **9-day signal average**:
-- **Positive & growing:** Upward momentum is accelerating.
-- **Negative & shrinking toward zero:** Selling pressure is losing steam.
-- `vnt` treats tiny readings inside a narrow dead-band near zero (`±0.005`) as **neutral (`0`)** so tiny rounding jitters don't flip the Grade.
+Measures the gap between the fast/slow trend difference (`12/26 EMA`) and its 9-day signal average:
+- **Positive & growing (`> +0.005`):** Upward momentum is accelerating.
+- **Crosses from negative to positive:** Early momentum shift ahead of slower `MA20/MA50` crosses.
+- `vnt` treats tiny readings inside `±0.005` as **neutral (`0`)** to prevent noisy score flips.
 
-### Divergences (spotted in Screener / `internal/ta/divergence.go`)
-A **divergence** occurs when price makes a new extreme that momentum **refuses to confirm**:
-- **Regular Bullish Divergence:** Price makes a **lower low**, while RSI/MACD makes a **higher low** → downward selling force is weakening (potential reversal warning).
-- **Regular Bearish Divergence:** Price makes a **higher high**, while RSI/MACD makes a **lower high** → rally is losing fuel behind the scenes.
-- **Hidden Bullish / Bearish Divergence:** Momentum resets deeper while price holds a higher low (uptrend continuation) or lower high (downtrend continuation).
+### `Stochastic Oscillator`
+Compares where today's close sits inside the 14-day High–Low range (`0–100`), useful for spotting short-term swings inside sideways ranges (available on the Market board lower pane and Chart study).
 
----
-
-## 6. Volatility & Logical Stop-Loss Placement: `ATR14` & `Bollinger Bands`
-
-One of the biggest beginner mistakes is putting a stop-loss **too close** (like `-1.5%` because it "feels safe"), getting knocked out by ordinary daily noise, and watching the stock rally afterward.
-
-### `ATR14` ("a usual day")
-**Average True Range over 14 sessions** measures how much a stock normally moves from high to low in a single day (including overnight gaps from yesterday's close).
-- Look at the **`STOP AGAINST A USUAL DAY`** block in **`Paper order → Edit`** and **`Stock → Chart → Move the stop (p)`**:
-  - Suppose `VCB` has `ATR14 = 1.12` (`1.8%` a day) and you set a stop `1.6 usual days` away (`60.30` below `62.20`). `vnt` checks your saved history and tells you: *"The low was that far under the prior close 4 days in 60."*
-  - By contrast, if you tighten a stop to `0.5 usual days` away (`GEX` at `27.00` vs `27.40`), `vnt` warns that normal movement hits it on `23 of the last 60 sessions`!
-- **`SIZE IT FROM RISK`:** Once you choose a logical stop distance **below support or ≥ 1–1.5× ATR14**, let risk sizing (`r` on the order ticket) compute share count automatically (`Risk % of equity ÷ distance to stop`), instead of buying a huge size with an impossibly tight stop.
-
-### Bollinger Bands (`20-day MA ± 2 standard deviations`, `Chart study` & `Backtest`)
-- When price hugs or pokes outside the upper/lower bands, volatility is unusually stretched.
-- **Mean reversion** (`Lab → Backtest` Bollinger rule) looks for prices dipping below the lower band in range-bound stocks and returning toward the middle (`MA20`) or upper band.
+### Divergences — Reading behind the headlines
+A **divergence** happens when price makes a fresh extreme that momentum refuses to match:
+- **Regular Bullish Divergence:** Price makes a **lower low**, while `RSI14` or `MACD` prints a **higher low** → downward selling force is fading (early reversal alert).
+- **Regular Bearish Divergence:** Price makes a **higher high**, while `RSI14`/`MACD` prints a **lower high** → upside rally is losing internal fuel.
+- **Hidden Bullish / Bearish Divergence:** Price holds a **higher low** during a healthy uptrend dip while `RSI14` pulls back lower (continuation clue).
 
 ---
 
-## 7. Support, Resistance & Relative Strength (`vs VN-Index`)
+## 6. Volatility, `ATR14` Stops, Bollinger Bands & Relative Strength
 
-- **Support:** A prior price floor where buyers stepped in before (`LEVELS` in `Stock → Summary` & `Technicals`, computed from historical swing lows). Waiters look for stops slightly *below* clear support (`-1` or `-2` ticks below), never right on the round number where stops cluster.
-- **Resistance:** A prior ceiling where rallies stalled (`swing highs`). Once resistance breaks decisively on strong volume (`> 1.5×`), it often reverses roles and acts as new support.
-- **Custom levels (`y`):** When moving averages or automatic swings miss a gap edge or multi-month range top you spot by eye, save up to 8 personal levels per stock with `y` on the Chart crosshair.
-- **Relative strength (`'` pane `vs VN-Index`):** Sometimes a stock rises `+2%` simply because `VN-Index` jumped `+3%` (actually weak!). Plotting `vs VN-Index` strips out the market tide so you can spot true leaders holding steady or rising even when the index falls.
+### `ATR14` ("a usual day") & Position Sizing (`R`-Multiple)
+**Average True Range (`ATR14`)** measures how wide a stock typically swings per day (including overnight gaps). Knowing `ATR14` solves two major beginner mistakes:
+1. **Avoiding noise stop-outs:** If a stock's `ATR14` is `2.7%` a day and you place your stop-loss only `1.0%` below entry (`0.37× ATR14`), ordinary intraday noise will knock you out repeatedly. Putting stops **`≥ 1.0–1.5× ATR14`** away *and* beneath real chart support gives trades breathing room.
+2. **Keeping loss constant (`1R`) across volatile vs calm stocks:**
+   - Decide max account risk per trade first (e.g. **`0.5%`** or **`1.0%`** of equity = `1R`).
+   - Then compute share quantity from your stop distance:
+     `Max shares = (Equity × Risk %) ÷ (Entry price − Stop price)` (rounded down to 100-share lots).
+   - That way, buying a volatile `±3%` stock automatically uses **fewer shares** than buying a steady `±1%` stock — keeping every trade's dollar loss consistent!
+   - Aiming for targets at least **`1.5×` to `2×+` your risk (`1.5R–2R+`)** means you can be wrong half the time and still come out ahead.
+
+### Bollinger Bands (`MA20 ± 2 Standard Deviations`)
+Bands widen when volatility expands and squeeze tightly during quiet bases (**volatility squeeze**, often preceding a sharp breakout move). Stretching outside a band signals a short-term statistical extreme.
+
+### Relative Strength (`vs VN-Index`)
+Comparing a stock directly against `VN-Index` over the exact same dates prevents an illusion:
+- If `VN-Index` rallies `+4%` and your stock gains `+1%`, it is actually **underperforming** (`-3 pts`).
+- Conversely, stocks holding flat or rising while `VN-Index` falls often become the strongest leaders when the broad market recovers.
 
 ---
 
-## 8. How `vnt`'s 7-Factor Grade works (and doesn't work)
+## 7. Putting it together safely (Avoiding beginner pitfalls)
 
-Every daily stock grade (`A+` down to `D`) adds **7 objective readings** from saved daily bars:
-
-| Factor | `+1` (`for`) | `-1` (`against`) | `0` (`neutral`) |
-|---|---|---|---|
-| **Price vs MA20** | Close > MA20 | Close < MA20 | Equal |
-| **Price vs MA50** | Close > MA50 | Close < MA50 | Equal |
-| **MA20 vs MA50** | MA20 > MA50 | MA20 < MA50 | Equal |
-| **RSI14** | Above 50 (healthy momentum) | Below 50 (or extreme caution) | Neutral band |
-| **MACD histogram** | `> +0.005` | `< -0.005` | Inside `±0.005` dead band |
-| **Volume** | Rising bar with volume support | Falling bar with volume expansion | Quiet / neutral |
-| **Foreign flow** | Net buying (`+0.5`) | Net selling (`-0.5`) | Net 0 / unavailable |
-
-Sum `>= 5` → `A+`, `4` → `A`, `3` → `B+`, `2` → `B`, `1` → `C+`, `0` → `C`, `-1` → `C-`, `-2` → `D+`, `< -2` → `D`.
-
-> **Test it yourself before trusting it:** Open **`Lab → Grade check`** (`g` from `Why this grade` or Lab home) to check whether `A`-graded stocks in **your own saved database** actually beat `D`-graded stocks over the next 5 and 20 sessions — complete with 90% confidence intervals! And practise making calls blind in **`Lab → Chart study`** (`C`) before risking even paper money.
+### Common traps beginners hit
+1. **Indicator redundancy (double-counting):** Using `RSI14` + `Stochastic` + `MACD` all saying "oversold" isn't 3 independent confirmations — they are all momentum math from the same price bars! Combine **one factor per category** instead: **Trend** (`MA20/MA50`, `ADX`) + **Level** (Support/Resistance) + **Volume** (`>=1.5×` / `OBV` / `Foreign flow`) + **Volatility-adjusted stop** (`ATR14`).
+2. **Ignoring market regime:** Buying breakout systems during broad market downtrends (`VN-Index < MA50`) or trend-following inside `ADX < 20` chop leads to repeated small losses.
+3. **Treating scores as predictions:** `vnt`'s 7-factor Grade (`A+` to `D`) simply adds 7 transparent daily checks (`Price vs MA20`, `Price vs MA50`, `MA20 vs MA50`, `RSI14`, `MACD histogram`, `Volume`, and half-weight `Foreign flow`). Verify how grades performed on your own saved history using **Lab → Grade check** and practise reading charts blind in **Lab → Chart study** before risking real convictions.
