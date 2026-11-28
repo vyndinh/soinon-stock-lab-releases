@@ -88,7 +88,9 @@ Every call made anywhere in `vnt` writes an entry to **Agent → Model log** sho
 
 ### External AI via MCP (`vnt mcp serve`)
 
-Prefer talking to **Claude Code** or **Codex**? Connecting `vnt mcp serve` lets your external chat read live/saved quotes, briefings, and grades — and even draft a paper limit order into a private `.mcp-inbox` queue — **while keeping `Approve / Place` locked strictly inside `vnt`'s TUI** (capped at 3 waiting requests and expiring after **5 minutes**, off by default until enabled per account). See [Soinon in Codex and Claude Code](mcp.md).
+Prefer talking to **Claude Code** or **Codex**? Connecting `vnt mcp serve` gives your local AI chat seven read/preview/queue tools (`get_briefing`, `get_stock_review`, `get_stock`, `get_saved_decision`, `preview_paper_order`, `request_paper_order`, `get_request_status`).
+
+In practice, traders use it to triage morning stale prices before `09:00 ICT`, pull a stock's 7-factor breakdown right beside their own old verbatim decision note, catch `T+2 13:00` settlement or ceiling/floor blocks via `preview_paper_order`, and queue a 5-minute draft into `Needs you` — **while keeping `Approve / Place` locked strictly inside `vnt`'s TUI** and keeping real holdings completely hidden. See worked prompts and all 5 end-to-end trading scenarios in [Soinon in Codex and Claude Code (MCP)](mcp.md).
 
 ---
 

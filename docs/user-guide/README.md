@@ -56,7 +56,7 @@
    - [1 · Today](today.md) · [2 · Market](market.md) · [3 · Stock](stock.md) · [4 · Find](find.md) · [5 · Paper](paper.md) · [6 · Lab](lab.md) · [7 · Agent](agent.md) · [8 · Records](records.md).
    *(Every chapter explains **purpose → benefits/stories → screen images & examples first**, and puts **navigation & keyboard controls cleanly at the bottom** once you know what each screen is for.)*
 3. **Optional integrations & safety reference**:
-   - [Soinon in Codex and Claude Code](mcp.md) — Connect local AI chats (`vnt mcp serve`) for read-only research and user-confirmed paper order previews.
+   - [Soinon in Codex and Claude Code](mcp.md) — Connect local AI chats (`vnt mcp serve`) with 5 worked trading scenarios (morning triage, thesis checks, `T+2`/band previews, and TUI-confirmed order requests).
    - [Command line](command-line.md) — `vnt` CLI commands for scripting, diagnostics, and database recovery.
    - [Safety and your data](safety-and-data.md) — Paper-only guarantees, local SQLite storage, model costs, and hard limits.
 
