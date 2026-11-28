@@ -1,180 +1,132 @@
-# Stock terms
+# Stock terms (Glossary)
 
-Plain-language meanings of the words the app uses. Where the app computes
-something a particular way, this page says how.
+Plain-English meanings of Vietnamese market rules, order mechanics, chart concepts, technical indicators, and `vnt` terms. Where `vnt` computes something a specific way, this glossary tells you the exact rule.
+
+---
 
 ## Market and exchanges
 
-**HOSE, HNX, UPCoM.** Vietnam's three stock venues: the Ho Chi Minh City
-exchange, the Hanoi exchange, and the Hanoi market for unlisted public
-companies. The app follows all three.
+- **HOSE, HNX, UPCoM:** Vietnam's three public stock trading venues — Ho Chi Minh City Stock Exchange (`HOSE`), Hanoi Stock Exchange (`HNX`), and Unlisted Public Company Market (`UPCoM`). `vnt` follows all three.
+- **VN-Index (VNI), VN30, VN100:** Index benchmarks measured in points. `VN-Index` covers HOSE; `VN30` and `VN100` cover its 30 and 100 largest, most traded companies. `Find` and watchlist backtests can scan `VN30` or `VN100` out of the box.
+- **Stock code (Ticker):** Short symbol a stock trades under, such as `FPT`, `VCB`, `GEX`, or `HPG`.
+- **Watchlist & Groups:** Curated lists of stock codes you follow, which can be organized into separate named groups (for example *Banks* or *Core*).
+- **Sector:** Industry tag (such as Banks, Steel, Technology, Real Estate) shown on **Stock Summary**, **Market Sector heat map**, and **Paper** concentration checks.
 
-**VN-Index, VN30, VN100.** Indices measured in points. VN-Index covers HOSE;
-VN30 and VN100 are its 30 and 100 largest, most traded stocks. Find and the
-backtest can search VN30 or VN100 instead of a watchlist.
+---
 
-**Stock code.** The three-letter code a stock trades under, such as `FPT`.
+## Trading sessions and auctions
 
-**Watchlist.** Your own list of codes. You can keep several **groups** and
-switch between them on the board.
+All times are Vietnam time (**ICT**, UTC+7). On a normal weekday on **HOSE**:
 
-## Sessions and auctions
+| Time (ICT) | Session | Status line | What happens |
+|---|---|---|---|
+| Before `09:00` | Pre-open | `○ PRE-OPEN` | Orders queue; no matching yet |
+| `09:00–09:15` | Opening auction (**ATO**) | `ATO` | Orders accumulate and match at one opening price |
+| `09:15–11:30` | Morning continuous | `● CONTINUOUS` | Live tick-by-tick order matching |
+| `11:30–13:00` | Lunch break | `LUNCH` | Market pauses (`┆` gap marker on intraday charts) |
+| `13:00–14:30` | Afternoon continuous | `● CONTINUOUS` | Live matching resumes |
+| `14:30–14:45` | Closing auction (**ATC**) | `ATC` | Orders accumulate and match at the day's official closing price |
+| After `14:45` / Weekends | Closed | `○ CLOSED` | Final daily close saved; board displays last saved closes |
 
-Times are Vietnam time (ICT). On a normal trading day on HOSE:
+- **Trading day & Exchange calendar:** Weekends and Vietnamese public holidays are non-trading days. **Records → Health** verifies which calendar years are loaded and flags provisional future years.
 
-| Time | Session | Status line |
-|---|---|---|
-| before 09:00 | Pre-open | `○ PRE-OPEN` |
-| 09:00–09:15 | Opening auction (ATO) | `ATO` |
-| 09:15–11:30 | Continuous trading | `● CONTINUOUS` |
-| 11:30–13:00 | Lunch break | `LUNCH` |
-| 13:00–14:30 | Continuous trading | `● CONTINUOUS` |
-| 14:30–14:45 | Closing auction (ATC) | `ATC` |
-| after 14:45 | Closed for the day | `○ CLOSED` |
+---
 
-**Auction.** During ATO and ATC orders are collected and matched at one
-price. The closing auction sets the day's close.
+## Prices, ticks, lots, and price bands
 
-**Trading day.** Weekends and exchange holidays are not trading days. The
-app keeps the exchange calendar; Records → Health shows which years it
-covers and whether next year is still provisional.
+- **Prices in thousand dong (`kVND`):** Stock quotes omit three zeros: `43.00` means **43,000 ₫** per share. Cash, fees, and P&L display full dong with commas (`18,687,990 ₫`).
+- **Reference price:** Normally yesterday's closing price (adjusted downward on **ex-dividend dates**). Daily percentage change is measured from this price.
+- **Ceiling and floor (Daily price band):** Maximum price rise or fall allowed in one day around reference:
+  - **HOSE:** ±**7%** (ceiling purple, floor cyan in Vietnam-board colour scheme)
+  - **HNX:** ±**10%**
+  - **UPCoM:** ±**15%**
+  *(Newly listed or post-suspension stocks can have wider bands; `Chart` marks ceiling/floor closes with `▴` / `▾`.)*
+- **Tick size:** Minimum legal price increment (depends on price tier and exchange; `vnt` snaps order prices and saved chart levels to valid ticks automatically).
+- **Lot size:** Standard trading unit of **100 shares** on HOSE/HNX.
+- **Bid and ask / Order book:** Best price buyers are currently bidding (**bid**) and sellers are offering (**ask**), plus queued share depth at each tier when supplied by the feed.
+- **Last:** Most recent matched trade price.
+- **Volume:** Total shares traded (`4.6M` = 4.6 million shares).
+- **OHLC bar / Candle:** One session's **O**pen, **H**igh, **L**ow, **C**lose prices and Volume.
 
-## Prices
+---
 
-**Prices are in thousand dong.** `43.00` means 43,000 ₫ a share.
+## Buying, selling, settlement, and risk management
 
-**Reference price.** Usually the previous session's close. Daily changes
-are measured from it.
+- **Settlement (`T+2` at `13:00`):** Shares bought on day `T` settle and become sellable at **13:00 two trading sessions later** (`T+2`, so Monday's buy settles Wednesday `13:00`). Until then they show as *settling* (`◐ pending`) and **cannot be sold** — even if price drops below your stop.
+- **Can sell:** Settled shares minus any shares already reserved by open sell orders.
+- **Limit order:** Buy at this price or lower, or sell at this price or higher.
+- **Market / ATO / ATC order:** Execute at best available live price (or at the opening/closing auction price).
+- **Immediate orders (`IOC` / `FOK`):** *Immediate-or-Cancel* (fills what it can immediately, cancels rest) or *Fill-or-Kill* (fills completely now or cancels). Requires fresh live checks at submission.
+- **Stop-loss & Stop order:** Your pre-committed exit price to cap losses (**invalidation**). A stop order waits until live price hits your trigger, then submits a sell (warning: overnight **gaps** or floor locks can cause fills worse than your stop price).
+- **Target:** Pre-planned price where you take profits (`SELL limit`).
+- **Bracket order:** Paired **stop** and **target** orders placed together once shares settle; when one fills, the other cancels automatically.
+- **Protection states (Paper & Briefing):**
+  - `● order active`: Live protective stop order is armed right now.
+  - `◐ pending`: Buy hasn't settled yet; bracket stop will arm automatically at `T+2 13:00`.
+  - `○ plan only`: You wrote a stop price in your plan, **but no live order is armed**.
+  - `▲ no plan`: No stop price and no stop order exist.
+- **Good for (`Today` / `Until canceled`):** Whether an unfilled order expires at close (`Today`) or remains open across days (`GTC`), plus queued drafts saved for the next continuous open.
+- **Fee and sell tax:** Each paper account applies broker commission on buys/sells (for example `0.15%`) plus Vietnam's `0.10%` sell tax on sales.
+- **Position, Cost, Unrealized P&L:** Shares held, weighted average price paid (**cost**), and open paper gain/loss (**unrealized** until sold).
+- **Equity & Weight:** Account cash + market value of all positions (**equity**); single stock or sector share of total equity (**weight**).
+- **Drawdown:** Percentage decline from an account's highest historical equity peak.
+- **Risk (`R` multiple) & Expectancy:** Planned entry-to-stop dong risk = `1R`. A trade netting `+2.0 R` earned twice your planned risk; `-1.0 R` lost roughly your planned risk. **Expectancy** is `(Win% × Avg Win R) − (Loss% × Avg Loss R)`. See [Risk management & position sizing](risk-management.md).
+- **Risk guards (Engine limits):** Deterministic rules checked locally in Go on every manual and agent order: daily loss limit, max open positions, stop-loss-on-every-buy guard, single-stock concentration cap, and pause-on-drawdown.
 
-**Ceiling and floor.** The highest and lowest price allowed today: the
-reference plus or minus **7% on HOSE, 10% on HNX and 15% on UPCoM**. New
-listings and stocks returning from suspension can have wider bands. In the
-Vietnam board colour scheme, ceiling is purple, floor cyan and reference
-amber.
+---
 
-**Tick.** The smallest price step. The order ticket snaps prices to a
-valid tick.
+## Charts, technical indicators & candlestick patterns
 
-**Lot.** Shares trade in lots of 100. The order ticket shows the lot.
+*(See [Reading charts & technical analysis](chart-reading.md) for visual examples and theory.)*
 
-**Bid and ask.** The best price buyers offer (bid) and sellers ask (ask).
-The **order book** lists the best few of each with their sizes.
+- **Swing high / Swing low:** Local price peak or trough where surrounding bars turned back — used to identify trends and draw support/resistance.
+- **Support and resistance:** Historical zones where falls found buyers (**support**) or rallies met sellers (**resistance**).
+- **Saved level ("Your level"):** Personal horizontal line (plus short note) saved on `Stock → Chart` (up to 8 per stock).
+- **Candlestick signals (1–3 bar):** Short-term shapes checked on the latest daily candles in `Stock → Technicals → Context`: **Doji**, **Hammer**, **Shooting Star**, **Bullish / Bearish Engulfing**, **Morning / Evening Star**, and **Bullish / Bearish Marubozu**.
+- **Moving average (`MA20`, `MA50`):** Average closing price over the last 20 or 50 sessions. **Golden cross** = `MA20` crossing above `MA50`; **Death cross** = `MA20` crossing below `MA50`.
+- **RSI14:** Relative Strength Index over 14 sessions (`0–100`). Under `30` = oversold, over `70` = overbought; `> 50` scores bullish in `vnt`.
+- **MACD histogram:** Distance between the `12/26` momentum line and its `9`-day average. Positive (`> +0.005`) = accelerating momentum; negative (`< -0.005`) = fading.
+- **Divergence:** Price makes a new high/low while RSI or MACD moves the opposite direction — **Regular** (reversal warning) or **Hidden** (trend continuation).
+- **Stochastic:** Momentum gauge comparing today's close against the 14-session high–low range.
+- **Bollinger bands:** Upper and lower volatility bands placed 2 standard deviations around `MA20`.
+- **VWAP:** Volume-Weighted Average Price for the current trading day.
+- **ATR14 ("a usual day"):** Average True Range over 14 sessions — normal daily movement including overnight gaps, used to test whether a stop-loss is dangerously tight.
+- **ADX14:** Trend strength meter (`0–100`). Under `20` = sideways chop; above `25` = strong trend.
+- **On-balance volume (`OBV`):** Cumulative running total adding volume on up days and subtracting on down days over 5 sessions.
+- **Relative strength (`vs VN-Index`):** Stock `%` return minus `VN-Index` `%` return over identical dates.
+- **Foreign flow & Foreign room:** Net foreign investor share buying/selling, plus remaining shares allowed under Vietnam foreign ownership limits.
+- **The Grade (`A+` to `D`):** Transparent sum of 7 daily factors (`Price vs MA20`, `Price vs MA50`, `MA20 vs MA50`, `RSI14`, `MACD histogram`, `Volume`, and half-weight `Foreign flow`). Summary only — never a forecast.
 
-**Last.** The most recent traded price.
+---
 
-**Volume.** Shares traded. `4.6M` is 4.6 million.
+## Corporate actions, backtesting & practice
 
-**Daily bar** (or candle). One session's open, high, low and close (OHLC)
-and volume. Intraday bars cover 1, 5 or 15 minutes.
+*(See [Backtesting theory & how `vnt` tests rules](backtesting.md) for a full guide to evaluating strategy statistics.)*
 
-## Buying, selling and settlement
+- **Ex-date (Ex-dividend date):** Shares bought *before* this date receive the dividend (cash minus 5% Vietnam dividend tax, or bonus shares). On ex-date morning, the exchange drops the reference price by roughly the payout — tight stops can trigger unexpectedly if unadjusted.
+- **Backtest:** Simulating a fixed trading rule over saved daily bars (next-day open fills, exchange tick snapping, fees/tax/slippage, and `T+2` settlement; needs `>= 30` trades to judge reliably).
+- **Warm-up bars:** Leading historical days (`51` bars by default across Lab comparisons) excluded from trading so indicators like `MA50` stabilize before both rules and **Holding** start on equal footing.
+- **Against holding (`Alpha`, `pts`):** Strategy return minus buy-and-hold return over identical dates (`percentage points`).
+- **Max drawdown (`Daily / Intrabar / Trade-seq`):** Worst peak-to-valley percentage decline — tracked daily at close (**Daily**), including intraday lows while holding (**Intrabar**), or strictly across closed trades (**Trade-seq**).
+- **Profit factor:** Total winning trade `%` divided by absolute total losing trade `%` (`> 1.0` means winners outweigh losers; `< 1.0` loses overall).
+- **Sharpe ratio:** Risk-adjusted return per unit of daily equity volatility (using zero risk-free rate in `vnt`).
+- **Slippage:** Price difference between the expected order price and actual execution price (`5 bps` = `0.05%` per side in `vnt`'s default backtest cost profile).
+- **Replay:** Practising daily trading one open at a time with future highs/lows/closes hidden (optional blind mode hides stock name & dates).
+- **Chart study:** Pure blind chart reading bar-by-bar with zero paper account — record `BUY`/`SELL`/`WAIT` calls, optional stops/targets, and measure 5/10/20-bar follow-through and `R` outcomes.
+- **Guided practice:** Locking in your own call and primary reason at an agent's historical decision point before revealing what the agent did and what happened next.
+- **Grade check:** Local statistical audit checking whether higher TA grades (`A`) beat lower grades (`D`) over the next 5 and 20 sessions in your saved database.
+- **Paper vs Real holdings:** **Paper** simulates orders with pretend cash; **Real holdings** under `Records` tracks your actual off-app broker shares read-only with zero order authority.
 
-**Settlement.** Bought shares become yours to sell after settlement. The
-app uses **13:00 two trading sessions after the buy** (T+2). Until then
-the shares show as *settling* and cannot be sold.
+---
 
-**Can sell.** Settled shares less any already reserved by open sell orders.
+## AI agent & safety terms
 
-**Limit order.** Buy at this price or lower, or sell at this price or
-higher.
+*(See [How `vnt`'s LLM AI Agent works](ai-agents.md) for the full architecture and theory.)*
 
-**Market order.** Fill at the best available price now.
-
-**Stop order.** Wait until the price falls to the stop, then sell. A stop
-can fill below its price when the market gaps.
-
-**Stop-loss.** The price where your plan says to exit with a small loss.
-The distance from entry to stop is the **price risk**.
-
-**Target.** The price where your plan takes the gain.
-
-**Bracket.** A stop and a target placed together; when one fills, the other
-is cancelled.
-
-**Good for.** How long an order waits: *today only*, or *until canceled*.
-
-**Fee and tax.** Each paper account has a broker fee on every trade (for
-example 0.15%) and a sell tax (0.1%). Results "after fees and tax" include
-both.
-
-**Position.** Shares you hold in one stock. **Cost** is the average price
-you paid. **P&L** is profit or loss against that cost; **unrealized** means
-not yet sold.
-
-**Equity.** Cash plus the value of all positions.
-
-**Weight.** One position's share of equity.
-
-**Drawdown.** The fall from the highest equity so far.
-
-## Reading charts
-
-**Moving average (MA20, MA50).** The average close over the last 20 or 50
-sessions. A close above both is read as an uptrend.
-
-**RSI14.** Relative strength index over 14 sessions, from 0 to 100. Under 30
-is called oversold, over 70 overbought.
-
-**MACD histogram.** The gap between a fast and a slow trend line. Positive
-means momentum is rising.
-
-**Bollinger bands.** Lines two standard deviations above and below MA20.
-
-**VWAP.** The volume-weighted average price for today's session.
-
-**ATR14 and a usual day.** Average true range over 14 sessions: a day's
-typical price range, including gaps from the prior close. The order ticket
-compares your stop with it: a stop less than one usual day away can be hit
-by ordinary movement.
-
-**ADX14.** Trend strength. Above 25 is called a strong trend.
-
-**Support and resistance.** Price levels where earlier falls stopped
-(support) or rises stopped (resistance). The app finds them from saved
-daily bars.
-
-**Pivots and Fibonacci levels.** Reference lines computed from recent highs
-and lows. Display only.
-
-**Candlestick signals.** One- to three-bar shapes such as a doji, hammer
-or engulfing bar, found on the latest bars and shown with their context.
-
-**Foreign flow.** Shares foreign investors bought minus sold. **Foreign
-room** is how many more shares foreigners may still own under the
-ownership limit.
-
-## The grade
-
-The app scores each stock from saved daily bars on seven factors: price
-against MA20, price against MA50, MA20 against MA50, RSI14, the MACD
-histogram, volume and foreign flow. Each factor adds +1 (for), −1 (against)
-or 0 (neutral). The sum maps to a letter:
-
-| Score | Grade |
-|---|---|
-| 5 or more | A+ |
-| 4 | A |
-| 3 | B+ |
-| 2 | B |
-| 1 | C+ |
-| 0 | C |
-| −1 | C− |
-| −2 | D+ |
-| below −2 | D |
-
-The grade describes the chart today. It is not a forecast. Lab → Grade
-check shows how saved history behaved after each grade.
-
-## Results and testing
-
-**Backtest.** Running a fixed rule over past daily bars with simulated
-fills, to see how it would have done.
-
-**Against holding.** The backtest result compared with buying on the first
-day and holding to the last.
-
-**R.** A trade's net result divided by the risk planned at entry. `2R` means
-twice what you planned to risk.
-
-**Paper.** Simulated trading with pretend money, using real prices and the
-exchange rules.
+- **Go rule (`go_review_v2`) vs Model:** The free deterministic decision rule compiled in Go versus an optional paid LLM reading the exact same frozen facts under identical account limits.
+- **`HOLD` vs `ABSTAIN` vs `FAILED`:** `HOLD` means complete evidence suggests taking no trade; `ABSTAIN` means **insufficient or conflicting evidence** (never guessing); `FAILED` means a provider timeout or validation refusal.
+- **Evidence bundle & Numeric grounding:** A SHA-256-frozen snapshot of market facts. Every number cited in an AI answer must exactly match a field inside that bundle (`CheckNumerals`), blocking invented figures before display.
+- **Invalidation (`Wrong if`):** A concrete condition (such as a close below `MA50`) saved alongside a trade thesis so post-trade **Lessons** can check objectively whether the premise broke.
+- **Revalidate & Expiry (`60s` / `5m`):** Proposals expire after **60 seconds** and frozen evidence expires after **5 minutes** (or after `14:30 ICT` for buys/sells). Revalidating re-runs quote, settlement, and Go risk checks locally with zero extra model cost.
+- **Model log:** Built-in 30-day audit ledger of every AI request across `vnt` (feature, symbol, prompt version, SHA-256 evidence hash, status, and exact micro-USD spend).
+- **MCP (`Model Context Protocol`):** Local read/preview bridge (`vnt mcp serve`) allowing Claude Code or Codex to inspect quotes/watchlists and queue limit-order drafts for manual TUI approval.

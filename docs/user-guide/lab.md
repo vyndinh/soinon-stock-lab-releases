@@ -1,213 +1,135 @@
 # 6 · Lab
 
-**For:** learning on past prices. Test a rule, trade a past period yourself
-one day at a time, study a chart with the future hidden, or answer before
-the agent's saved decisions.
+**Purpose:** Practise reading charts and testing systematic ideas on **saved historical prices** with zero risk to your paper or real money. Every workflow in Lab is descriptive (counts and returns over past bars — never a forecast) and free unless you explicitly request an optional paid AI run in Agent practice.
 
-**Get there:** `F3` then `6`, or `:lab`.
+---
 
-Everything in Lab uses saved past prices with simulated fills. A good past
-result does not predict the next one.
+## Use cases & user stories (Benefits)
 
-## Home
+- **Validating popular rules before trusting them:** *"Does buying `RSI < 30` or `MA20/MA50` golden crosses actually beat holding `FPT` over two years?"* → Run **Backtest** and verify across at least **30 trades**.
+- **Breaking hindsight bias bar-by-bar:** *"Static charts make every past bottom look obvious. Let me hide the right half of the chart, commit a call (`BUY`, `SELL`, or `WAIT`) with a stop and target, and see what unfolds."* → Use **Chart study** in blind mode (`Stock A`) or **Replay**.
+- **Testing `vnt`'s technical grades statistically:** *"Do `A`-graded days really outperform `D`-graded days over the next 5 and 20 sessions on my saved history?"* → Run **Grade check**.
 
-```text
-WHAT DO YOU WANT TO TEST?
-  1  Would a rule have worked?        Backtest: a rule on past prices, in seconds          free
-  2  Could I have traded it myself?   Replay: one day at a time, future hidden             free
-  3  What would the agent have done?  Agent practice: on past prices, in limits  free with the Go rule
-  4  Can I read it like the agent?    Guided practice: answer first, then compare          free
-  g  Grade check · does the grade separate later returns?
-RECENT WORK
-  KIND          STOCK  WHAT                 PERIOD          RESULT  AGAINST HOLDING  DATE
-› Backtest #1   FPT    Bollinger reversion  Nov 2024–Oct    N/A     older summary !  13 Nov
-```
+---
 
-**Recent work** lists your backtests, replays and practice sessions.
-**What your tests say so far** counts how many backtests beat holding.
-A backtest needs **30 trades** before it is compared; fewer are listed but
-not judged. *Older summary* means the rule's definition changed since; run
-it again before comparing.
+## 1. Lab Home
 
-| Key | Does |
-|---|---|
-| `1`–`4` | Start one of the four |
-| `g` | Grade check |
-| `Enter` | Open the selected work |
-| `p` | Replay that period yourself |
-| `v` | Compare |
-| `x` | Export |
-| `C` / `S` | New chart study / saved studies |
+Lab welcomes you with four plain-English testing questions, **Grade check**, a **Recent work** log, and an honest summary of whether your tested rules actually beat buy-and-hold (highlighting samples with too few trades):
 
-## Backtest
+![Lab Home showing four testing workflows, Grade check, Recent work history, and summary verdict](images/lab-home.png)
 
-A backtest runs a fixed rule over a stock's saved daily bars. It places no
-orders and needs no paper account. Fills happen at the next day's open with
-fees and tax, and respect T+2 settlement.
+---
 
-**Get there:** `1` on Lab home, `:backtest`, or `Enter` on Stock →
-Backtest. `:backtest FPT ma-cross from=2025-01-01` runs one at once.
+## 2. Backtest (`Would a rule have worked?`)
 
-The four rules:
+**Purpose:** Simulate fixed trading rules over saved daily bars cleanly — filling strictly at **next-day opens** (`daily_fills_v1`, zero look-ahead), deducting Vietnam commission/sell tax/slippage (`0.15%` + `0.10%` tax + `5 bps`), snapping exchange ticks, and enforcing **`T+2` settlement** before any sell or re-entry.
 
-| Rule | Buys | Sells |
+*(New to backtesting? Read [Backtesting theory & how `vnt` tests rules](backtesting.md) for how look-ahead bias, `T+2`, costs, drawdowns, Profit Factor, Sharpe, and outlier checks work.)*
+
+![Lab Backtest run view showing equity curve against buy-and-hold, key stats, and rule warnings](images/lab-backtest.png)
+
+### The four built-in strategies
+
+| Rule | Buys when (signal at close → fills next open) | Sells when |
 |---|---|---|
-| Moving-average cross 20/50 | MA20 crosses above MA50 | It crosses back |
-| Breakout of the 20-day high | Close above the prior 20-day high on volume above 1.5× the prior 20-day average | Close below the prior 20-day low, or 5% or more below entry |
-| RSI under 30, exit over 70 | RSI14 closes below 30 | RSI14 closes above 70 |
-| Bollinger reversion | Close below the lower 20-day Bollinger band | Close above the upper band |
+| **Moving-average cross 20/50** | `MA20` crosses above `MA50` | `MA20` crosses below `MA50` |
+| **20-day breakout** | Close > prior 20D high on volume `> 1.5×` 20D avg | Close < prior 20D low, or `>= 5%` below entry (uses closes) |
+| **RSI under 30, exit over 70** | `RSI14` closes below `30` | `RSI14` closes above `70` *(older mockup screenshots show `exit over 50`)* |
+| **Bollinger reversion** | Close below lower 20-day Bollinger band (`-2 SD`) | Close above upper Bollinger band (`+2 SD`) |
 
-The workbench has **Run**, **Saved runs** and **Compare** tabs. A run shows
-the rule's equity curve beside holding, return, worst drop, time in the
-market and trades.
+From **Run**, you can inspect **d details** (full statistical report including **Profit factor**, **Return ex-best**, **MaxDD intrabar/trade**, **Sharpe ratio**, and **Degraded fills**), switch to **Saved runs** to reopen past results without recalculating, or switch to **Compare**:
 
-**Compare** runs all four rules on the same stock, period and costs:
+The **Compare** tab benchmarks all four rules side-by-side from the exact same post-warmup bar (`bar 52`) against **Holding**, highlighting **Worst drop (max drawdown)**, **In market %**, and **Enough?** (`>= 30` trades required before drawing conclusions — 2 lucky trades prove nothing!). You can also test across every stock in your **Watchlist** (`w`) or jump straight into **Replay** on that exact period (`p`):
 
-```text
-    RULE                         RETURN   VS HOLDING  WORST DROP  IN MARKET  TRADES  ENOUGH?
-›   Moving-average cross 20/50   -9.2%    -2.2 pts    -12.1%      45.8%      4       no
-    Holding FPT                  -7.0%    —           -9.1%       100%       —
-```
+![Lab Backtest compare tab contrasting all 4 rules against Holding with 30-trade significance flag](images/lab-backtest-compare.png)
 
-| Column | Meaning |
-|---|---|
-| Return | Gain or loss over the period after fees and tax |
-| Vs holding | Return minus holding the stock, in percentage points |
-| Worst drop | The largest fall in equity from a peak |
-| In market | Share of days holding shares |
-| Enough? | Whether there are 30 trades or more |
+---
 
-| Key | Does |
-|---|---|
-| `↑` `↓`, `Enter` | Select a rule; open its run |
-| `w` | Run the rules across your whole watchlist, with progress; `Ctrl+X` cancels |
-| `p` | Replay the same period yourself |
-| `x` | Export |
+## 3. Replay (`Could I have traded it myself?`)
 
-## Replay
+**Purpose:** Practise daily buying, selling, stop placement, and `T+2` cash management one day at a time while future bars stay hidden (`today`'s high/low/close stay locked until you close the day).
 
-Trade a past period one day at a time with the future hidden.
+![Replay library listing ongoing and finished manual and strategy replays](images/lab-replay-library.png)
 
-**Get there:** `2` on Lab home, `:replay new`, or `p` on a backtest.
-`:replay` lists saved sessions.
+### Recommended setup: Blind `Surprise me`
+Leaving Stock and Period on **`< surprise me >`** picks a random watchlist symbol and random 45-day window from the past 3 years with **stock name & dates hidden**, testing your genuine skill rather than your memory (`100,000,000 ₫` isolated replay cash):
 
-### Setup
+![Replay New setup configuring Surprise me blind stock and 45-day window](images/lab-replay-setup.png)
 
-| Choice | Default | Other options |
-|---|---|---|
-| Stock | Surprise me: from your watchlist, name hidden until the end | Type a code |
-| Period | Surprise me: 45 trading days from the last 3 years, dates hidden | Pick dates |
-| Who trades | You decide each day | Watch a rule trade |
+During the session, you see today's opening price (`43.10`), make a decision (`Buy`, `Sell`, `Save stop`, or `Advance day`), and watch indicators recalculate strictly from revealed bars:
 
-Each replay gets its own account with 100,000,000 ₫ of practice cash, the
-same fees, tax and T+2 as Paper. `m` changes the rule to compare with, the
-cash, the length and the seed. Hiding the stock helps you avoid remembering
-what happened; prices can still give it away.
+![Replay live session showing chart revealed up to today's open, current cash/position, and buy/sell/advance actions](images/lab-replay-session.png)
 
-### A session
+When finished, Replay reveals the stock and dates and compares **You vs Simple Rule vs Holding** return and worst drawdown side-by-side:
 
-```text
-REPLAY #1 · FPT · by hand · informed practice · paper        day 14 of 45 · Mon 16 Mar
-  …chart up to today's open; the rest is hidden…
-TODAY      opened at 43.10 · the high, low and close stay hidden until you close the day
-YOUR MOVE  B buy    X sell    → do nothing and close the day    p add a stop first
-YOU        200 FPT bought at 41.85 · +250,000 ₫ at today's open · no stop
-SO FAR     you +0.8% · the rule's and holding's results come at the end
-```
+![Replay finished result comparing your return and drawdown beside the rule and holding](images/lab-replay-finished.png)
 
-*Informed practice* means you chose the stock or dates, so you may know
-what happens next.
+---
 
-| Key | Does |
-|---|---|
-| `→` | Close the day and reveal the next open |
-| `B` / `X` | Buy / sell ticket at today's open |
-| `p` | Save a stop for the whole position |
-| `f` | Fast-forward to the end (asks once) |
-| `Space` | Pause or resume |
-| `q` | End now and see the result (asks once) |
-| `R` | Restart as a new session; this one is kept |
-| `x` | Export the receipts as text or JSON |
-| `Esc` | Leave; the session stays as it is |
+## 4. Chart study (Blind bar-by-bar chart reading)
 
-### The result
+**Purpose:** Focus purely on **reading price, volume, and indicators** — no cash, no orders, faster to repeat than Replay.
 
-**How it went** puts you, the rule and holding side by side with each
-one's return and worst drop. **Your decisions beside the rule** lists each
-day you acted, what the rule did, and how the stock moved over the next
-five days. From here: `R` runs the same days again, `n` the same days on
-another stock, `G` guided practice on this period.
+### Step 1: Set up a study
+Choose a specific stock or let `vnt` pick blindly (`Hide dates: yes` shows **`Stock A`** and numbered bars), select overlays (`MA20`, `MA20 + MA50`, or `Bollinger`), choose a lower pane (`Volume`, `RSI14`, `MACD`, `Stochastic`, `RS vs VN-Index`, or `Foreign flow`), and leave **Limit days** on (`60` bars required before start + `20` hidden bars ahead; check data coverage in the **History library**):
 
-### Replay library
+![Chart study setup choosing blind mode, overlays like MA20, lower volume pane, and limit-day markers](images/lab-study-setup.png)
 
-`:replay` lists saved sessions with their state and strategy. `Enter`
-reads the saved report without changing it; `o` continues a session;
-`f`, `m` and `t` filter by symbol, mode and state; `v` compares.
+### Step 2: Study bar 60 & commit a call (future hidden)
+Notice **`20 bars hidden`** hides the future completely. Read `MA20 45.86`, `RSI14 62`, `volume 1.5×`, and `ATR14 1.05`, then record a call (`BUY`, `SELL`, or `WAIT`) with optional **Stop** (`44.50`), **Target** (`52.00`), and **Reason**:
 
-## Chart study
+![Chart study active screen at bar 60 with 20 bars hidden, MA20 overlay, volume, and BUY call draft](images/lab-study-call.png)
 
-Study a past chart bar by bar and record what you think will happen.
+### Step 3: Step forward & see `explain this bar` carefully
+Reveal 1 or 5 bars at a time and watch candles unfold against your entry marker and dashed stop/target levels:
 
-**Get there:** `C` on the board or the Stock chart, or `C` on Lab home.
+![Chart study stepped to bar 66 showing call entry dot, dashed stop and target lines](images/lab-study-stepped.png)
 
-| Field | Meaning |
-|---|---|
-| Stock | The code to study |
-| Start | A random past date, or `YYYY-MM-DD`; needs 60 bars before and 20 after |
-| Bars to study | How many bars stay hidden after the start (default 20) |
-| Hide dates | Show the stock as *Stock A* and days as numbers until the review |
-| Overlay | None, MA20, MA20 + MA50, or Bollinger |
-| Lower pane | None, RSI14, MACD, stochastic, relative strength, or foreign flow |
-| Limit days | Mark days that closed at the ceiling `▴` or floor `▾` |
+If you need a breakdown of current indicators at any bar, **`explain this bar`** summarizes Trend, Momentum, Volume, and Levels — and `vnt` transparently logs whether Explain was open before you made a call:
 
-During the study, record a call at any bar; `n` reveals the next bar. The
-review compares your calls with what happened. `Ctrl+L` opens the history
-library: which stocks have enough saved bars, and an explicit fetch for more.
-A study uses saved daily bars only and needs no account.
+![Chart study bar explanation showing trend, momentum, volume, and levels for the current bar](images/lab-study-explain.png)
 
-## Guided practice
+### Step 4: Review & Compare against the market baseline
+Once revealed, **Review** shows 5/10/20-bar follow-through, highest/lowest excursion, whether target or stop hit first, and net `R` result (plus room for your closing reflection):
 
-Answer at each of the agent's saved decision points before you see its
-answer.
+![Chart study Review showing what followed each call in bars, high/low excursions, and R outcome](images/lab-study-review.png)
 
-```text
-GUIDED PRACTICE · FPT  close 49 of 60 · Tue 25 Mar 2025
-WHAT THE CLOSE SHOWS                     YOUR ANSWER
-  FACT              VALUE   READS        › ‹ Buy 100 ›   Hold · Buy 100 · Buy 300
-  RSI14             100.00  against        Which fact matters most to you?
-  Volume vs average 1.00×   against        Why, in your own words  optional
-```
+In **Your studies**, `vnt` aggregates across all studies — comparing your `BUY` win rate after 10 bars directly beside **the market's own 10-bar up/down base rate** across all days in those studies!
 
-Pick an action, the fact that matters most, and optionally why. `Enter`
-saves your answer and shows the agent's, with what happened over the next 5
-and 20 sessions. **Your answer cannot be changed after the reveal.**
-`Ctrl+P` shows the rule the agent was given. No model is called.
+![Your studies list comparing your BUY calls against the market's own 10-bar baseline across studies](images/lab-study-list.png)
 
-## Agent practice
+---
 
-Watch the agent trade a past period inside limits you set. With the Go rule
-it is free; with the model it is paid and shows the cost first. See
-[Agent](agent.md).
+## 5. Guided practice & Agent practice
 
-## Grade check
+- **Guided practice:** Examine saved indicator readings from one of the agent's historical decision points, commit *your* action (`Hold`, `Buy 100`, `Buy 300`), choose the top reason, and type why **before** revealing what the agent picked and how price moved over the next 5 and 20 sessions:
 
-Does a higher grade separate later returns in your own saved history?
+![Guided practice answer screen before reveal showing technical facts and your decision draft](images/lab-guided-practice.png)
 
-```text
-GROUP      SESSIONS 5/20   NEXT 5 vs VN-INDEX         NEXT 20 vs VN-INDEX
-                           mean    median  above      mean    median  above
-A (A+ A)   1,200/1,144     +0.21%  +0.05%  51.0%      +0.62%  +0.20%  53.0%
-D (D+ D)   1,900/1,780     -0.12%  -0.10%  48.0%      -0.40%  -0.22%  47.0%
-A − D   next 20  +1.02%  90% interval  +0.21% … +1.85%  above zero
-```
+![Guided practice reveal comparing your answer against the agent's choice and 5/20-day outcomes](images/lab-guided-reveal.png)
 
-| Term | Meaning |
-|---|---|
-| Sessions 5/20 | Graded sessions with a complete 5- and 20-session window after them |
-| Next 5 / next 20 vs VN-Index | The stock's return over the next 5 or 20 sessions minus VN-Index's |
-| Above | Share of sessions that beat VN-Index |
-| A − D | The gap between the top and bottom groups, with a 90% interval. *Spans zero* means the gap could be chance |
+- **Agent practice:** Watch the free **Go rule** (or optional paid **Model**) run across a past period inside strict capital limits (`Pause` or `Take over` anytime):
 
-It needs at least 100 graded sessions. It covers only stocks you have
-saved, uses close-to-close returns, and ignores costs, tax and price limits.
-`r` runs it again; `x` exports.
+![Agent practice setup screen configuring stock, period, Go rule or model, and limits](images/lab-agent-practice.png)
+
+![Agent practice live runner showing simulated session progress, active stops, and decision log](images/lab-agent-practice-runner.png)
+
+---
+
+## 6. Grade check
+
+**Purpose:** Audit statistically whether `A`-graded setups actually beat `D`-graded setups in **your own saved database** over the next 5 and 20 sessions vs `VN-Index` (minimum `100` graded sessions; displays **`A − D` spread** and a **90% confidence interval** flagging *"spans zero"* when the gap could be chance):
+
+![Lab Grade check comparing 5-day and 20-day excess returns vs VN-Index across grade buckets A through D](images/lab-grade-check.png)
+
+---
+
+## How to open and use Lab (Controls)
+
+Open **Lab** via `F3` → `6` or `:lab` (`C` opens **Chart study** from Market/Stock/Lab; `:replay` lists saved replays).
+
+- **Lab Home:** `1`–`4` start workflow · `g` Grade check · `C` / `S` New Chart study / Your studies · `Enter` open work · `p` replay same period · `v` compare · `x` export.
+- **Backtest:** `↑` `↓` select rule · `Enter` open run · `w` run across watchlist (`Ctrl+X` cancels) · `p` replay period · `x` export.
+- **Replay session:** `→` close day & advance · `B`/`X` buy/sell at open · `p` save stop · `Space` pause/resume · `f` fast-forward · `q` end now · `R` restart · `x` export.
+- **Chart study:** `Enter` record call · `→` next bar · `Space` next 5 · `e` explain this bar · `r` reveal all · `Ctrl+L` history library · `Esc` pause & save.
+- **Guided practice & Grade check:** `Enter` lock & reveal answer · `Ctrl+P` view Go rule · `r` rerun Grade check · `x` export.

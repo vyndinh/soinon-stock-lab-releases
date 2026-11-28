@@ -1,185 +1,127 @@
 # 2 · Market
 
-**For:** watching your stocks live, reading news and foreign flow, setting
-alerts, and reviewing what changed since you last looked.
+**Purpose:** Follow live Vietnamese market prices across your watchlists, organize stocks into groups, read matched financial news and foreign investor flows, spot technical signals or sector moves, manage price alerts, and run a calm 2-minute Daily briefing after the close.
 
-**Get there:** `F3` then `2`, `:market`, or `2` / `Esc` from Today.
+---
 
-## The board
+## Use cases & user stories (Benefits)
 
-The board is a set of panels around your watchlist.
+- **Watching live movers without juggling windows:** *"I follow 10 bank and tech stocks and want live quotes, intraday candles, 7-factor grades, headlines, and foreign flow all updating together in one place."* → The **Market board** links all six panels cleanly as you step down your watchlist.
+- **Seeing the market mood at a glance:** *"When VN-Index drops, I want to tell whether selling is hitting every industry or only one sector — and which watched stocks actually fired technical signals."* → **Sector heat map** and **TA Screener** show industry breadth and live signals side-by-side.
+- **Stepping away from the screen safely:** *"I can't stare at quotes all day. Tell me when FPT drops near support or crosses MA20."* → Set rule-based **Alerts** with clear distance readouts in **Alert inbox**.
+- **Two-minute end-of-day review:** *"Show me only what moved, changed grade, or approached a stop since my last check."* → Run the **Daily briefing** and advance your baseline only when you finish reviewing.
 
-```text
-╭─ WATCHLIST · Watchlist 1/5 · sort manual ───────────╮╭─ STOCK — DIG ─────────────────────╮
-│  SYMBOL  GRADE   LAST  CHANGE   CHG%  VOLUME  TODAY  ││ LAST    9.63  -0.15  -1.5%        │
-│› DIG              9.63  -0.15  -1.5%    4.6M  █▇▆▅▄▃ ││ GRADE   Not graded yet            │
-│  HPG              9.63  -0.15  -1.5%    4.6M  —      ││ HELD    Not held in paper         │
-│ vps · observed 19:58:00 · exchange time not in feed  ││ SUPPORT 9.50  resist 9.76 · 9.85  │
-╰──────────────────────────────────────────────────────╯│ Room    39.1M   Foreign net -124.7K│
-╭─ CANDLE · DIG · 1m · 30 bars · auto ────────────────╮╭─ WHY GRADE · DIG ─────────────────╮
-│  …intraday chart…                                    ││ Price / MA20     for    +1        │
-╰──────────────────────────────────────────────────────╯╰───────────────────────────────────╯
-╭─ NEWS · relevance · 7d ─────────────────────────────╮╭─ FOREIGN FLOW · today ────────────╮
-```
+---
 
-| Panel | Shows |
+## 1. The Market board
+
+The Market board arranges six coordinated panels around your Watchlist. Highlighting any stock updates its **Stock card**, **Candle chart**, and **Why grade** panels simultaneously.
+
+![Market board showing Watchlist, Stock card, Intraday Candle chart, Why grade, News, and Foreign flow](images/market-board.png)
+
+### What each panel means (worked example: `DIG`)
+- **`WATCHLIST` (top-left):** Lists your stocks with daily TA **GRADE** (`↑`/`↓` marks recent grade moves), **LAST**, **CHANGE**, **CHG%**, **VOLUME**, and a **TODAY** intraday sparkline. A gold dot (`●`) flags stocks that changed meaningfully since your last reviewed briefing, and the footer timestamps the exact feed (`vps · observed 14:18:28`).
+- **`STOCK` (top-right):** Snapshot for the selected stock (`DIG 9.63 -1.5%`, `grade C (was C+)`), your paper holdings (`1,500 · cost 9.79`), stop status (`none saved`), nearest `support 9.50` / `resist. 9.76`, today's foreign net flow (`-124.7K`) and remaining foreign room (`39.1M`), plus your latest briefing note.
+- **`CANDLE` (middle-left):** Intraday candlestick chart (`1m`, `5m`, `15m`, or daily) with `VWAP`, `MA20`, `MA50`, and yesterday's High/Low/Close reference lines.
+- **`WHY GRADE` (middle-right):** Shows a multi-timeframe direction strip (`5m ▼ · 15m ▼ · 1D ▲ · 1W ▼`) above the 7 factors (`+` for, `×` against).
+- **`NEWS` (bottom-left) & `FOREIGN FLOW` (bottom-right):** Matched CafeF headlines ranked by relevance/age, beside today's foreign investor net share flow (`DIG -124.7K net sold`, `VND +418.2K net bought`).
+
+> **After hours & compact screens:** Outside trading hours (`○ CLOSED`), the board displays saved closing quotes with clear timestamps rather than stale blanks. On compact **80×24** terminals, decorative borders and `TODAY` sparklines drop automatically so more stocks fit cleanly.
+
+### Live TA Screener & Sector Heat Map
+- **TA Screener:** Surfaces live or daily technical signals across the current watchlist group (such as *RSI hidden bearish divergence* or *Foreign net sell*) with plain-English signal explanations when inspected:
+
+![Market Screener panel highlighting live technical signals for watchlist stocks](images/market-screener.png)
+
+- **Sector heat map:** Summarizes average daily percentage return and stock count per industry (sectors come from **Records → Sectors**) so you spot sector rotation immediately:
+
+![Market board displaying Sector heat map across industry groups](images/market-sector-heatmap.png)
+
+### Focused News reader
+Focusing News lets you inspect the full selected headline, publisher source, and exact article age, open stories in your browser, filter strictly to watchlist tickers, or adjust the 1/3/7/30-day window:
+
+![Market board with News panel focused showing selected headline source and age](images/market-news-focused.png)
+
+---
+
+## 2. Alerts (New alert & Alert inbox)
+
+**Purpose:** Watch price levels or technical thresholds automatically while `vnt` is open so you never chase moves late. **Alerts only notify you — they never place orders.**
+
+### Setting an alert with price context
+When creating a new alert on a stock, `vnt` displays the stock's current price and nearby support/resistance levels so you can place triggers cleanly on valid ticks:
+
+![New alert creation screen showing trigger rule choices and reference price context](images/market-new-alert.png)
+
+Supported triggers:
+- **Price above / below:** Live price crosses a chosen price level.
+- **Cross MA20:** Daily close crosses above or below the 20-day moving average.
+- **RSI above / below:** 14-session RSI crosses a chosen level (`1–99`).
+- **Volume spike:** Trading volume exceeds a chosen multiple of the 20-day average.
+
+### Managing triggered & waiting alerts (`Alert inbox`)
+
+![Alert inbox showing fired alerts at top and waiting triggers with live distances below](images/market-alerts.png)
+
+- **`FIRED`** sits at the top (`●` marks unread) showing when it fired, the trigger price, and current price.
+- **`WAITING`** tracks every active rule alongside **`DISTANCE`** (e.g., `+1.9% to level`) so you know immediately which watches are getting close. *(Alerts only check live quotes while `vnt` is open; moves while closed are not replayed.)*
+
+---
+
+## 3. Daily briefing
+
+**Purpose:** Replace chaotic scrolling with a calm **2-minute daily check**. Unlike live quotes, the Daily briefing compares today's saved daily closes against your **last reviewed baseline** — folding unchanged stocks out of the way.
+
+![Daily briefing Summary showing portfolio change, needs-you count, changed stocks, and folded unchanged rows](images/market-briefing-summary.png)
+
+### Example evening briefing flow
+1. **Summary table:** Check the top equity strip (`514.15M ₫`, `▲ +14.15M ₫ since start`), **`NEEDS YOU`** warnings (e.g., holdings lacking an armed stop order), and stocks flagged under **`WHAT CHANGED`** (a `>= 2%` price swing, grade change, approaching stop, or upcoming event).
+2. **Stock review:** Open any mover to inspect **60 sessions of closes**, **10-session foreign flow**, **20-session relative strength vs VN-Index**, a visual **`stop ──●─────── target`** gauge, your last decision note with how price moved since then, and record a new judgment note (**Watch closely**, **No change**, **Review my plan**, **Plan to act**) without placing any order:
+
+![Briefing stock review showing what changed, 60-session sparkline, position stop gauge, foreign flow, news, and Decide selector](images/market-briefing-stock.png)
+
+3. **Whole-book exposure check:** Check overall portfolio weight, biggest holdings/sectors, and stop protection across your entire book in one view:
+
+![Briefing Book screen summarizing total equity, exposure weights, and stop protection](images/market-briefing-book.png)
+
+4. **Mark reviewed:** Lock today's close as tomorrow's baseline only when you explicitly confirm (`view-only` browsing never resets your baseline):
+
+![Briefing Mark reviewed confirmation recording today's baseline](images/market-briefing-mark.png)
+
+### Optional AI Research brief (`a`, paid per request)
+If an AI model key is configured, you can ask for a read-only synthesis across up to 5 stocks in the briefing. `vnt` previews exact data sent and dollar cost first (`send` confirms), clearly separates verified **Facts (`●`)** from **Interpretation**, and keeps saved briefs readable offline for free:
+
+![Agent research brief listing cited facts and market interpretation separated cleanly](images/market-briefing-agent.png)
+
+---
+
+## How to open and use Market (Controls)
+
+Open **Market** via `F3` → `2`, `:market`, or `2`/`Esc` from Today. Open **Alert inbox** with `:alerts` (or `A` on the board) and **Daily briefing** with `:brief` (or `v` on Today).
+
+### Market board keys
+
+| Key | Action |
 |---|---|
-| Watchlist | Your codes with grade, last price, change, % change, volume and a sparkline of today's prices. The footer line names the feed and when the quotes were observed |
-| Stock | The selected stock: last price, grade, whether you hold it, nearest support and resistance, foreign room and today's foreign net |
-| Chart | An intraday chart of the selected stock |
-| Why grade | The seven grade factors for the selected stock, each *for*, *against* or *neutral* |
-| News | Recent headlines for your stocks |
-| Foreign flow | Today's foreign net buying or selling per stock, in shares |
+| `↑` `↓` | Select a stock in the Watchlist |
+| `Tab` | Cycle focus across panels (focused panel shows orange border) |
+| `Enter` | Open the selected stock's full **Stock** page (or article link in News) |
+| `1` `5` `F` `4` | Switch Candle chart between `1m`, `5m`, `15m`, and daily (`4`) |
+| `'` | Cycle Candle lower pane (`Volume`, `RSI14`, `MACD`, `Stochastic`) |
+| `L` / `V` / `M` | Toggle prev-day H/L/C lines, VWAP, and pivots/Fibonacci on the board chart |
+| `a` / `D` | Add / remove a stock in the active watchlist group |
+| `K` / `J` | Reorder stocks manually up / down |
+| `s` `p` `v` `m` | Sort by code, % change, volume, or manual order |
+| `G`, `[` `]` | Manage watchlist groups (`n` new, `r` rename, `D` delete); switch prev/next group |
+| `S` / `H` | Toggle compact **TA Screener** (`d` explains signal) / **Sector heat map** |
+| `N` | Focus **News** (`D` 1/3/7/30 days, `R` relevance/time, `W` watchlist filter, `:news export`) |
+| `e` / `t` | Open full **Why this grade** breakdown / recent **Trades** prints |
+| `n` / `A` | New alert on selected stock / open **Alert inbox** |
+| `C` | Start a blind **Chart study** on this stock |
+| `B` / `X` | Open Paper BUY / SELL order ticket |
+| `P` / `1` | Open Paper portfolio / jump back to Today |
 
-Outside trading hours the board shows the last saved quotes and says how
-old they are. The watchlist's **GRADE** column fills in once the stock is in
-a daily briefing. Until then the Stock card shows the grade read from the
-chart (*chart reading*), or *Not graded yet* when there are too few bars.
+### Alert inbox & Daily briefing keys
 
-### Board keys
-
-| Key | Does |
-|---|---|
-| `↑` `↓` | Select a stock |
-| `Enter` | Open the stock's page |
-| `Tab` | Move to the next panel |
-| `a` / `D` | Add / delete a code |
-| `K` / `J` | Move the selected code up / down |
-| `s` `p` `v` `m` | Sort by code, % change, volume, or your own order |
-| `G` | Watchlist groups: create, rename, switch |
-| `[` / `]` | Previous / next group |
-| `e` | The selected stock's score in full |
-| `t` | Recent trades for the selected stock |
-| `n` | New alert for the selected stock |
-| `S` | Show and focus the screener; `S` again hides it |
-| `H` | Sector heat map |
-| `N` | Focus the news panel |
-| `A` | Alert inbox |
-| `C` | Study the selected stock on past daily bars (Lab → Chart study) |
-| `B` / `X` | Paper buy / sell ticket |
-| `P` | Paper portfolio |
-| `1` | Today |
-
-On the intraday chart: `1` `5` `F` `4` switch between 1-minute, 5-minute,
-15-minute and daily bars; `'` changes the lower pane; `L` shows the previous
-session's high, low and close; `V` shows VWAP; `M` cycles pivots and
-Fibonacci levels.
-
-### Screener
-
-`S` opens a panel listing stocks in the current group that show a
-technical signal, such as an RSI below 30 or a 20-day breakout. `Enter`
-selects that stock on the board; `d` shows the signal details. For a fuller
-search use [Find](find.md).
-
-### Sector heat map
-
-`H` shows one tile per sector, coloured by the average change of its stocks
-today. Sectors come from tags saved in Records → Sectors.
-
-## News
-
-`N` focuses the news panel. Headlines come from CafeF RSS and are matched to
-codes and sectors.
-
-| Key | Does |
-|---|---|
-| `↑` `↓` | Select a headline |
-| `Enter` | Open the article, or filter to a sector row |
-| `D` | Lookback: 1, 3, 7 or 30 days |
-| `R` | Sort by relevance or by time |
-| `W` | Only your watchlist stocks |
-| `Esc` | Clear the filter |
-
-`:news export` saves the list shown as a CSV file.
-
-## Alerts
-
-An alert tells you when a stock does something. It never places an order.
-
-**Set one:** `n` on a selected stock, or type `:alert FPT above 54`.
-
-| Watch for | Fires when |
-|---|---|
-| Price above / below | The live price crosses a level you set (two decimals) |
-| Cross MA20 | The daily close crosses MA20 |
-| RSI above / below | RSI14 crosses a value from 1 to 99 |
-| Volume spike | Volume reaches a multiple of the 20-day average |
-
-**Alert inbox:** `A`, or `:alerts`.
-
-```text
-FIRED · 1
-› ● FPT  below 41.50   fired Mon 16 Nov 10:32 at 41.40 · now 41.10 · unread
-WAITING · 3
-  STOCK  RULE          NOW     DISTANCE          SET
-  ACB    above 21.80   21.40   +1.9% to level    09 Nov
-```
-
-*Distance* is how far the price must move to reach the level. An alert fires
-once, then waits. `R` re-arms it at the same price.
-
-| Key | Does |
-|---|---|
-| `Enter` | Open the stock |
-| `u` | Mark read |
-| `n` | New alert |
-| `R` | Re-arm (asks first) |
-| `D` | Delete (asks first) |
-| `f` | Filter: waiting, fired, all |
-
-Alerts are checked against live quotes **only while the app is running**.
-Time while it was closed is not replayed.
-
-## Daily briefing
-
-**For:** a two-minute check of what changed in your stocks since your last
-review.
-
-**Get there:** `:brief`, `v` on Today, or Get started goal 1. `:brief
-ACCOUNT` chooses which paper account's holdings to include.
-
-```text
-DAILY BRIEFING  Sat 14 Nov · first review · a baseline                  3 in scope
-   STOCK  CLOSE   SINCE   GRADE   FLOW 10d   YOUR POSITION      WHAT CHANGED
-›● FPT    46.80           B+      +0.0 bn    hidden · account changed   baseline
- ● ACB    —               —       —                                     baseline
-   2 with gaps: ACB, BID · c details
-```
-
-| Column | Meaning |
-|---|---|
-| CLOSE | The latest saved daily close |
-| SINCE | % change since the close in your last reviewed briefing |
-| GRADE | The grade from saved daily bars |
-| FLOW 10d | Foreign net over ten sessions, in billion dong |
-| YOUR POSITION | Shares in the selected paper account and how far the close is above your saved stop. *hidden · account changed* means the account differs from the one in the review |
-| WHAT CHANGED | Why the stock is listed: a price move of 2% or more, a grade change, a stop nearby, an upcoming event |
-
-The first visit records a **baseline**. Marking a briefing reviewed (`m`,
-then `y`) makes it the next baseline. Viewing alone never saves one. A
-stock with missing prices is listed as a gap with the reason (`c`).
-
-| Key | Does |
-|---|---|
-| `↑` `↓`, `Enter` | Select a stock; open its frozen evidence |
-| `f` | Fetch daily prices for every stock in scope |
-| `r` | Read the saved evidence again |
-| `m` | Mark reviewed (asks `y`) |
-| `d` | Note a decision about the stock |
-| `D` | Saved decisions and what happened after each |
-| `b` | Your whole book: value, largest holding, sectors, stops |
-| `a` | Research brief (needs a model; see below) |
-| `x` | Export as JSON |
-
-The briefing reads saved daily bars and calls no model. A 2% change is an
-attention threshold, not a trade signal.
-
-### Research brief (model, paid)
-
-`a` in the briefing, or `:brief agent`, asks the model to link changes
-across up to five stocks using the briefing's saved evidence. Before the
-request it shows the stocks, what will be sent and the estimated cost; type
-`send` and press `Enter` to confirm. `e` shows the cited evidence and `x`
-saves it. A saved brief opens without a new request. See
-[Safety and your data](safety-and-data.md#model-features).
+- **Alert inbox:** `Enter` open stock · `u` mark read · `n` new alert · `R` re-arm (asks first) · `D` delete (asks first) · `f` filter (`waiting` / `fired` / `all`).
+- **Daily briefing:** `f` fetch fresh daily bars · `Enter` stock review · `b` whole-book summary · `d` decision note · `D` decision log · `m` mark reviewed (`y` confirms) · `a` AI research brief · `x` export JSON.
