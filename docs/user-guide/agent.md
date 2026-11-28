@@ -23,7 +23,7 @@
 - **`RUNNING NOW`:** Shows active Auto paper progress (`Day 9 of 20`), latest `09:30` reasoning, and live session P&L.
 - **`NEEDS YOU`:** Proposals awaiting your yes/no decision.
 - **`LEARN FROM IT`:** Tracks how often the agent's closed trades had **sound reasons** (`2 sound, and it paid · 1 sound, and it lost · 1 paid anyway · 0 broke, and it lost`).
-- **`START` (`1`–`5`):** Launch Auto paper, review pending proposals, ask about a stock, coach a closed trade, or test fast historical **Agent practice** in Lab. *(Launching with `vnt tui --experiment` adds option `6` experimental daily portfolios.)*
+- **`START` (`1`–`5`):** Launch Auto paper, review pending proposals, ask about a stock, coach a closed trade, or test fast historical **Agent practice** in Lab. *(Launching with `vnt tui --experiment` adds option `6` for [experimental forward daily portfolios](command-line.md#3-experimental-daily-forward-portfolios-vnt-forward) comparing the model, `r4` Go rule, and Buy-and-Hold one session at a time.)*
 
 ### Go rule vs Model agent
 - **Go rule (`free`):** Fixed, deterministic rule built into `vnt`. Calls no external API and spends nothing (meant as a transparent baseline, not a money-making promise).

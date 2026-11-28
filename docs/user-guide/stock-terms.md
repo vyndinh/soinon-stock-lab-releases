@@ -70,7 +70,7 @@ All times are Vietnam time (**ICT**, UTC+7). On a normal weekday on **HOSE**:
 - **Position, Cost, Unrealized P&L:** Shares held, weighted average price paid (**cost**), and open paper gain/loss (**unrealized** until sold).
 - **Equity & Weight:** Account cash + market value of all positions (**equity**); single stock or sector share of total equity (**weight**).
 - **Drawdown:** Percentage decline from an account's highest historical equity peak.
-- **Risk (`R` multiple):** Planned entry-to-stop dollar risk = `1R`. A trade netting `+2.0 R` earned twice your planned risk; `-1.0 R` lost roughly your planned risk.
+- **Risk (`R` multiple) & Expectancy:** Planned entry-to-stop dong risk = `1R`. A trade netting `+2.0 R` earned twice your planned risk; `-1.0 R` lost roughly your planned risk. **Expectancy** is `(Win% × Avg Win R) − (Loss% × Avg Loss R)`. See [Risk management & position sizing](risk-management.md).
 - **Risk guards (Engine limits):** Deterministic rules checked locally in Go on every manual and agent order: daily loss limit, max open positions, stop-loss-on-every-buy guard, single-stock concentration cap, and pause-on-drawdown.
 
 ---

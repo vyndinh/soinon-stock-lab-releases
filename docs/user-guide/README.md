@@ -46,9 +46,10 @@
 
 ## 3. Recommended reading order for beginners
 
-1. **Understand the language, charts, testing & AI agents first** *(no keyboard shortcuts required yet)*:
+1. **Understand the language, charts, risk math, testing & AI agents first** *(no keyboard shortcuts required yet)*:
    - [Stock terms (Glossary)](stock-terms.md) — Vietnam exchange sessions, `±7%/10%/15%` bands, `kVND` pricing, settlement, orders, and `R`.
    - [Reading charts & technical analysis](chart-reading.md) — How candlesticks, trends, support/resistance, volume, indicators, divergences, `ATR14` stops, and risk-reward work on `vnt` charts.
+   - [Risk management & position sizing](risk-management.md) — `1R` lot sizing, losing-streak survival math, expectancy, `ATR14` stops, Vietnam `T+2`/floor-gap/ex-date hazards, and engine risk guards.
    - [Backtesting theory & how `vnt` tests rules](backtesting.md) — Look-ahead bias, Vietnam `T+2`/limit-band execution, realistic costs, sample size (`>= 30`), drawdowns, and interpreting backtest metrics honestly.
    - [How `vnt`'s LLM AI Agent works](ai-agents.md) — Frozen evidence grounding (`CheckNumerals`), `HOLD`/`ABSTAIN`/`FAILED`, hard Go safety brakes, prompt-injection defense, `Lessons` evaluation, and cost auditing.
 2. **Understand how screens work, what they show, and real examples**:

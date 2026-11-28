@@ -32,6 +32,16 @@ Low 1      --'                                '--    /        Low 2 (lower low)
 
 > **Newbie tip for stops:** Never place your stop-loss *directly on* an obvious round support number (like `60.00`), because market noise frequently sweeps just a tick below round levels before bouncing. Tuck stops slightly *under* support and beyond normal daily noise (`ATR14`).
 
+![Stock Chart showing daily candlesticks, MA20 and MA50 lines, personal saved levels, and stop/target reference](images/stock-chart.png)
+
+In `vnt`'s chart above, you can visually inspect candlesticks against **`MA20`** / **`MA50`**, **`Your level`** (`75.85`), and your planned **Stop (`71.00`)** and **Target (`83.00`)** on one canvas — and toggle the **Measure** tool to check exact `%` and `vs VN-Index` gains between any two swings:
+
+![Chart Measure tool comparing swing percentage return and VN-Index relative change between two bars](images/stock-chart-measure.png)
+
+Saving horizontal support/resistance notes directly on the chart keeps key zones memorable weeks later:
+
+![Stock Chart adding a personal saved horizontal price level with note](images/stock-chart-your-level.png)
+
 ---
 
 ## 2. Candlesticks: Reading buyer vs seller pressure
@@ -130,6 +140,8 @@ Measures the gap between the fast/slow trend difference (`12/26 EMA`) and its 9-
 - **Crosses from negative to positive:** Early momentum shift ahead of slower `MA20/MA50` crosses.
 - `vnt` treats tiny readings inside `±0.005` as **neutral (`0`)** to prevent noisy score flips.
 
+![Stock Chart cycling lower indicator panes such as RSI14, MACD histogram, and vs VN-Index](images/stock-chart-lower-pane.png)
+
 ### `Stochastic Oscillator`
 Compares where today's close sits inside the 14-day High–Low range (`0–100`), useful for spotting short-term swings inside sideways ranges (available on the Market board lower pane and Chart study).
 
@@ -169,3 +181,5 @@ Comparing a stock directly against `VN-Index` over the exact same dates prevents
 1. **Indicator redundancy (double-counting):** Using `RSI14` + `Stochastic` + `MACD` all saying "oversold" isn't 3 independent confirmations — they are all momentum math from the same price bars! Combine **one factor per category** instead: **Trend** (`MA20/MA50`, `ADX`) + **Level** (Support/Resistance) + **Volume** (`>=1.5×` / `OBV` / `Foreign flow`) + **Volatility-adjusted stop** (`ATR14`).
 2. **Ignoring market regime:** Buying breakout systems during broad market downtrends (`VN-Index < MA50`) or trend-following inside `ADX < 20` chop leads to repeated small losses.
 3. **Treating scores as predictions:** `vnt`'s 7-factor Grade (`A+` to `D`) simply adds 7 transparent daily checks (`Price vs MA20`, `Price vs MA50`, `MA20 vs MA50`, `RSI14`, `MACD histogram`, `Volume`, and half-weight `Foreign flow`). Verify how grades performed on your own saved history using **Lab → Grade check** and practise reading charts blind in **Lab → Chart study** before risking real convictions.
+
+![Why this grade screen showing the 7 weighted factor scores, exact flip thresholds, and 20-session grade history](images/stock-why-grade.png)

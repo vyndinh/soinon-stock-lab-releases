@@ -2,6 +2,8 @@
 
 **Purpose:** Practise trading stocks with simulated cash under authentic Vietnamese market mechanics — **100-share lots, exchange ticks, `±7%/10%/15%` daily bands, T+2 settlement at `13:00`, broker fees, and sell tax** — plan your stop-loss and target before entering, keep hard risk guards on, and audit your decisions honestly when trades close.
 
+*(New to position sizing, `1R`, `ATR14` stop distance, expectancy, or Vietnam `T+2` / gap hazards? Read [Risk management & position sizing](risk-management.md).)*
+
 > **Paper only.** Simulated orders never reach a real broker. Live paper orders, stops, and targets are evaluated **only while `vnt` is open**; moves while the app is closed are not replayed.
 
 ---

@@ -88,6 +88,32 @@ Under **Records → Theme**, `vnt` adapts to both **Light** and **Dark** termina
 
 ---
 
+## Your first week with Soinon (Step-by-step path)
+
+| Day | What to do | What you learn |
+|---|---|---|
+| **Day 1** | Explore **Get started**, inspect 2–3 leaders (`FPT`, `VCB`) in **Stock**, and try **Lab → Chart study** in blind mode (`Stock A`). | How to read candlesticks, support/resistance, `ATR14`, and scores without hindsight bias. |
+| **Day 2** | Run **Lab → Backtest** on a watchlist stock (`2y` + **Compare**), and scan `VN100` with **Find → Ideas**. | Why simple indicator rules win or fail across regimes (`>= 30` trades rule) and how Ideas filter candidates locally. |
+| **Day 3** | Open **Paper**, set up `DEMO_01`, and place a small simulated buy using **`Size it from risk`** (`0.5%`) and a bracket stop/target. | `100`-share lots, exchange ticks, `kVND` prices, fees, and `◐ pending` settlement until `T+2 13:00`. |
+| **Day 4–5** | Start each day on **Today**, check **Market → Daily briefing** after `15:00 ICT`, and review any closed trade under **Paper → Trade review**. | Calm 5-minute review habits, ex-dividend awareness, and backing up SQLite in **Records → Backup**. |
+
+---
+
+## Common beginner questions (FAQ)
+
+- **Why couldn't I sell shares I bought earlier this morning or yesterday?**
+  Vietnam stocks settle at **`T+2 13:00`** (two trading sessions after buying). Until then, shares show as `◐ pending` and stay locked from selling — even in Paper trading.
+- **Why did a stop-loss trigger on a stock's dividend ex-date?**
+  On ex-dividend morning, the exchange drops the reference price by roughly the cash/stock payout. Check **Today (`COMING UP`)** or **Records → Dividends** ahead of time so you can adjust tight stops consciously.
+- **Why does the TUI show `62.30` while Codex/Claude MCP shows `62300`?**
+  TUI tables display compact **`kVND`** (`62.30` = `62,300 ₫`) to fit clean 80–120 column screens, while MCP order tools and full dong totals use exact **`VND`** (`62300`).
+- **Do stops or Auto paper keep running after I close `vnt`?**
+  No. All Paper quotes, bracket triggers, alerts, and scheduled Auto paper decisions evaluate **only while `vnt` is open**; closing `vnt` pauses Auto paper cleanly until you resume.
+- **Why can `vnt score FPT` on the command line differ slightly from the TUI grade?**
+  The standalone CLI `vnt score` computes daily TA factors with foreign flow counted as `0`, whereas the live TUI includes recent 5-day foreign flow (`±0.5` weight).
+
+---
+
 ## How to install, open, and navigate (Keys)
 
 Once you are ready to run `vnt`, download the archive for your OS from the [download page](https://vyndinh.github.io/soinon-stock-lab-releases/), verify its SHA-256 checksum, extract it, and run from a terminal at least **80×24** (or **120×32** for wide two-column views):
