@@ -22,20 +22,24 @@ Lab welcomes you with four plain-English testing questions, **Grade check**, a *
 
 ## 2. Backtest (`Would a rule have worked?`)
 
-**Purpose:** Simulate fixed trading rules over saved daily bars cleanly — filling at **next-day opens** (no lookahead), deducting fees/sell tax, and enforcing Vietnam's `T+2` settlement.
+**Purpose:** Simulate fixed trading rules over saved daily bars cleanly — filling strictly at **next-day opens** (`daily_fills_v1`, zero look-ahead), deducting Vietnam commission/sell tax/slippage (`0.15%` + `0.10%` tax + `5 bps`), snapping exchange ticks, and enforcing **`T+2` settlement** before any sell or re-entry.
+
+*(New to backtesting? Read [Backtesting theory & how `vnt` tests rules](backtesting.md) for how look-ahead bias, `T+2`, costs, drawdowns, Profit Factor, Sharpe, and outlier checks work.)*
 
 ![Lab Backtest run view showing equity curve against buy-and-hold, key stats, and rule warnings](images/lab-backtest.png)
 
 ### The four built-in strategies
 
-| Rule | Buys when | Sells when |
+| Rule | Buys when (signal at close → fills next open) | Sells when |
 |---|---|---|
 | **Moving-average cross 20/50** | `MA20` crosses above `MA50` | `MA20` crosses below `MA50` |
-| **Breakout of 20-day high** | Close > prior 20D high on volume `> 1.5×` 20D avg | Close < prior 20D low, or `>= 5%` below entry |
-| **RSI under 30, exit over 70** | `RSI14` closes below `30` | `RSI14` closes above `70` |
-| **Bollinger reversion** | Close below lower 20-day Bollinger band | Close above upper Bollinger band |
+| **20-day breakout** | Close > prior 20D high on volume `> 1.5×` 20D avg | Close < prior 20D low, or `>= 5%` below entry (uses closes) |
+| **RSI under 30, exit over 70** | `RSI14` closes below `30` | `RSI14` closes above `70` *(older mockup screenshots show `exit over 50`)* |
+| **Bollinger reversion** | Close below lower 20-day Bollinger band (`-2 SD`) | Close above upper Bollinger band (`+2 SD`) |
 
-The **Compare** tab benchmarks all four rules side-by-side against **Holding**, highlighting **Worst drop (max drawdown)**, **Time in market**, and **Enough?** (`>= 30 trades` required before drawing conclusions — 2 lucky trades prove nothing!):
+From **Run**, you can inspect **d details** (full statistical report including **Profit factor**, **Return ex-best**, **MaxDD intrabar/trade**, **Sharpe ratio**, and **Degraded fills**), switch to **Saved runs** to reopen past results without recalculating, or switch to **Compare**:
+
+The **Compare** tab benchmarks all four rules side-by-side from the exact same post-warmup bar (`bar 52`) against **Holding**, highlighting **Worst drop (max drawdown)**, **In market %**, and **Enough?** (`>= 30` trades required before drawing conclusions — 2 lucky trades prove nothing!). You can also test across every stock in your **Watchlist** (`w`) or jump straight into **Replay** on that exact period (`p`):
 
 ![Lab Backtest compare tab contrasting all 4 rules against Holding with 30-trade significance flag](images/lab-backtest-compare.png)
 

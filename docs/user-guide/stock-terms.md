@@ -99,11 +99,18 @@ All times are Vietnam time (**ICT**, UTC+7). On a normal weekday on **HOSE**:
 
 ---
 
-## Corporate actions, testing & practice
+## Corporate actions, backtesting & practice
+
+*(See [Backtesting theory & how `vnt` tests rules](backtesting.md) for a full guide to evaluating strategy statistics.)*
 
 - **Ex-date (Ex-dividend date):** Shares bought *before* this date receive the dividend (cash minus 5% Vietnam dividend tax, or bonus shares). On ex-date morning, the exchange drops the reference price by roughly the payout — tight stops can trigger unexpectedly if unadjusted.
-- **Backtest:** Simulating a fixed trading rule over saved daily bars (next-day open fills, fees, tax, and T+2 settlement; needs `>= 30` trades to judge reliably).
-- **Against holding:** Strategy return minus buy-and-hold return over identical dates (`percentage points`).
+- **Backtest:** Simulating a fixed trading rule over saved daily bars (next-day open fills, exchange tick snapping, fees/tax/slippage, and `T+2` settlement; needs `>= 30` trades to judge reliably).
+- **Warm-up bars:** Leading historical days (`51` bars by default across Lab comparisons) excluded from trading so indicators like `MA50` stabilize before both rules and **Holding** start on equal footing.
+- **Against holding (`Alpha`, `pts`):** Strategy return minus buy-and-hold return over identical dates (`percentage points`).
+- **Max drawdown (`Daily / Intrabar / Trade-seq`):** Worst peak-to-valley percentage decline — tracked daily at close (**Daily**), including intraday lows while holding (**Intrabar**), or strictly across closed trades (**Trade-seq**).
+- **Profit factor:** Total winning trade `%` divided by absolute total losing trade `%` (`> 1.0` means winners outweigh losers; `< 1.0` loses overall).
+- **Sharpe ratio:** Risk-adjusted return per unit of daily equity volatility (using zero risk-free rate in `vnt`).
+- **Slippage:** Price difference between the expected order price and actual execution price (`5 bps` = `0.05%` per side in `vnt`'s default backtest cost profile).
 - **Replay:** Practising daily trading one open at a time with future highs/lows/closes hidden (optional blind mode hides stock name & dates).
 - **Chart study:** Pure blind chart reading bar-by-bar with zero paper account — record `BUY`/`SELL`/`WAIT` calls, optional stops/targets, and measure 5/10/20-bar follow-through and `R` outcomes.
 - **Guided practice:** Locking in your own call and primary reason at an agent's historical decision point before revealing what the agent did and what happened next.

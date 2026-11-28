@@ -110,7 +110,7 @@ With an API key configured and explicit cost confirmation, asks a language model
 
 ## 6. Backtest preview
 
-**Purpose:** Preview immediately on open how four simple fixed strategies (`MA cross 20/50`, `Bollinger reversion`, `20-day breakout`, `RSI 30/70`) would have performed on this stock's saved daily bars beside Buy-and-Hold — fetching nothing and saving no clutter.
+**Purpose:** Preview immediately on open how four fixed strategies (`MA cross 20/50`, `Bollinger reversion`, `20-day breakout`, `RSI 30/70` — labeled `exit over 50` in the older sample screen below) would have performed from the exact same post-warmup start beside **Holding** and any open paper trade you already have on that stock — fetching nothing and saving no clutter. *(See [Backtesting theory & how `vnt` tests rules](backtesting.md) for how metrics, costs, and `T+2` work.)*
 
 ![Stock Backtest tab showing 4-rule comparison table against Buy-and-Hold](images/stock-backtest.png)
 
