@@ -116,3 +116,17 @@ All times are Vietnam time (**ICT**, UTC+7). On a normal weekday on **HOSE**:
 - **Guided practice:** Locking in your own call and primary reason at an agent's historical decision point before revealing what the agent did and what happened next.
 - **Grade check:** Local statistical audit checking whether higher TA grades (`A`) beat lower grades (`D`) over the next 5 and 20 sessions in your saved database.
 - **Paper vs Real holdings:** **Paper** simulates orders with pretend cash; **Real holdings** under `Records` tracks your actual off-app broker shares read-only with zero order authority.
+
+---
+
+## AI agent & safety terms
+
+*(See [How `vnt`'s LLM AI Agent works](ai-agents.md) for the full architecture and theory.)*
+
+- **Go rule (`go_review_v2`) vs Model:** The free deterministic decision rule compiled in Go versus an optional paid LLM reading the exact same frozen facts under identical account limits.
+- **`HOLD` vs `ABSTAIN` vs `FAILED`:** `HOLD` means complete evidence suggests taking no trade; `ABSTAIN` means **insufficient or conflicting evidence** (never guessing); `FAILED` means a provider timeout or validation refusal.
+- **Evidence bundle & Numeric grounding:** A SHA-256-frozen snapshot of market facts. Every number cited in an AI answer must exactly match a field inside that bundle (`CheckNumerals`), blocking invented figures before display.
+- **Invalidation (`Wrong if`):** A concrete condition (such as a close below `MA50`) saved alongside a trade thesis so post-trade **Lessons** can check objectively whether the premise broke.
+- **Revalidate & Expiry (`60s` / `5m`):** Proposals expire after **60 seconds** and frozen evidence expires after **5 minutes** (or after `14:30 ICT` for buys/sells). Revalidating re-runs quote, settlement, and Go risk checks locally with zero extra model cost.
+- **Model log:** Built-in 30-day audit ledger of every AI request across `vnt` (feature, symbol, prompt version, SHA-256 evidence hash, status, and exact micro-USD spend).
+- **MCP (`Model Context Protocol`):** Local read/preview bridge (`vnt mcp serve`) allowing Claude Code or Codex to inspect quotes/watchlists and queue limit-order drafts for manual TUI approval.

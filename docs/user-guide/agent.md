@@ -3,6 +3,8 @@
 **Purpose:** Observe or co-pilot an automated trading assistant inside **paper accounts only** — running daily check-ins inside strict risk caps (**Auto paper**) or proposing trades for your explicit approval (**Decisions**), while auditing afterwards whether its reasoning actually held up (**Track record**, **Lessons**, and **Model log**).
 
 > **Deterministic safety:** Whether powered by the **free local Go rule** or an optional **paid AI model**, agents can never place real orders and **cannot** relax or bypass Go-enforced limits (`Daily loss limit`, `Max buy size`, `Max positions`, `Stop-loss requirements`).
+>
+> *(Want to understand how `vnt` prevents AI hallucinations, checks citations with exact rational math, handles `ABSTAIN` vs `HOLD`, and audits AI decisions? Read [How `vnt`'s LLM AI Agent works](ai-agents.md).)*
 
 ---
 
@@ -45,7 +47,7 @@ While running, you can inspect today's **reasons for (`+`)**, **reasons against 
 
 ## 3. Decisions (`Needs you`)
 
-**Purpose:** Co-pilot approval workflow where every proposal expires automatically if unanswered and **nothing is placed until you confirm** in the Paper order Review step.
+**Purpose:** Co-pilot approval workflow where every proposal expires automatically (**60 seconds** after publication, with frozen evidence expiring permanently after **5 minutes** or after `14:30 ICT`) and **nothing is placed until you confirm** in the Paper order Review step. Validated agent runs can explicitly output **`HOLD`** (complete evidence favors waiting) or **`ABSTAIN`** (insufficient/conflicting evidence — never guessing), and expired proposals within the 5-minute window can be **Revalidated** locally in Go with zero extra AI spend.
 
 ![Agent Decisions tab showing pending BUY 100 FPT proposal, reasons for/against, after-trade cash impact, and Approve/Decline buttons](images/agent-decisions.png)
 
